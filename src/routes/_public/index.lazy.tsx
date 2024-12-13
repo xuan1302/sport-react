@@ -7,8 +7,12 @@ import section2 from '../../assets/section-2.png';
 import section3 from '../../assets/section-3.png';
 import section4 from '../../assets/section-4.png';
 
+import blogImage from '../../assets/blog-image.png';
 import productExample from '../../assets/product-example.png';
 import termBanner from '../../assets/term-banner.png';
+
+import { StarFilled } from '@ant-design/icons';
+import customerExample from '../../assets/customer-example.png';
 
 export const Route = createLazyFileRoute('/_public/')({
   component: RouteComponent,
@@ -132,6 +136,64 @@ function RouteComponent() {
         <Divider className='py-5'>
           <p>Blog thể thao</p>
         </Divider>
+
+        <div className='grid grid-cols-3 gap-4'>
+          {new Array(3).fill(0).map((_, index) => (
+            <div key={index} className='w-full'>
+              <Image src={blogImage} preview={false} />
+              <p className='text-[#105458] hover:underline cursor-pointer text-center line-clamp-1'>
+                Nên chạy với nhịp thở nào để không mệt – Sportshop.vn
+              </p>
+
+              <p className='text-center line-clamp-1'>
+                Nhịp thở chính xác của bạn sẽ phụ thuộc vào mức độ khó hay dễ
+                ...
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <Divider className='py-5'>
+          <p>Đánh giá khách hàng</p>
+        </Divider>
+
+        <div className='grid grid-cols-3 gap-4 pb-10'>
+          {new Array(3).fill(0).map((_, index) => (
+            <div
+              key={index}
+              className='flex flex-col items-center w-full p-4 border rounded-md shadow-md gap-y-4 border-neutral-200'
+            >
+              <Image
+                src={customerExample}
+                preview={false}
+                width={120}
+                height={120}
+              />
+
+              <div className='flex items-center justify-center'>
+                {new Array(5).fill(0).map((_, index) => (
+                  <StarFilled key={index} className='text-yellow-400' />
+                ))}
+              </div>
+
+              <p className='text-center'>
+                ” Em là một new Runner, mới chạy bộ được khoảng vài tháng nay.
+                Ban đầu cũng không để ý nhiều đến cách chạy nên cứ ra đường là
+                cắm đầu cắm cổ chạy nên rất hay bị chấn thương. Một ngày em thấy
+                trên Fanpage của Sportshop hướng dẫn cách hồi phục chấn thương.
+                Em đã mạnh dạn inbox và được admin chỉ dẫn nhiệt tình tư cách
+                khởi động đến làm thế nào để chỉnh dáng chạy rồi cách chọn giày,
+                quần áo chạy bộ… – những điều ma trước kia em không hay để ý.
+                Còn các sản phẩm của Sportshop thì chất lượng cực tốt và em thấy
+                được sự đặc biệt thoải mái mỗi khi chạy bộ. “
+              </p>
+
+              <p className='font-semibold'>
+                Hoàng Kiều Oanh / Nhân Viên Văn Phòng
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
