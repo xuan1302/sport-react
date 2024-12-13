@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as PublicImport } from './routes/_public'
 import { Route as AuthAuthLayoutImport } from './routes/auth/_auth-layout'
 import { Route as AdminAdminLayoutImport } from './routes/admin/_admin-layout'
+import { Route as PublicProductIdImport } from './routes/_public/product.$id'
 
 // Create Virtual Routes
 
@@ -179,6 +180,12 @@ const AdminAdminLayoutAccountsLazyRoute =
     import('./routes/admin/_admin-layout/accounts.lazy').then((d) => d.Route),
   )
 
+const PublicProductIdRoute = PublicProductIdImport.update({
+  id: '/product/$id',
+  path: '/product/$id',
+  getParentRoute: () => PublicRoute,
+} as any)
+
 const AdminAdminLayoutCustomerHistoryIdLazyRoute =
   AdminAdminLayoutCustomerHistoryIdLazyImport.update({
     id: '/customer-history/$id',
@@ -234,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof PublicIndexLazyImport
+      parentRoute: typeof PublicImport
+    }
+    '/_public/product/$id': {
+      id: '/_public/product/$id'
+      path: '/product/$id'
+      fullPath: '/product/$id'
+      preLoaderRoute: typeof PublicProductIdImport
       parentRoute: typeof PublicImport
     }
     '/admin/_admin-layout/accounts': {
@@ -320,10 +334,12 @@ declare module '@tanstack/react-router' {
 
 interface PublicRouteChildren {
   PublicIndexLazyRoute: typeof PublicIndexLazyRoute
+  PublicProductIdRoute: typeof PublicProductIdRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicIndexLazyRoute: PublicIndexLazyRoute,
+  PublicProductIdRoute: PublicProductIdRoute,
 }
 
 const PublicRouteWithChildren =
@@ -397,6 +413,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminAdminLayoutRouteWithChildren
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/': typeof PublicIndexLazyRoute
+  '/product/$id': typeof PublicProductIdRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -414,6 +431,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminAdminLayoutIndexLazyRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/': typeof PublicIndexLazyRoute
+  '/product/$id': typeof PublicProductIdRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -434,6 +452,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteWithChildren
   '/auth/_auth-layout': typeof AuthAuthLayoutRouteWithChildren
   '/_public/': typeof PublicIndexLazyRoute
+  '/_public/product/$id': typeof PublicProductIdRoute
   '/admin/_admin-layout/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/_admin-layout/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/_admin-layout/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -454,6 +473,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/'
+    | '/product/$id'
     | '/admin/accounts'
     | '/admin/category'
     | '/admin/change-password'
@@ -470,6 +490,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/'
+    | '/product/$id'
     | '/admin/accounts'
     | '/admin/category'
     | '/admin/change-password'
@@ -488,6 +509,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/auth/_auth-layout'
     | '/_public/'
+    | '/_public/product/$id'
     | '/admin/_admin-layout/accounts'
     | '/admin/_admin-layout/category'
     | '/admin/_admin-layout/change-password'
@@ -532,7 +554,8 @@ export const routeTree = rootRoute
     "/_public": {
       "filePath": "_public.tsx",
       "children": [
-        "/_public/"
+        "/_public/",
+        "/_public/product/$id"
       ]
     },
     "/admin": {
@@ -572,6 +595,10 @@ export const routeTree = rootRoute
     },
     "/_public/": {
       "filePath": "_public/index.lazy.tsx",
+      "parent": "/_public"
+    },
+    "/_public/product/$id": {
+      "filePath": "_public/product.$id.tsx",
       "parent": "/_public"
     },
     "/admin/_admin-layout/accounts": {

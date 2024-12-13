@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 
 import { Divider, Image } from 'antd';
 import heroBannerImage from '../../assets/hero-banner.png';
@@ -13,12 +13,15 @@ import termBanner from '../../assets/term-banner.png';
 
 import { StarFilled } from '@ant-design/icons';
 import customerExample from '../../assets/customer-example.png';
+import { makeID } from '../../utils/makeId';
 
 export const Route = createLazyFileRoute('/_public/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+
   return (
     <div className='flex flex-col'>
       <div className=''>
@@ -54,7 +57,17 @@ function RouteComponent() {
                 Áo thể thao nam
               </p>
 
-              <p className='text-[#105458] hover:underline cursor-pointer'>
+              <p
+                className='text-[#105458] hover:underline cursor-pointer'
+                onClick={() =>
+                  navigate({
+                    to: '/product/$id',
+                    params: {
+                      id: makeID(10),
+                    },
+                  })
+                }
+              >
                 Quần chạy bộ Dài Nam MS277
               </p>
 
@@ -76,7 +89,17 @@ function RouteComponent() {
                 Áo thể thao nam
               </p>
 
-              <p className='text-[#105458] hover:underline cursor-pointer'>
+              <p
+                className='text-[#105458] hover:underline cursor-pointer'
+                onClick={() =>
+                  navigate({
+                    to: '/product/$id',
+                    params: {
+                      id: makeID(10),
+                    },
+                  })
+                }
+              >
                 Quần chạy bộ Dài Nam MS277
               </p>
 
@@ -98,7 +121,17 @@ function RouteComponent() {
                 Áo thể thao nam
               </p>
 
-              <p className='text-[#105458] hover:underline cursor-pointer'>
+              <p
+                className='text-[#105458] hover:underline cursor-pointer'
+                onClick={() =>
+                  navigate({
+                    to: '/product/$id',
+                    params: {
+                      id: makeID(10),
+                    },
+                  })
+                }
+              >
                 Quần chạy bộ Dài Nam MS277
               </p>
 
@@ -120,7 +153,17 @@ function RouteComponent() {
                 Áo thể thao nam
               </p>
 
-              <p className='text-[#105458] hover:underline cursor-pointer'>
+              <p
+                className='text-[#105458] hover:underline cursor-pointer'
+                onClick={() =>
+                  navigate({
+                    to: '/product/$id',
+                    params: {
+                      id: makeID(10),
+                    },
+                  })
+                }
+              >
                 Quần chạy bộ Dài Nam MS277
               </p>
 
