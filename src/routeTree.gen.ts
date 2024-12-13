@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PublicImport } from './routes/_public'
 import { Route as AuthAuthLayoutImport } from './routes/auth/_auth-layout'
 import { Route as AdminAdminLayoutImport } from './routes/admin/_admin-layout'
 
@@ -20,7 +21,7 @@ import { Route as AdminAdminLayoutImport } from './routes/admin/_admin-layout'
 
 const AuthImport = createFileRoute('/auth')()
 const AdminImport = createFileRoute('/admin')()
-const IndexLazyImport = createFileRoute('/')()
+const PublicIndexLazyImport = createFileRoute('/_public/')()
 const AdminAdminLayoutIndexLazyImport = createFileRoute(
   '/admin/_admin-layout/',
 )()
@@ -69,11 +70,16 @@ const AdminRoute = AdminImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexLazyRoute = IndexLazyImport.update({
+const PublicRoute = PublicImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PublicIndexLazyRoute = PublicIndexLazyImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+  getParentRoute: () => PublicRoute,
+} as any).lazy(() => import('./routes/_public/index.lazy').then((d) => d.Route))
 
 const AuthAuthLayoutRoute = AuthAuthLayoutImport.update({
   id: '/_auth-layout',
@@ -188,11 +194,11 @@ const AdminAdminLayoutCustomerHistoryIdLazyRoute =
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PublicImport
       parentRoute: typeof rootRoute
     }
     '/admin': {
@@ -222,6 +228,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth'
       preLoaderRoute: typeof AuthAuthLayoutImport
       parentRoute: typeof AuthRoute
+    }
+    '/_public/': {
+      id: '/_public/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PublicIndexLazyImport
+      parentRoute: typeof PublicImport
     }
     '/admin/_admin-layout/accounts': {
       id: '/admin/_admin-layout/accounts'
@@ -305,6 +318,17 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface PublicRouteChildren {
+  PublicIndexLazyRoute: typeof PublicIndexLazyRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicIndexLazyRoute: PublicIndexLazyRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
 interface AdminAdminLayoutRouteChildren {
   AdminAdminLayoutAccountsLazyRoute: typeof AdminAdminLayoutAccountsLazyRoute
   AdminAdminLayoutCategoryLazyRoute: typeof AdminAdminLayoutCategoryLazyRoute
@@ -369,9 +393,10 @@ const AuthRouteChildren: AuthRouteChildren = {
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
+  '': typeof PublicRouteWithChildren
   '/admin': typeof AdminAdminLayoutRouteWithChildren
   '/auth': typeof AuthAuthLayoutRouteWithChildren
+  '/': typeof PublicIndexLazyRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -386,9 +411,9 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
   '/admin': typeof AdminAdminLayoutIndexLazyRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
+  '/': typeof PublicIndexLazyRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -403,11 +428,12 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
+  '/_public': typeof PublicRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
   '/admin/_admin-layout': typeof AdminAdminLayoutRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/auth/_auth-layout': typeof AuthAuthLayoutRouteWithChildren
+  '/_public/': typeof PublicIndexLazyRoute
   '/admin/_admin-layout/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/_admin-layout/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/_admin-layout/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -424,9 +450,10 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
+    | ''
     | '/admin'
     | '/auth'
+    | '/'
     | '/admin/accounts'
     | '/admin/category'
     | '/admin/change-password'
@@ -440,9 +467,9 @@ export interface FileRouteTypes {
     | '/admin/customer-history/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/admin'
     | '/auth'
+    | '/'
     | '/admin/accounts'
     | '/admin/category'
     | '/admin/change-password'
@@ -455,11 +482,12 @@ export interface FileRouteTypes {
     | '/admin/customer-history/$id'
   id:
     | '__root__'
-    | '/'
+    | '/_public'
     | '/admin'
     | '/admin/_admin-layout'
     | '/auth'
     | '/auth/_auth-layout'
+    | '/_public/'
     | '/admin/_admin-layout/accounts'
     | '/admin/_admin-layout/category'
     | '/admin/_admin-layout/change-password'
@@ -475,13 +503,13 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
+  PublicRoute: typeof PublicRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
+  PublicRoute: PublicRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
 }
@@ -496,13 +524,16 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
+        "/_public",
         "/admin",
         "/auth"
       ]
     },
-    "/": {
-      "filePath": "index.lazy.tsx"
+    "/_public": {
+      "filePath": "_public.tsx",
+      "children": [
+        "/_public/"
+      ]
     },
     "/admin": {
       "filePath": "admin",
@@ -538,6 +569,10 @@ export const routeTree = rootRoute
         "/auth/_auth-layout/sign-in",
         "/auth/_auth-layout/sign-up"
       ]
+    },
+    "/_public/": {
+      "filePath": "_public/index.lazy.tsx",
+      "parent": "/_public"
     },
     "/admin/_admin-layout/accounts": {
       "filePath": "admin/_admin-layout/accounts.lazy.tsx",
