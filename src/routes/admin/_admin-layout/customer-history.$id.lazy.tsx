@@ -1,34 +1,27 @@
-import { EyeOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
-import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
-import { Button, Card, DatePicker, Input, Table } from 'antd';
+import { EyeOutlined } from '@ant-design/icons';
+import { createLazyFileRoute } from '@tanstack/react-router';
+import { Button, Card, DatePicker, Table } from 'antd';
 import dayjs from 'dayjs';
 
-export const Route = createLazyFileRoute('/admin/_admin-layout/customer')({
+export const Route = createLazyFileRoute(
+  '/admin/_admin-layout/customer-history/$id',
+)({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const navigate = useNavigate();
-
   return (
     <div className='flex flex-col gap-y-4'>
       <div className='flex items-center gap-x-2'>
-        <UserOutlined />
-        <span>Quản lý khách hàng</span>
+        <span>Lịch sử mua hàng</span>
       </div>
 
       <Card>
         <div className='flex flex-col gap-y-2'>
           <div className='flex items-center justify-between'>
-            <div className='text-lg font-semibold'>Quản lý tài khoản</div>
+            <div className='text-lg font-semibold'>Lịch sửa mua hàng</div>
 
             <div className='flex items-center gap-x-4'>
-              <Input
-                prefix={<SearchOutlined />}
-                placeholder='Tìm tài khoản...'
-                size='large'
-              />
-
               <DatePicker.RangePicker
                 format='DD/MM/YYYY'
                 size='large'
@@ -78,17 +71,7 @@ function RouteComponent() {
                 fixed: 'right',
                 render: (_, record) => {
                   return (
-                    <Button
-                      icon={<EyeOutlined />}
-                      onClick={() => {
-                        navigate({
-                          to: '/admin/customer-history/$id',
-                          params: {
-                            id: record.id,
-                          },
-                        });
-                      }}
-                    >
+                    <Button icon={<EyeOutlined />} onClick={() => {}}>
                       Xem
                     </Button>
                   );

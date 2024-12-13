@@ -3,46 +3,74 @@ import {
   EditFilled,
   PlusOutlined,
   SearchOutlined,
-  UserOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import { useDisclosure } from '@mantine/hooks';
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { Button, Card, Input, Popconfirm, Table } from 'antd';
+import { Button, Card, Input, Popconfirm, Select, Table } from 'antd';
 import { useEffect, useState } from 'react';
-import CreateRoleModal from '../../../components/roles/create-roles';
+import CreateCategoryModal from '../../../components/category/create-category';
 
-export const Route = createLazyFileRoute('/admin/_admin-layout/roles')({
+export const Route = createLazyFileRoute('/admin/_admin-layout/category')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
   const [openModal, handleOpenModal] = useDisclosure(false);
-  const [roleId, setRoleId] = useState<string | undefined>();
+  const [categoryID, setCategoryID] = useState<string | undefined>();
 
   useEffect(() => {
     if (openModal) return;
 
-    setRoleId(undefined);
+    setCategoryID(undefined);
   }, [openModal]);
 
   return (
     <>
       <div className='flex flex-col gap-y-4'>
         <div className='flex items-center gap-x-2'>
-          <UserOutlined />
-          <span>Quản lý vai trò</span>
+          <SettingOutlined />
+          <span>Quản lý danh mục</span>
         </div>
 
         <Card>
           <div className='flex flex-col gap-y-2'>
             <div className='flex items-center justify-between'>
-              <div className='text-lg font-semibold'>Quản lý vai trò</div>
+              <div className='text-lg font-semibold'>Quản lý tài khoản</div>
 
               <div className='flex items-center gap-x-4'>
                 <Input
                   prefix={<SearchOutlined />}
-                  placeholder='Tìm tên vai trò...'
+                  placeholder='Tìm danh mục...'
                   size='large'
+                />
+
+                <Select
+                  className='max-w-[400px] w-full'
+                  size='large'
+                  placeholder='Loại danh mục'
+                  options={[]}
+                />
+
+                <Select
+                  className='max-w-[400px] w-full'
+                  defaultValue='all'
+                  size='large'
+                  placeholder='Trạng thái'
+                  options={[
+                    {
+                      label: 'Tất cả',
+                      value: 'all',
+                    },
+                    {
+                      label: 'Đang hoạt động',
+                      value: 'active',
+                    },
+                    {
+                      label: 'Tạm ngưng',
+                      value: 'inactive',
+                    },
+                  ]}
                 />
 
                 <Button
@@ -51,10 +79,11 @@ function RouteComponent() {
                   icon={<PlusOutlined />}
                   onClick={() => handleOpenModal.open()}
                 >
-                  Thêm vai trò
+                  Thêm danh mục
                 </Button>
               </div>
             </div>
+
             <Table
               scroll={{
                 x: 1200,
@@ -66,16 +95,20 @@ function RouteComponent() {
                   dataIndex: 'index',
                 },
                 {
-                  title: 'Tên vai trò',
+                  title: 'Tên danh mục',
                   dataIndex: 'name',
+                },
+                {
+                  title: 'Danh mục cha',
+                  dataIndex: 'parentName',
+                },
+                {
+                  title: 'Mô tả',
+                  dataIndex: 'description',
                 },
                 {
                   title: 'Trạng thái',
                   dataIndex: 'status',
-                },
-                {
-                  title: 'Ngày tạo',
-                  dataIndex: 'createdAt',
                 },
                 {
                   title: 'Thao tác',
@@ -87,15 +120,15 @@ function RouteComponent() {
                         <Button
                           icon={<EditFilled />}
                           onClick={() => {
-                            setRoleId(record.id);
+                            setCategoryID(record.id);
                             handleOpenModal.open();
                           }}
                         ></Button>
 
                         <Popconfirm
-                          title='Xoá vai trò'
+                          title='Xoá danh mục'
                           description='
-                        Bạn có chắc chắn muốn xoá vai trò này không?'
+                        Bạn có chắc chắn muốn xoá danh mục này không?'
                           okText='Xoá'
                           cancelText='Hủy'
                         >
@@ -109,7 +142,10 @@ function RouteComponent() {
               dataSource={new Array(10).fill(0).map((_, index) => ({
                 index: index + 1,
                 id: `${index + 1}`,
-                name: 'Admin',
+                name: 'Áo đội tuyển việt nam',
+                parentName: 'Áo đội tuyển việt nam  ',
+                description:
+                  'Màu đỏ lá cờ Việt Nam, có hình ngôi sao màu vàng  ',
                 status: 'Đang hoạt động',
                 createdAt: '20/10/2021',
               }))}
@@ -118,9 +154,9 @@ function RouteComponent() {
         </Card>
       </div>
 
-      <CreateRoleModal
-        roleId={roleId}
+      <CreateCategoryModal
         open={openModal}
+        categoryID={categoryID}
         onClose={() => handleOpenModal.close()}
         onCancel={() => handleOpenModal.close()}
       />

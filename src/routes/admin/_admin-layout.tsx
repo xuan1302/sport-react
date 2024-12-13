@@ -1,9 +1,11 @@
 import {
   BellOutlined,
   ContainerOutlined,
+  FolderOutlined,
   HomeOutlined,
   KeyOutlined,
   LogoutOutlined,
+  PhoneOutlined,
   SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -78,6 +80,26 @@ function RouteComponent() {
                 }),
             },
             {
+              label: 'Danh mục',
+              key: 'category',
+              icon: <FolderOutlined />,
+              onClick: () => {
+                navigate({
+                  to: '/admin/category',
+                });
+              },
+            },
+            {
+              label: 'Liên hệ',
+              key: 'contact',
+              icon: <PhoneOutlined />,
+              onClick: () => {
+                navigate({
+                  to: '/admin/contact',
+                });
+              },
+            },
+            {
               label: 'Cấu hình hệ thống',
               key: 'settings',
               icon: <SettingOutlined />,
@@ -91,8 +113,8 @@ function RouteComponent() {
       </Sider>
 
       <Layout>
-        <Header className='p-0 bg-white overflow-hidden shadow'>
-          <div className='h-full flex items-center justify-between px-4'>
+        <Header className='p-0 overflow-hidden bg-white shadow'>
+          <div className='flex items-center justify-between h-full px-4'>
             <div></div>
 
             <div className='flex items-center gap-x-4'>
