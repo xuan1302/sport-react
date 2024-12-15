@@ -69,11 +69,14 @@ function RouteComponent() {
                 title: 'Lịch sử mua hàng',
                 dataIndex: 'action',
                 fixed: 'right',
+                align: 'center',
                 render: (_, record) => {
                   return (
-                    <Button icon={<EyeOutlined />} onClick={() => {}}>
-                      Xem
-                    </Button>
+                    <div className='flex items-center justify-center'>
+                      <Button icon={<EyeOutlined />} onClick={() => {}}>
+                        Xem
+                      </Button>
+                    </div>
                   );
                 },
               },

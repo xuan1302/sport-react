@@ -25,7 +25,7 @@ function RouteComponent() {
 
       <Card>
         <div className='flex items-center justify-between py-2'>
-          <p className='font-semibold text-lg'>
+          <p className='text-lg font-semibold'>
             Tổng số khách hàng mua hàng và thêm vào giỏ hàng
           </p>
 
@@ -43,11 +43,11 @@ function RouteComponent() {
             config={{
               desktop: {
                 label: 'Desktop',
-                color: '#2563eb',
+                color: '#FD5C00',
               },
               mobile: {
                 label: 'Mobile',
-                color: '#60a5fa',
+                color: '#1C1E66',
               },
             }}
             className='min-h-[200px] h-[500px] w-full'

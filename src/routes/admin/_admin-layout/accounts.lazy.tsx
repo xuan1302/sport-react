@@ -94,9 +94,10 @@ function RouteComponent() {
                   title: 'Thao tác',
                   dataIndex: 'action',
                   fixed: 'right',
+                  align: 'center',
                   render: (_, record) => {
                     return (
-                      <div className='flex items-center gap-x-2'>
+                      <div className='flex items-center justify-center gap-x-2'>
                         <Button
                           icon={<EditFilled />}
                           onClick={() => {

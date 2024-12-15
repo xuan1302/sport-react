@@ -76,21 +76,24 @@ function RouteComponent() {
                 title: 'Lịch sử mua hàng',
                 dataIndex: 'action',
                 fixed: 'right',
+                align: 'center',
                 render: (_, record) => {
                   return (
-                    <Button
-                      icon={<EyeOutlined />}
-                      onClick={() => {
-                        navigate({
-                          to: '/admin/customer-history/$id',
-                          params: {
-                            id: record.id,
-                          },
-                        });
-                      }}
-                    >
-                      Xem
-                    </Button>
+                    <div className='flex items-center justify-center'>
+                      <Button
+                        icon={<EyeOutlined />}
+                        onClick={() => {
+                          navigate({
+                            to: '/admin/customer-history/$id',
+                            params: {
+                              id: record.id,
+                            },
+                          });
+                        }}
+                      >
+                        Xem
+                      </Button>
+                    </div>
                   );
                 },
               },

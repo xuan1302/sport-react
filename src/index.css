@@ -19,3 +19,31 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+.ant-btn {
+  background-color: #fd5c00;
+  box-shadow: none !important;
+  color: white !important;
+
+  &:hover {
+    background-color: #ff6a00 !important;
+  }
+}
+
+.ant-table-thead th {
+  background-color: #ff6a00 !important;
+  color: white !important;
+
+  &::before {
+    display: none;
+  }
+}
+
+.ant-menu-item-selected {
+  background-color: #ff6a00 !important;
+  color: white !important;
+}
+
+.ant-menu-title-content {
+  font-weight: 600;
+}

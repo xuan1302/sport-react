@@ -10,10 +10,12 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { createFileRoute, Outlet, useNavigate } from '@tanstack/react-router';
-import { Avatar, Button, Dropdown, Layout, Menu } from 'antd';
+import { Avatar, Dropdown, Image, Layout, Menu } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import { useState } from 'react';
+
+import logo from '../../assets/logo.png';
 
 export const Route = createFileRoute('/admin/_admin-layout')({
   component: RouteComponent,
@@ -32,7 +34,9 @@ function RouteComponent() {
         theme='light'
         className='shadow'
       >
-        <div className='h-[64px] flex items-center justify-center'>Logo</div>
+        <div className='h-[64px] flex items-center justify-center'>
+          <Image src={logo} alt='logo' preview={false} />
+        </div>
         <Menu
           theme='light'
           defaultSelectedKeys={['1']}
@@ -123,9 +127,7 @@ function RouteComponent() {
                   items: [],
                 }}
               >
-                <Button type='text'>
-                  <BellOutlined />
-                </Button>
+                <BellOutlined className='cursor-pointer' />
               </Dropdown>
 
               <div className='flex items-center gap-x-2'>

@@ -1,4 +1,5 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { ConfigProvider } from 'antd';
 import * as React from 'react';
 
 export const Route = createRootRoute({
@@ -8,9 +9,11 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <div className='min-h-screen w-full'>
-        <Outlet />
-      </div>
+      <ConfigProvider>
+        <div className='w-full min-h-screen'>
+          <Outlet />
+        </div>
+      </ConfigProvider>
       {/* <TanStackRouterDevtools /> */}
     </React.Fragment>
   );
