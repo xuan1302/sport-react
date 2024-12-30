@@ -1,21 +1,21 @@
-import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
+import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
 
-import { Divider, Image } from 'antd';
-import heroBannerImage from '../../assets/hero-banner.png';
-import section1 from '../../assets/section-1.png';
-import section2 from '../../assets/section-2.png';
-import section3 from '../../assets/section-3.png';
-import section4 from '../../assets/section-4.png';
+import { Divider, Image } from "antd";
+import heroBannerImage from "../../assets/hero-banner.png";
+import section1 from "../../assets/section-1.png";
+import section2 from "../../assets/section-2.png";
+import section3 from "../../assets/section-3.png";
+import section4 from "../../assets/section-4.png";
 
-import blogImage from '../../assets/blog-image.png';
-import productExample from '../../assets/product-example.png';
-import termBanner from '../../assets/term-banner.png';
+import blogImage from "../../assets/blog-image.png";
+import productExample from "../../assets/product-example.png";
+import termBanner from "../../assets/term-banner.png";
 
-import { StarFilled } from '@ant-design/icons';
-import customerExample from '../../assets/customer-example.png';
-import { makeID } from '../../utils/makeId';
+import { StarFilled } from "@ant-design/icons";
+import customerExample from "../../assets/customer-example.png";
+import { makeID } from "../../utils/makeId";
 
-export const Route = createLazyFileRoute('/_public/')({
+export const Route = createLazyFileRoute("/_public/")({
   component: RouteComponent,
 });
 
@@ -23,45 +23,45 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col'>
-      <div className=''>
+    <div className="flex flex-col">
+      <div className="img-wid100">
         <Image src={heroBannerImage} preview={false} />
       </div>
 
-      <div className='max-w-[1200px] mx-auto w-full'>
-        <div className='mt-[50px] grid grid-cols-4 gap-4 w-full'>
-          <div className='w-[280px]'>
+      <div className="max-w-[1200px] mx-auto w-full">
+        <div className="mt-[50px] grid grid-cols-4 gap-4 w-full">
+          <div className="w-[280px]">
             <Image src={section1} preview={true} />
           </div>
-          <div className='w-[280px]'>
+          <div className="w-[280px]">
             <Image src={section2} preview={true} />
           </div>
-          <div className='w-[280px]'>
+          <div className="w-[280px]">
             <Image src={section3} preview={true} />
           </div>
-          <div className='w-[280px]'>
+          <div className="w-[280px]">
             <Image src={section4} preview={true} />
           </div>
         </div>
 
-        <Divider className='py-5'>
+        <Divider className="py-5">
           <p>Đồ thể thao nam</p>
         </Divider>
 
-        <div className='grid grid-cols-4 gap-x-2 gap-y-4'>
+        <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {new Array(8).fill(0).map((_, index) => (
-            <div key={index} className='w-[280px]'>
+            <div key={index} className="w-[280px]">
               <Image src={productExample} preview={false} />
 
-              <p className='text-[#262626] text-[11px] uppercase'>
+              <p className="text-[#262626] text-[11px] uppercase">
                 Áo thể thao nam
               </p>
 
               <p
-                className='text-[#105458] hover:underline cursor-pointer'
+                className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
-                    to: '/product/$id',
+                    to: "/product/$id",
                     params: {
                       id: makeID(10),
                     },
@@ -71,29 +71,29 @@ function RouteComponent() {
                 Quần chạy bộ Dài Nam MS277
               </p>
 
-              <p className='font-semibold'>299.000₫</p>
+              <p className="font-semibold">299.000₫</p>
             </div>
           ))}
         </div>
 
-        <Divider className='py-5'>
+        <Divider className="py-5">
           <p>Đồ thể thao nữ</p>
         </Divider>
 
-        <div className='grid grid-cols-4 gap-x-2 gap-y-4'>
+        <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {new Array(8).fill(0).map((_, index) => (
-            <div key={index} className='w-[280px]'>
+            <div key={index} className="w-[280px]">
               <Image src={productExample} preview={false} />
 
-              <p className='text-[#262626] text-[11px] uppercase'>
+              <p className="text-[#262626] text-[11px] uppercase">
                 Áo thể thao nam
               </p>
 
               <p
-                className='text-[#105458] hover:underline cursor-pointer'
+                className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
-                    to: '/product/$id',
+                    to: "/product/$id",
                     params: {
                       id: makeID(10),
                     },
@@ -103,29 +103,29 @@ function RouteComponent() {
                 Quần chạy bộ Dài Nam MS277
               </p>
 
-              <p className='font-semibold'>299.000₫</p>
+              <p className="font-semibold">299.000₫</p>
             </div>
           ))}
         </div>
 
-        <Divider className='py-5'>
+        <Divider className="py-5">
           <p>Gel năng lượng</p>
         </Divider>
 
-        <div className='grid grid-cols-4 gap-x-2 gap-y-4'>
+        <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {new Array(8).fill(0).map((_, index) => (
-            <div key={index} className='w-[280px]'>
+            <div key={index} className="w-[280px]">
               <Image src={productExample} preview={false} />
 
-              <p className='text-[#262626] text-[11px] uppercase'>
+              <p className="text-[#262626] text-[11px] uppercase">
                 Áo thể thao nam
               </p>
 
               <p
-                className='text-[#105458] hover:underline cursor-pointer'
+                className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
-                    to: '/product/$id',
+                    to: "/product/$id",
                     params: {
                       id: makeID(10),
                     },
@@ -135,29 +135,29 @@ function RouteComponent() {
                 Quần chạy bộ Dài Nam MS277
               </p>
 
-              <p className='font-semibold'>299.000₫</p>
+              <p className="font-semibold">299.000₫</p>
             </div>
           ))}
         </div>
 
-        <Divider className='py-5'>
+        <Divider className="py-5">
           <p>Phụ kiện thể thao</p>
         </Divider>
 
-        <div className='grid grid-cols-4 gap-x-2 gap-y-4'>
+        <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {new Array(8).fill(0).map((_, index) => (
-            <div key={index} className='w-[280px]'>
+            <div key={index} className="w-[280px]">
               <Image src={productExample} preview={false} />
 
-              <p className='text-[#262626] text-[11px] uppercase'>
+              <p className="text-[#262626] text-[11px] uppercase">
                 Áo thể thao nam
               </p>
 
               <p
-                className='text-[#105458] hover:underline cursor-pointer'
+                className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
-                    to: '/product/$id',
+                    to: "/product/$id",
                     params: {
                       id: makeID(10),
                     },
@@ -167,28 +167,28 @@ function RouteComponent() {
                 Quần chạy bộ Dài Nam MS277
               </p>
 
-              <p className='font-semibold'>299.000₫</p>
+              <p className="font-semibold">299.000₫</p>
             </div>
           ))}
         </div>
 
-        <div className='mt-[50px]'>
+        <div className="mt-[50px]">
           <Image src={termBanner} preview={false} />
         </div>
 
-        <Divider className='py-5'>
+        <Divider className="py-5">
           <p>Blog thể thao</p>
         </Divider>
 
-        <div className='grid grid-cols-3 gap-4'>
+        <div className="grid grid-cols-3 gap-4">
           {new Array(3).fill(0).map((_, index) => (
-            <div key={index} className='w-full'>
+            <div key={index} className="w-full">
               <Image src={blogImage} preview={false} />
-              <p className='text-[#105458] hover:underline cursor-pointer text-center line-clamp-1'>
+              <p className="text-[#105458] hover:underline cursor-pointer text-center line-clamp-1">
                 Nên chạy với nhịp thở nào để không mệt – Sportshop.vn
               </p>
 
-              <p className='text-center line-clamp-1'>
+              <p className="text-center line-clamp-1">
                 Nhịp thở chính xác của bạn sẽ phụ thuộc vào mức độ khó hay dễ
                 ...
               </p>
@@ -196,15 +196,15 @@ function RouteComponent() {
           ))}
         </div>
 
-        <Divider className='py-5'>
+        <Divider className="py-5">
           <p>Đánh giá khách hàng</p>
         </Divider>
 
-        <div className='grid grid-cols-3 gap-4 pb-10'>
+        <div className="grid grid-cols-3 gap-4 pb-10">
           {new Array(3).fill(0).map((_, index) => (
             <div
               key={index}
-              className='flex flex-col items-center w-full p-4 border rounded-md shadow-md gap-y-4 border-neutral-200'
+              className="flex flex-col items-center w-full p-4 border rounded-md shadow-md gap-y-4 border-neutral-200"
             >
               <Image
                 src={customerExample}
@@ -213,13 +213,13 @@ function RouteComponent() {
                 height={120}
               />
 
-              <div className='flex items-center justify-center'>
+              <div className="flex items-center justify-center">
                 {new Array(5).fill(0).map((_, index) => (
-                  <StarFilled key={index} className='text-yellow-400' />
+                  <StarFilled key={index} className="text-yellow-400" />
                 ))}
               </div>
 
-              <p className='text-center'>
+              <p className="text-center">
                 ” Em là một new Runner, mới chạy bộ được khoảng vài tháng nay.
                 Ban đầu cũng không để ý nhiều đến cách chạy nên cứ ra đường là
                 cắm đầu cắm cổ chạy nên rất hay bị chấn thương. Một ngày em thấy
@@ -231,7 +231,7 @@ function RouteComponent() {
                 được sự đặc biệt thoải mái mỗi khi chạy bộ. “
               </p>
 
-              <p className='font-semibold'>
+              <p className="font-semibold">
                 Hoàng Kiều Oanh / Nhân Viên Văn Phòng
               </p>
             </div>

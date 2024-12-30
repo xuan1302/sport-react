@@ -47,3 +47,6 @@
 .ant-menu-title-content {
   font-weight: 600;
 }
+.img-wid100 .ant-image{
+  width: 100%;
+}

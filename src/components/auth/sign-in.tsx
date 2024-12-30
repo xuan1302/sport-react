@@ -2,7 +2,7 @@ import { Form, Input, Modal, ModalProps, notification } from "antd";
 import { useState } from "react";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/authSlice";
+import { login, register } from "../../store/authSlice";
 import { hideLoading, showLoading } from "../../store/loadingSlice";
 
 interface SignInModalProps extends ModalProps {
@@ -49,9 +49,25 @@ export default function SignInModal({
 
     //register
     if (authTypeState === "sign-up") {
-      console.log(values);
       try {
-        console.log(values);
+        const dataPayload = {
+          fullName: values.fullName,
+          phoneNumber: values.phoneNumber,
+          userName: values.userName,
+          email: values.email,
+          password: values.password,
+          confirmPassword: values.confirmPassword,
+          accountType: 1,
+          roleIds: [2],
+        };
+        console.log(dataPayload);
+        const user = await dispatch(register(dataPayload)).unwrap();
+        form.resetFields();
+        notification.success({
+          message: "Đăng ký thành công",
+          description: `Thành công`,
+        });
+        onClose();
       } catch (err) {
         notification.error({
           message: "Đăng ký thất bại",
@@ -79,7 +95,14 @@ export default function SignInModal({
       >
         <div className="flex flex-col gap-y-2">
           {authTypeState === "sign-up" && (
-            <Form.Item name="fullName" label="Họ và tên" className="!mb-1">
+            <Form.Item
+              rules={[
+                { required: true, message: "Vui lòng nhập họ và tên ..." },
+              ]}
+              name="fullName"
+              label="Họ và tên"
+              className="!mb-1"
+            >
               <Input placeholder="Full name..." />
             </Form.Item>
           )}
@@ -96,13 +119,31 @@ export default function SignInModal({
           </Form.Item>
 
           {authTypeState === "sign-up" && (
-            <Form.Item name="email" label="Email" className="!mb-1">
+            <Form.Item
+              rules={[
+                { required: true, message: "Vui lòng nhập email ..." },
+                {
+                  type: "email",
+                  message: "Vui lòng nhập đúng định dạng email ...",
+                },
+              ]}
+              name="email"
+              label="Email"
+              className="!mb-1"
+            >
               <Input placeholder="Email..." />
             </Form.Item>
           )}
 
           {authTypeState === "sign-up" && (
             <Form.Item
+              rules={[
+                { required: true, message: "Vui lòng nhập số điện thoại ..." },
+                {
+                  pattern: /^\+?\d*$/,
+                  message: "Số điện thoại nhập không đúng.",
+                },
+              ]}
               name="phoneNumber"
               label="Số điện thoại"
               className="!mb-1"
@@ -115,14 +156,36 @@ export default function SignInModal({
             name="password"
             label="Mật khẩu"
             className="!mb-1"
-            rules={[{ required: true, message: "Vui lòng nhập mật khẩu ..." }]}
+            rules={[
+              { required: true, message: "Vui lòng nhập mật khẩu ..." },
+              {
+                min: authTypeState === "sign-up" ? 8 : undefined,
+                message: "Mật khẩu phải ít nhất 8 ký tự",
+              },
+            ]}
+            hasFeedback
           >
             <Input.Password placeholder="Password..." />
           </Form.Item>
 
           {authTypeState === "sign-up" && (
             <Form.Item
-              name="RePassword"
+              dependencies={["password"]}
+              rules={[
+                { required: true, message: "Vui lòng nhập lại mật khẩu ..." },
+                {
+                  validator: (_, value) => {
+                    if (!value || value === form.getFieldValue("password")) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error("Mật khẩu nhập không khớp")
+                    );
+                  },
+                },
+              ]}
+              hasFeedback
+              name="confirmPassword"
               label="Xác nhận mật khẩu"
               className="!mb-1"
             >
