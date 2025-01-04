@@ -17,13 +17,10 @@ interface CreateStaffParams {
   roleId: number;
 }
 
-interface UpdateStaffParams
-  extends Omit<
-    CreateStaffParams,
-    "password" | "confirmPassword" | "accountType"
-  > {
-  // Không cần thêm gì ở đây vì Omit đã loại bỏ các trường này
-}
+type UpdateStaffParams = Omit<
+  CreateStaffParams,
+  "password" | "confirmPassword" | "accountType"
+>;
 const adminAccountApi = {
   getListAccount(params: ListStaffParams): Promise<unknown> {
     const url = "/v1/sporty-shop/admin/staff";
@@ -47,6 +44,11 @@ const adminAccountApi = {
   ): Promise<unknown> {
     const url = `/v1/sporty-shop/admin/staff/${id}/reset-password`;
     return axiosClient.put(url, { ...body });
+  },
+
+  changeStatusStaff(id: string, isActive: boolean): Promise<unknown> {
+    const url = `/v1/sporty-shop/admin/staff/${id}/update-account-status`;
+    return axiosClient.put(url, null, { params: { isActive } });
   },
 };
 

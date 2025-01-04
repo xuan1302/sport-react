@@ -10,12 +10,23 @@ import {
 } from "@ant-design/icons";
 import { useDisclosure } from "@mantine/hooks";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { Button, Card, Dropdown, Input, MenuProps, Table } from "antd";
+import {
+  Button,
+  Card,
+  Dropdown,
+  Input,
+  MenuProps,
+  Table,
+  notification,
+} from "antd";
 import debounce from "lodash/debounce";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import adminAccountApi from "../../../api/admin.accountApi";
 import ChangePasswordModal from "../../../components/accounts/changePassword";
 import CreateAccountModal from "../../../components/accounts/create-account";
+import { hideLoading, showLoading } from "../../../store/loadingSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/store";
 
 export const Route = createLazyFileRoute("/admin/_admin-layout/accounts")({
   component: RouteComponent,
@@ -29,27 +40,12 @@ function RouteComponent() {
   const [dataSource, setDataSource] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
     total: 0,
   });
-  const [visibleMenuRowKey, setVisibleMenuRowKey] = useState<string | null>(
-    null
-  );
-  const menuRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setVisibleMenuRowKey(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   const fetchAccounts = useCallback(
     async (searchKeyword = "", currentPage = 1, pageSize = 10) => {
       setLoading(true);
@@ -59,7 +55,6 @@ function RouteComponent() {
           pageSize,
           pageNumber: currentPage,
         });
-        console.log(data);
         setDataSource(data.list || []);
         setPagination((prev) => ({
           ...prev,
@@ -99,58 +94,24 @@ function RouteComponent() {
     fetchAccounts(keyword, newPagination.current, newPagination.pageSize); // Gọi API với phân trang mới
   };
 
-  //   const items = [
-  //     {
-  //       key: "1",
-  //       label: (
-  //         <span
-  //           onClick={() => handleMenuAction("activate", recordKey)}
-  //           style={{ cursor: "pointer" }}
-  //         >
-  //           <PauseOutlined style={{ marginRight: 8 }} />
-  //           Cấp phép hoạt động{visibleMenuRowKey} {recordKey}
-  //         </span>
-  //       ),
-  //     },
-  //     {
-  //       key: "2",
-  //       label: (
-  //         <span onClick={() => handleMenuAction("changePassword", recordKey)}>
-  //           <KeyOutlined style={{ marginRight: 8 }} />
-  //           Đổi mật khẩu
-  //         </span>
-  //       ),
-  //     },
-  //     {
-  //       key: "3",
-  //       label: (
-  //         <span
-  //           style={{ color: "orange" }}
-  //           onClick={() => handleMenuAction("edit", recordKey)}
-  //         >
-  //           <EditOutlined style={{ marginRight: 8 }} />
-  //           Sửa
-  //         </span>
-  //       ),
-  //     },
-  //   ];
-
-  //   return (
-  //     <Dropdown
-  //       menu={{ items }}
-  //       trigger={["click"]}
-  //       open={visibleMenuRowKey === recordKey}
-  //       onOpenChange={(open) => {
-  //         if (!open) setVisibleMenuRowKey(null);
-  //       }}
-  //     >
-  //       <div ref={menuRef} />
-  //     </Dropdown>
-  //   );
-  // };
-
-  const handleMenuClick = (id: string) => (e: React.MouseEvent) => {
-    console.log(`Clicked on menu item with ID: ${id}`);
+  const changeStatusStaff = async (id: string, status: boolean) => {
+    dispatch(showLoading());
+    try {
+      await adminAccountApi.changeStatusStaff(id, status);
+      fetchAccounts();
+      notification.success({
+        message: "Thay đổi trạng thái thành công",
+        description: `Thành công`,
+      });
+    } catch (error) {
+      notification.error({
+        message: "Thay đổi trạng thái thất bại",
+        description: err.message || "Đã xảy ra lỗi",
+      });
+      console.error("Failed to fetch accounts:", error);
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
   const getMenuItems = (status: boolean): MenuProps["items"] => [
@@ -196,24 +157,17 @@ function RouteComponent() {
   const menuProps = (id: string, status: boolean) => ({
     items: getMenuItems(status),
     onClick: (info: { key: string }) => {
-      console.log(`Menu clicked: ${info.key} for ID: ${id}`);
       switch (info.key) {
         case "activate":
-          // Logic cấp phép hoạt động
-          console.log(`Cấp phép hoạt động cho ID: ${id}`);
+          changeStatusStaff(id, !status);
           break;
 
         case "changePassword":
-          // Logic đổi mật khẩu
-          console.log(`Đổi mật khẩu cho ID: ${id}`);
           setAccountId(id);
           handlerOpenModalChangePassword.open();
           break;
 
         case "edit":
-          // Logic sửa tài khoản
-          console.log(`Sửa tài khoản ID: ${id}`);
-          // Ví dụ: Mở modal hoặc điều hướng đến trang chỉnh sửa
           setAccountId(id);
           handlerOpenModal.open();
           break;
@@ -326,7 +280,6 @@ function RouteComponent() {
                           color: "#fd5c00",
                           cursor: "pointer",
                         }}
-                        onClick={handleMenuClick(record.id)}
                       />
                     </Dropdown>
                   ),
