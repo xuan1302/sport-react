@@ -20,7 +20,7 @@ function RouteComponent() {
       const user = await dispatch(
         login({ userName: values.userName, password: values.password })
       ).unwrap();
-      if (user.accountType === 1) {
+      if (user?.user?.accountType === 1) {
         form.resetFields();
         notification.success({
           message: "Đăng nhập thành công",
