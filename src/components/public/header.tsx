@@ -11,21 +11,30 @@ import { Divider, Dropdown, Input, notification } from "antd";
 import logo from "../../assets/logo.png";
 import SignInModal from "../auth/sign-in";
 import { useEffect, useState } from "react";
-import { logout } from "../../store/authSlice";
-import { AppDispatch } from "../../store/store";
-import { useDispatch } from "react-redux";
+import { logout, setDataUser } from "../../store/authSlice";
+import { AppDispatch, RootState } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import StorageKeys from "../../constants/storage-key";
 
 export default function AppHeader() {
   const [openModal, handleOpenModal] = useDisclosure(false);
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const userInfo = useSelector((state: RootState) => state.auth.user);
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLogin(!!token);
-  }, [isLogin]);
+    const userData = sessionStorage.getItem("userInfo");
+    if (userData) {
+      dispatch(setDataUser(JSON.parse(userData)));
+    }
+  }, []);
+  useEffect(() => {
+    setIsLogin(!!userInfo);
+  }, [userInfo]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    sessionStorage.removeItem(StorageKeys.TOKEN);
+    sessionStorage.removeItem(StorageKeys.USERINFO);
     dispatch(logout());
     setIsLogin(false);
     notification.success({

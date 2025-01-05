@@ -6,8 +6,7 @@ import StorageKeys from "../constants/storage-key";
 interface User {
   accessToken?: string;
   refreshToken?: string;
-  userId: string;
-  userName?: "ab";
+  user: unknown;
 }
 
 interface AuthState {
@@ -43,18 +42,18 @@ export const register = createAsyncThunk<User, RegisterPayload>(
   "user/register",
   async (payload: RegisterPayload) => {
     const data = await authApi.register(payload);
-    return data as User;
+    return data as unknown as User;
   }
 );
 
 export const login = createAsyncThunk<User, LoginPayload>(
   "user/login",
-  async (payload: LoginPayload) => {
+  async (payload: LoginPayload, { dispatch }) => {
     const data = await authApi.login(payload);
-    localStorage.setItem(StorageKeys.TOKEN, data.accessToken);
-    // localStorage.setItem(StorageKeys.USERS, JSON.stringify(data.user));
-    //return
-    return data as User;
+    sessionStorage.setItem(StorageKeys.TOKEN, data.accessToken);
+    sessionStorage.setItem(StorageKeys.USERINFO, JSON.stringify(data.user));
+    dispatch(setDataUser(data.user));
+    return data as unknown as User;
   }
 );
 
@@ -65,6 +64,9 @@ const userSlice = createSlice({
   reducers: {
     logout(state) {
       state.user = null;
+    },
+    setDataUser(state, action) {
+      state.user = { ...state.user, user: action.payload } as User;
     },
   },
   extraReducers: (builder) => {
@@ -86,4 +88,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { logout } = userSlice.actions;
+export const { logout, setDataUser } = userSlice.actions;

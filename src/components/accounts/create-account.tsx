@@ -60,8 +60,6 @@ export default function CreateAccountModal({
           console.error("Error fetching roles:", error);
         }
       })();
-    } else {
-      form.resetFields(); // Reset form nếu không có accountId
     }
   }, [accountId]);
 

@@ -36,9 +36,9 @@ export default function SignInModal({
           description: `Thành công`,
         });
         onClose();
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1500);
       } catch (err) {
         notification.error({
           message: "Đăng nhập thất bại",
@@ -61,7 +61,7 @@ export default function SignInModal({
           roleIds: [2],
         };
         console.log(dataPayload);
-        const user = await dispatch(register(dataPayload)).unwrap();
+        await dispatch(register(dataPayload)).unwrap();
         form.resetFields();
         notification.success({
           message: "Đăng ký thành công",
@@ -85,14 +85,10 @@ export default function SignInModal({
       okText={authTypeState === "sign-in" ? "Đăng nhập" : "Đăng ký"}
       cancelText="Đóng"
       destroyOnClose={true}
-      onOk={() => form.submit()} // Gọi submit form
+      onOk={() => form.submit()}
       onCancel={onClose}
     >
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish} // Xử lý khi submit
-      >
+      <Form form={form} layout="vertical" onFinish={onFinish}>
         <div className="flex flex-col gap-y-2">
           {authTypeState === "sign-up" && (
             <Form.Item

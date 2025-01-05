@@ -22,6 +22,7 @@ import { Route as PublicProductIdImport } from './routes/_public/product.$id'
 
 const AuthImport = createFileRoute('/auth')()
 const AdminImport = createFileRoute('/admin')()
+const R404LazyImport = createFileRoute('/404')()
 const PublicIndexLazyImport = createFileRoute('/_public/')()
 const AdminAdminLayoutIndexLazyImport = createFileRoute(
   '/admin/_admin-layout/',
@@ -70,6 +71,12 @@ const AdminRoute = AdminImport.update({
   path: '/admin',
   getParentRoute: () => rootRoute,
 } as any)
+
+const R404LazyRoute = R404LazyImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/404.lazy').then((d) => d.Route))
 
 const PublicRoute = PublicImport.update({
   id: '/_public',
@@ -206,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof PublicImport
+      parentRoute: typeof rootRoute
+    }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404LazyImport
       parentRoute: typeof rootRoute
     }
     '/admin': {
@@ -410,6 +424,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 export interface FileRoutesByFullPath {
   '': typeof PublicRouteWithChildren
+  '/404': typeof R404LazyRoute
   '/admin': typeof AdminAdminLayoutRouteWithChildren
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/': typeof PublicIndexLazyRoute
@@ -428,6 +443,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/404': typeof R404LazyRoute
   '/admin': typeof AdminAdminLayoutIndexLazyRoute
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/': typeof PublicIndexLazyRoute
@@ -447,6 +463,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_public': typeof PublicRouteWithChildren
+  '/404': typeof R404LazyRoute
   '/admin': typeof AdminRouteWithChildren
   '/admin/_admin-layout': typeof AdminAdminLayoutRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
@@ -470,6 +487,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
+    | '/404'
     | '/admin'
     | '/auth'
     | '/'
@@ -487,6 +505,7 @@ export interface FileRouteTypes {
     | '/admin/customer-history/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/404'
     | '/admin'
     | '/auth'
     | '/'
@@ -504,6 +523,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_public'
+    | '/404'
     | '/admin'
     | '/admin/_admin-layout'
     | '/auth'
@@ -526,12 +546,14 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   PublicRoute: typeof PublicRouteWithChildren
+  R404LazyRoute: typeof R404LazyRoute
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   PublicRoute: PublicRouteWithChildren,
+  R404LazyRoute: R404LazyRoute,
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
 }
@@ -547,6 +569,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_public",
+        "/404",
         "/admin",
         "/auth"
       ]
@@ -557,6 +580,9 @@ export const routeTree = rootRoute
         "/_public/",
         "/_public/product/$id"
       ]
+    },
+    "/404": {
+      "filePath": "404.lazy.tsx"
     },
     "/admin": {
       "filePath": "admin",

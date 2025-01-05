@@ -1,6 +1,7 @@
 const StorageKeys = {
-    USERS: 'users',
-    TOKEN: 'token',
+  USERS: "users",
+  TOKEN: "token",
+  USERINFO: "userInfo",
 };
 
 export default StorageKeys;

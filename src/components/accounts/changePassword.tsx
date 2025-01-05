@@ -18,7 +18,6 @@ export default function ChangePasswordModal({
   const [form] = useForm();
   const dispatch = useDispatch<AppDispatch>();
   const onFinish = async (values: unknown) => {
-    console.log(values);
     dispatch(showLoading());
     if (accountId) {
       try {
