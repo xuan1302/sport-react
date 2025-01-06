@@ -45,14 +45,11 @@ axiosClient.interceptors.response.use(
         });
         sessionStorage.removeItem(StorageKeys.TOKEN);
         sessionStorage.removeItem(StorageKeys.USERINFO);
-        // setTimeout(() => {
-        //   window.location.href = "/";
-        // }, 2000);
       }
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    return Promise.reject(error);
+    return Promise.reject(error?.response?.data || error?.response);
   }
 );
 export default axiosClient;

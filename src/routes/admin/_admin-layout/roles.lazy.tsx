@@ -7,10 +7,11 @@ import {
 } from "@ant-design/icons";
 import { useDisclosure } from "@mantine/hooks";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { Button, Card, Input, Popconfirm, Table } from "antd";
+import { Button, Card, Input, Popconfirm, Table, notification } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import CreateRoleModal from "../../../components/roles/create-roles";
 import adminRolesApi from "../../../api/admin.rolesApi";
+import { debounce } from "lodash";
 
 export const Route = createLazyFileRoute("/admin/_admin-layout/roles")({
   component: RouteComponent,
@@ -29,19 +30,18 @@ function RouteComponent() {
     total: 0,
   });
   const handleTableChange = (newPagination: any) => {
-    setPagination(newPagination); // Cập nhật thông tin phân trang
-    fetchRoles(keyword, newPagination.current, newPagination.pageSize); // Gọi API với phân trang mới
+    setPagination(newPagination);
+    fetchRoles(keyword, newPagination.current, newPagination.pageSize);
   };
   const fetchRoles = useCallback(
     async (searchKeyword = "", currentPage = 1, pageSize = 10) => {
       setLoading(true);
       try {
-        const data = await adminRolesApi.list({
+        const data = await adminRolesApi.getListRoles({
           keyword: searchKeyword,
           pageSize,
           pageNumber: currentPage,
         });
-        console.log(data);
         setDataSource(data.list || []);
         setPagination((prev) => ({
           ...prev,
@@ -56,7 +56,6 @@ function RouteComponent() {
     []
   );
 
-  // Gọi API khi component được render lần đầu
   useEffect(() => {
     fetchRoles();
   }, [fetchRoles]);
@@ -66,6 +65,36 @@ function RouteComponent() {
 
     setRoleId(undefined);
   }, [openModal]);
+
+  const handleSearch = useCallback(
+    debounce((value: string) => {
+      fetchRoles(value, 1, pagination.pageSize);
+    }, 500)
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+    handleSearch(e.target.value);
+  };
+
+  const handleDeleteRole = async (id: string) => {
+    setLoading(true);
+    try {
+      await adminRolesApi.delete(id);
+      await fetchRoles();
+      notification.success({
+        message: "Xóa role thành công",
+        description: `Thành công`,
+      });
+    } catch (error) {
+      notification.error({
+        message: "Xóa role thất bại",
+        description: `Thất bại`,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -85,6 +114,8 @@ function RouteComponent() {
                   prefix={<SearchOutlined />}
                   placeholder="Tìm tên vai trò..."
                   size="large"
+                  value={keyword}
+                  onChange={handleInputChange}
                 />
 
                 <Button
@@ -106,18 +137,20 @@ function RouteComponent() {
                 {
                   title: "STT",
                   dataIndex: "index",
+                  render: (_, __, index) =>
+                    (pagination.current - 1) * pagination.pageSize + index + 1,
+                },
+                {
+                  title: "Mã vai trò",
+                  dataIndex: "code",
                 },
                 {
                   title: "Tên vai trò",
-                  dataIndex: "name",
-                },
-                {
-                  title: "Trạng thái",
-                  dataIndex: "status",
+                  dataIndex: "roleName",
                 },
                 {
                   title: "Ngày tạo",
-                  dataIndex: "createdAt",
+                  dataIndex: "createAt",
                 },
                 {
                   title: "Thao tác",
@@ -130,17 +163,17 @@ function RouteComponent() {
                         <Button
                           icon={<EditFilled />}
                           onClick={() => {
-                            setRoleId(record.id);
+                            setRoleId(record.roleId);
                             handleOpenModal.open();
                           }}
                         ></Button>
 
                         <Popconfirm
                           title="Xoá vai trò"
-                          description="
-                        Bạn có chắc chắn muốn xoá vai trò này không?"
+                          description={`Bạn có chắc chắn muốn xoá vai trò ${record.roleName} không?`}
                           okText="Xoá"
                           cancelText="Hủy"
+                          onConfirm={() => handleDeleteRole(record.roleId)} // Truyền id vào hàm
                         >
                           <Button icon={<DeleteFilled />} />
                         </Popconfirm>
@@ -149,24 +182,32 @@ function RouteComponent() {
                   },
                 },
               ]}
+              loading={loading}
               dataSource={dataSource}
-              rowKey="id"
+              rowKey="roleId"
               pagination={{
                 current: pagination.current,
                 pageSize: pagination.pageSize,
                 total: pagination.total,
                 showSizeChanger: true,
               }}
-              onChange={handleTableChange} // Xử lý thay đổi phân trang
+              onChange={handleTableChange}
             ></Table>
           </div>
         </Card>
       </div>
 
       <CreateRoleModal
+        key={roleId || "create-new"}
         roleId={roleId}
         open={openModal}
-        onClose={() => handleOpenModal.close()}
+        onClose={(isSuccess) => {
+          setRoleId(undefined);
+          handleOpenModal.close();
+          if (isSuccess) {
+            fetchRoles();
+          }
+        }}
         onCancel={() => handleOpenModal.close()}
       />
     </>

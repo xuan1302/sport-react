@@ -69,29 +69,25 @@ function RouteComponent() {
     []
   );
 
-  // Gọi API khi component được render lần đầu
   useEffect(() => {
     fetchAccounts();
   }, [fetchAccounts]);
 
-  // Hàm debounce để gọi API khi nhập ô tìm kiếm
   const handleSearch = useCallback(
     debounce((value: string) => {
-      fetchAccounts(value, 1, pagination.pageSize); // Reset về trang đầu khi tìm kiếm
-    }, 500), // Chờ 500ms sau khi người dùng dừng nhập
+      fetchAccounts(value, 1, pagination.pageSize);
+    }, 500),
     [fetchAccounts, pagination.pageSize]
   );
 
-  // Xử lý thay đổi ô tìm kiếm
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value); // Cập nhật giá trị keyword
-    handleSearch(e.target.value); // Gọi hàm debounce
+    setKeyword(e.target.value);
+    handleSearch(e.target.value);
   };
 
-  // Xử lý khi người dùng thay đổi trang hoặc số mục trên trang
   const handleTableChange = (newPagination: any) => {
-    setPagination(newPagination); // Cập nhật thông tin phân trang
-    fetchAccounts(keyword, newPagination.current, newPagination.pageSize); // Gọi API với phân trang mới
+    setPagination(newPagination);
+    fetchAccounts(keyword, newPagination.current, newPagination.pageSize);
   };
 
   const changeStatusStaff = async (id: string, status: boolean) => {
@@ -196,7 +192,7 @@ function RouteComponent() {
                   placeholder="Tìm tài khoản..."
                   size="large"
                   value={keyword}
-                  onChange={handleInputChange} // Gọi hàm xử lý thay đổi
+                  onChange={handleInputChange}
                 />
 
                 <Button

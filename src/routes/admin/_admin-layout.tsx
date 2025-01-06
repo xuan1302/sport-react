@@ -28,8 +28,6 @@ import { AppDispatch, RootState } from "../../store/store";
 
 export const Route = createFileRoute("/admin/_admin-layout")({
   beforeLoad: ({ context }) => {
-    console.log("context", context);
-
     if (!context?.isAdmin) {
       throw redirect({
         to: "/auth/sign-in",
@@ -175,14 +173,14 @@ function RouteComponent() {
                 <Dropdown
                   menu={{
                     items: [
-                      {
-                        label: "Đổi mật khẩu",
-                        type: "item",
-                        key: "change-password",
-                        icon: <KeyOutlined />,
-                        onClick: () =>
-                          navigate({ to: "/admin/change-password" }),
-                      },
+                      // {
+                      //   label: "Đổi mật khẩu",
+                      //   type: "item",
+                      //   key: "change-password",
+                      //   icon: <KeyOutlined />,
+                      //   onClick: () =>
+                      //     navigate({ to: "/admin/change-password" }),
+                      // },
                       {
                         label: "Đăng xuất",
                         type: "item",

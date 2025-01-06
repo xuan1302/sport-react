@@ -4,7 +4,6 @@ import authBg from "../../assets/auth-bg.png";
 
 export const Route = createFileRoute("/auth/_auth-layout")({
   beforeLoad: ({ context }) => {
-    console.log(context);
     // if (!!context?.auth) {
     //   throw redirect({
     //     to: "/admin",
