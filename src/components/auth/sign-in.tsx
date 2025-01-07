@@ -27,7 +27,7 @@ export default function SignInModal({
     if (authTypeState === "sign-in") {
       // login
       try {
-        const user = await dispatch(
+        await dispatch(
           login({ userName: values.userName, password: values.password })
         ).unwrap();
         form.resetFields();
@@ -57,10 +57,9 @@ export default function SignInModal({
           email: values.email,
           password: values.password,
           confirmPassword: values.confirmPassword,
-          accountType: 1,
-          roleIds: [2],
+          accountType: 2,
+          roleId: 2,
         };
-        console.log(dataPayload);
         await dispatch(register(dataPayload)).unwrap();
         form.resetFields();
         notification.success({
