@@ -47,7 +47,6 @@ export default function CreateAccountModal({
       (async () => {
         try {
           const detailAccount = await adminAccountApi.getAccountById(accountId);
-          console.log(detailAccount);
           form.setFieldsValue({
             name: detailAccount.fullName,
             username: detailAccount.userName,
@@ -98,7 +97,6 @@ export default function CreateAccountModal({
           accountType: 1,
           roleId: values.role,
         });
-        console.log(user);
         form.resetFields();
         notification.success({
           message: "Thêm mới tài khoản thành công",

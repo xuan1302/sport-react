@@ -50,3 +50,7 @@
 .img-wid100 .ant-image{
   width: 100%;
 }
+.hover-delete-icon:hover .image-delete-icon {
+  visibility: visible!important;
+  opacity: 1!important;
+}

@@ -6,6 +6,7 @@ import {
   KeyOutlined,
   LogoutOutlined,
   PhoneOutlined,
+  ProductOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -127,6 +128,29 @@ function RouteComponent() {
                   to: "/admin/category",
                 });
               },
+            },
+            {
+              label: "Sản phẩm",
+              key: "products",
+              icon: <ProductOutlined />,
+              children: [
+                {
+                  label: "Danh sách",
+                  key: "product-list",
+                  onClick: () =>
+                    navigate({
+                      to: "/admin/products",
+                    }),
+                },
+                {
+                  label: "Thêm mới",
+                  key: "product-add",
+                  onClick: () =>
+                    navigate({
+                      to: "/admin/product-add",
+                    }),
+                },
+              ],
             },
             {
               label: "Liên hệ",

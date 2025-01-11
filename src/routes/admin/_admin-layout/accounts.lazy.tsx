@@ -102,9 +102,8 @@ function RouteComponent() {
     } catch (error) {
       notification.error({
         message: "Thay đổi trạng thái thất bại",
-        description: err.message || "Đã xảy ra lỗi",
+        description: error.message || "Đã xảy ra lỗi",
       });
-      console.error("Failed to fetch accounts:", error);
     } finally {
       dispatch(hideLoading());
     }

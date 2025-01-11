@@ -39,6 +39,12 @@ const AdminAdminLayoutSettingsLazyImport = createFileRoute(
 const AdminAdminLayoutRolesLazyImport = createFileRoute(
   '/admin/_admin-layout/roles',
 )()
+const AdminAdminLayoutProductsLazyImport = createFileRoute(
+  '/admin/_admin-layout/products',
+)()
+const AdminAdminLayoutProductAddLazyImport = createFileRoute(
+  '/admin/_admin-layout/product-add',
+)()
 const AdminAdminLayoutCustomerLazyImport = createFileRoute(
   '/admin/_admin-layout/customer',
 )()
@@ -53,6 +59,9 @@ const AdminAdminLayoutCategoryLazyImport = createFileRoute(
 )()
 const AdminAdminLayoutAccountsLazyImport = createFileRoute(
   '/admin/_admin-layout/accounts',
+)()
+const AdminAdminLayoutProductDetailIdLazyImport = createFileRoute(
+  '/admin/_admin-layout/product-detail/$id',
 )()
 const AdminAdminLayoutCustomerHistoryIdLazyImport = createFileRoute(
   '/admin/_admin-layout/customer-history/$id',
@@ -140,6 +149,26 @@ const AdminAdminLayoutRolesLazyRoute = AdminAdminLayoutRolesLazyImport.update({
   import('./routes/admin/_admin-layout/roles.lazy').then((d) => d.Route),
 )
 
+const AdminAdminLayoutProductsLazyRoute =
+  AdminAdminLayoutProductsLazyImport.update({
+    id: '/products',
+    path: '/products',
+    getParentRoute: () => AdminAdminLayoutRoute,
+  } as any).lazy(() =>
+    import('./routes/admin/_admin-layout/products.lazy').then((d) => d.Route),
+  )
+
+const AdminAdminLayoutProductAddLazyRoute =
+  AdminAdminLayoutProductAddLazyImport.update({
+    id: '/product-add',
+    path: '/product-add',
+    getParentRoute: () => AdminAdminLayoutRoute,
+  } as any).lazy(() =>
+    import('./routes/admin/_admin-layout/product-add.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AdminAdminLayoutCustomerLazyRoute =
   AdminAdminLayoutCustomerLazyImport.update({
     id: '/customer',
@@ -192,6 +221,17 @@ const PublicProductIdRoute = PublicProductIdImport.update({
   path: '/product/$id',
   getParentRoute: () => PublicRoute,
 } as any)
+
+const AdminAdminLayoutProductDetailIdLazyRoute =
+  AdminAdminLayoutProductDetailIdLazyImport.update({
+    id: '/product-detail/$id',
+    path: '/product-detail/$id',
+    getParentRoute: () => AdminAdminLayoutRoute,
+  } as any).lazy(() =>
+    import('./routes/admin/_admin-layout/product-detail.$id.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AdminAdminLayoutCustomerHistoryIdLazyRoute =
   AdminAdminLayoutCustomerHistoryIdLazyImport.update({
@@ -299,6 +339,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminLayoutCustomerLazyImport
       parentRoute: typeof AdminAdminLayoutImport
     }
+    '/admin/_admin-layout/product-add': {
+      id: '/admin/_admin-layout/product-add'
+      path: '/product-add'
+      fullPath: '/admin/product-add'
+      preLoaderRoute: typeof AdminAdminLayoutProductAddLazyImport
+      parentRoute: typeof AdminAdminLayoutImport
+    }
+    '/admin/_admin-layout/products': {
+      id: '/admin/_admin-layout/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminAdminLayoutProductsLazyImport
+      parentRoute: typeof AdminAdminLayoutImport
+    }
     '/admin/_admin-layout/roles': {
       id: '/admin/_admin-layout/roles'
       path: '/roles'
@@ -341,6 +395,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminLayoutCustomerHistoryIdLazyImport
       parentRoute: typeof AdminAdminLayoutImport
     }
+    '/admin/_admin-layout/product-detail/$id': {
+      id: '/admin/_admin-layout/product-detail/$id'
+      path: '/product-detail/$id'
+      fullPath: '/admin/product-detail/$id'
+      preLoaderRoute: typeof AdminAdminLayoutProductDetailIdLazyImport
+      parentRoute: typeof AdminAdminLayoutImport
+    }
   }
 }
 
@@ -365,10 +426,13 @@ interface AdminAdminLayoutRouteChildren {
   AdminAdminLayoutChangePasswordLazyRoute: typeof AdminAdminLayoutChangePasswordLazyRoute
   AdminAdminLayoutContactLazyRoute: typeof AdminAdminLayoutContactLazyRoute
   AdminAdminLayoutCustomerLazyRoute: typeof AdminAdminLayoutCustomerLazyRoute
+  AdminAdminLayoutProductAddLazyRoute: typeof AdminAdminLayoutProductAddLazyRoute
+  AdminAdminLayoutProductsLazyRoute: typeof AdminAdminLayoutProductsLazyRoute
   AdminAdminLayoutRolesLazyRoute: typeof AdminAdminLayoutRolesLazyRoute
   AdminAdminLayoutSettingsLazyRoute: typeof AdminAdminLayoutSettingsLazyRoute
   AdminAdminLayoutIndexLazyRoute: typeof AdminAdminLayoutIndexLazyRoute
   AdminAdminLayoutCustomerHistoryIdLazyRoute: typeof AdminAdminLayoutCustomerHistoryIdLazyRoute
+  AdminAdminLayoutProductDetailIdLazyRoute: typeof AdminAdminLayoutProductDetailIdLazyRoute
 }
 
 const AdminAdminLayoutRouteChildren: AdminAdminLayoutRouteChildren = {
@@ -378,11 +442,15 @@ const AdminAdminLayoutRouteChildren: AdminAdminLayoutRouteChildren = {
     AdminAdminLayoutChangePasswordLazyRoute,
   AdminAdminLayoutContactLazyRoute: AdminAdminLayoutContactLazyRoute,
   AdminAdminLayoutCustomerLazyRoute: AdminAdminLayoutCustomerLazyRoute,
+  AdminAdminLayoutProductAddLazyRoute: AdminAdminLayoutProductAddLazyRoute,
+  AdminAdminLayoutProductsLazyRoute: AdminAdminLayoutProductsLazyRoute,
   AdminAdminLayoutRolesLazyRoute: AdminAdminLayoutRolesLazyRoute,
   AdminAdminLayoutSettingsLazyRoute: AdminAdminLayoutSettingsLazyRoute,
   AdminAdminLayoutIndexLazyRoute: AdminAdminLayoutIndexLazyRoute,
   AdminAdminLayoutCustomerHistoryIdLazyRoute:
     AdminAdminLayoutCustomerHistoryIdLazyRoute,
+  AdminAdminLayoutProductDetailIdLazyRoute:
+    AdminAdminLayoutProductDetailIdLazyRoute,
 }
 
 const AdminAdminLayoutRouteWithChildren =
@@ -434,12 +502,15 @@ export interface FileRoutesByFullPath {
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
   '/admin/contact': typeof AdminAdminLayoutContactLazyRoute
   '/admin/customer': typeof AdminAdminLayoutCustomerLazyRoute
+  '/admin/product-add': typeof AdminAdminLayoutProductAddLazyRoute
+  '/admin/products': typeof AdminAdminLayoutProductsLazyRoute
   '/admin/roles': typeof AdminAdminLayoutRolesLazyRoute
   '/admin/settings': typeof AdminAdminLayoutSettingsLazyRoute
   '/auth/sign-in': typeof AuthAuthLayoutSignInLazyRoute
   '/auth/sign-up': typeof AuthAuthLayoutSignUpLazyRoute
   '/admin/': typeof AdminAdminLayoutIndexLazyRoute
   '/admin/customer-history/$id': typeof AdminAdminLayoutCustomerHistoryIdLazyRoute
+  '/admin/product-detail/$id': typeof AdminAdminLayoutProductDetailIdLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -453,11 +524,14 @@ export interface FileRoutesByTo {
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
   '/admin/contact': typeof AdminAdminLayoutContactLazyRoute
   '/admin/customer': typeof AdminAdminLayoutCustomerLazyRoute
+  '/admin/product-add': typeof AdminAdminLayoutProductAddLazyRoute
+  '/admin/products': typeof AdminAdminLayoutProductsLazyRoute
   '/admin/roles': typeof AdminAdminLayoutRolesLazyRoute
   '/admin/settings': typeof AdminAdminLayoutSettingsLazyRoute
   '/auth/sign-in': typeof AuthAuthLayoutSignInLazyRoute
   '/auth/sign-up': typeof AuthAuthLayoutSignUpLazyRoute
   '/admin/customer-history/$id': typeof AdminAdminLayoutCustomerHistoryIdLazyRoute
+  '/admin/product-detail/$id': typeof AdminAdminLayoutProductDetailIdLazyRoute
 }
 
 export interface FileRoutesById {
@@ -475,12 +549,15 @@ export interface FileRoutesById {
   '/admin/_admin-layout/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
   '/admin/_admin-layout/contact': typeof AdminAdminLayoutContactLazyRoute
   '/admin/_admin-layout/customer': typeof AdminAdminLayoutCustomerLazyRoute
+  '/admin/_admin-layout/product-add': typeof AdminAdminLayoutProductAddLazyRoute
+  '/admin/_admin-layout/products': typeof AdminAdminLayoutProductsLazyRoute
   '/admin/_admin-layout/roles': typeof AdminAdminLayoutRolesLazyRoute
   '/admin/_admin-layout/settings': typeof AdminAdminLayoutSettingsLazyRoute
   '/auth/_auth-layout/sign-in': typeof AuthAuthLayoutSignInLazyRoute
   '/auth/_auth-layout/sign-up': typeof AuthAuthLayoutSignUpLazyRoute
   '/admin/_admin-layout/': typeof AdminAdminLayoutIndexLazyRoute
   '/admin/_admin-layout/customer-history/$id': typeof AdminAdminLayoutCustomerHistoryIdLazyRoute
+  '/admin/_admin-layout/product-detail/$id': typeof AdminAdminLayoutProductDetailIdLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -497,12 +574,15 @@ export interface FileRouteTypes {
     | '/admin/change-password'
     | '/admin/contact'
     | '/admin/customer'
+    | '/admin/product-add'
+    | '/admin/products'
     | '/admin/roles'
     | '/admin/settings'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/admin/'
     | '/admin/customer-history/$id'
+    | '/admin/product-detail/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/404'
@@ -515,11 +595,14 @@ export interface FileRouteTypes {
     | '/admin/change-password'
     | '/admin/contact'
     | '/admin/customer'
+    | '/admin/product-add'
+    | '/admin/products'
     | '/admin/roles'
     | '/admin/settings'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/admin/customer-history/$id'
+    | '/admin/product-detail/$id'
   id:
     | '__root__'
     | '/_public'
@@ -535,12 +618,15 @@ export interface FileRouteTypes {
     | '/admin/_admin-layout/change-password'
     | '/admin/_admin-layout/contact'
     | '/admin/_admin-layout/customer'
+    | '/admin/_admin-layout/product-add'
+    | '/admin/_admin-layout/products'
     | '/admin/_admin-layout/roles'
     | '/admin/_admin-layout/settings'
     | '/auth/_auth-layout/sign-in'
     | '/auth/_auth-layout/sign-up'
     | '/admin/_admin-layout/'
     | '/admin/_admin-layout/customer-history/$id'
+    | '/admin/_admin-layout/product-detail/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -599,10 +685,13 @@ export const routeTree = rootRoute
         "/admin/_admin-layout/change-password",
         "/admin/_admin-layout/contact",
         "/admin/_admin-layout/customer",
+        "/admin/_admin-layout/product-add",
+        "/admin/_admin-layout/products",
         "/admin/_admin-layout/roles",
         "/admin/_admin-layout/settings",
         "/admin/_admin-layout/",
-        "/admin/_admin-layout/customer-history/$id"
+        "/admin/_admin-layout/customer-history/$id",
+        "/admin/_admin-layout/product-detail/$id"
       ]
     },
     "/auth": {
@@ -647,6 +736,14 @@ export const routeTree = rootRoute
       "filePath": "admin/_admin-layout/customer.lazy.tsx",
       "parent": "/admin/_admin-layout"
     },
+    "/admin/_admin-layout/product-add": {
+      "filePath": "admin/_admin-layout/product-add.lazy.tsx",
+      "parent": "/admin/_admin-layout"
+    },
+    "/admin/_admin-layout/products": {
+      "filePath": "admin/_admin-layout/products.lazy.tsx",
+      "parent": "/admin/_admin-layout"
+    },
     "/admin/_admin-layout/roles": {
       "filePath": "admin/_admin-layout/roles.lazy.tsx",
       "parent": "/admin/_admin-layout"
@@ -669,6 +766,10 @@ export const routeTree = rootRoute
     },
     "/admin/_admin-layout/customer-history/$id": {
       "filePath": "admin/_admin-layout/customer-history.$id.lazy.tsx",
+      "parent": "/admin/_admin-layout"
+    },
+    "/admin/_admin-layout/product-detail/$id": {
+      "filePath": "admin/_admin-layout/product-detail.$id.lazy.tsx",
       "parent": "/admin/_admin-layout"
     }
   }
