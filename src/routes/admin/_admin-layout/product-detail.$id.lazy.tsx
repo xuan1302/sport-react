@@ -44,12 +44,18 @@ function RouteComponent() {
         try {
           dispatch(showLoading());
           const product = await adminProductsApi.getProductDetail(id);
-          setFilePrimary([product?.mainImage]);
+          let listSecondPhoto = [];
+          if (product?.secondaryPhotos?.length > 0) {
+            listSecondPhoto = [...product.secondaryPhotos];
+            setFileList(listSecondPhoto);
+          }
+          setFilePrimary(product?.mainImage ? [product?.mainImage] : []);
           form.setFieldsValue({
             name: product?.name,
             productId: product?.categoryId,
             description: product?.description,
             status: String(product?.status),
+            materials: product?.materials || [],
           });
         } catch (error) {
           console.error("Error fetching data", error);

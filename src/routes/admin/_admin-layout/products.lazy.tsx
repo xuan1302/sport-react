@@ -115,7 +115,6 @@ function RouteComponent() {
     );
   };
   const onFinish = async (values: any) => {
-    console.log(values);
     fetchProducts(
       form.getFieldValue("keywork") || "",
       values.category,
