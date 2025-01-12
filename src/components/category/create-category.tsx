@@ -88,7 +88,7 @@ export default function CreateCategoryModal({
         await adminCategoriesApi.create({
           name: values.name,
           description: values.description || "",
-          parentId: values.parentId || 0,
+          parentId: values.parentCode || 0,
           status: values.status,
         });
         form.resetFields();
