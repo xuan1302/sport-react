@@ -47,6 +47,14 @@ const adminProductsApi = {
     const url = `/v1/sporty-shop/admin/product/${id}`;
     return axiosClient.put(url, body);
   },
+  getProductVariations(id: string): Promise<unknown> {
+    const url = `/v1/sporty-shop/admin/product/${id}/variations`;
+    return axiosClient.get(url);
+  },
+  addQuantity(id: string, body: unknown): Promise<unknown> {
+    const url = `/v1/sporty-shop/admin/product/${id}/variations/add-quantity`;
+    return axiosClient.post(url, body);
+  },
 };
 
 export default adminProductsApi;

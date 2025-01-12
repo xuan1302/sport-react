@@ -28,6 +28,7 @@ import { AppDispatch } from "../../../store/store";
 import { hideLoading, showLoading } from "../../../store/loadingSlice";
 import adminCategoriesApi from "../../../api/admin.categoriesApi";
 import adminProductsApi from "../../../api/admin.productsApi";
+import CreateVariationModal from "../../../components/products/create-variations";
 
 export const Route = createLazyFileRoute("/admin/_admin-layout/products")({
   component: RouteComponent,
@@ -37,8 +38,7 @@ function RouteComponent() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [openModal, handlerOpenModal] = useDisclosure(false);
-  const [openModalChangePassword, handlerOpenModalChangePassword] =
-    useDisclosure(false);
+  const [productId, setProductId] = useState<string | undefined>();
   const [dataSource, setDataSource] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -398,7 +398,13 @@ function RouteComponent() {
                         </Tooltip>
                       </Popconfirm>
                       <Tooltip title="Thêm mới biến thể">
-                        <Button icon={<PlusCircleOutlined />} />
+                        <Button
+                          onClick={() => {
+                            handlerOpenModal.open();
+                            setProductId(record.id);
+                          }}
+                          icon={<PlusCircleOutlined />}
+                        />
                       </Tooltip>
                     </>
                   ),
@@ -417,6 +423,20 @@ function RouteComponent() {
           </div>
         </Card>
       </div>
+      <CreateVariationModal
+        key={productId || "create-new"}
+        open={openModal}
+        id={productId}
+        width={800}
+        onClose={(isSuccess) => {
+          setProductId(undefined);
+          if (isSuccess) {
+            handlerOpenModal.close();
+            fetchProducts();
+          }
+        }}
+        onCancel={() => handlerOpenModal.close()}
+      />
     </>
   );
 }
