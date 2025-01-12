@@ -85,10 +85,10 @@ function RouteComponent() {
           pageSize,
           pageNumber: currentPage,
         });
-        setDataSource(data.list || []);
+        setDataSource(data?.list || []);
         setPagination((prev) => ({
           ...prev,
-          total: data.totalSize || 0,
+          total: data?.totalSize || 0,
         }));
       } catch (error) {
         console.error("Failed to fetch accounts:", error);
@@ -257,7 +257,7 @@ function RouteComponent() {
                   style={{ marginBottom: 0, width: "200px" }}
                 >
                   <Select placeholder="Loại danh mục" allowClear>
-                    {categories.map((category) => (
+                    {categories?.map((category) => (
                       <Select.Option key={category.id} value={category.id}>
                         {category.name}
                       </Select.Option>

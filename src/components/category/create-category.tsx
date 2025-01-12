@@ -158,7 +158,7 @@ export default function CreateCategoryModal({
           <Col span={24}>
             <Form.Item name="parentCode" label="Danh mục cha" className="!mb-2">
               <Select placeholder="Chọn danh mục">
-                {categories.map((category) => (
+                {categories?.map((category) => (
                   <Select.Option key={category.id} value={category.id}>
                     {category.name}
                   </Select.Option>

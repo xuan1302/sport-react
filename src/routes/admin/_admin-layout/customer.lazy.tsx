@@ -37,10 +37,10 @@ function RouteComponent() {
           startDate: selectedRange[0] || "",
           endDate: selectedRange[1] || "",
         });
-        setDataSource(data.list || []);
+        setDataSource(data?.list || []);
         setPagination((prev) => ({
           ...prev,
-          total: data.totalSize || 0,
+          total: data?.totalSize || 0,
         }));
       } catch (error) {
         console.error("Failed to fetch customers:", error);

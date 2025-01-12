@@ -255,7 +255,7 @@ function RouteComponent() {
                 rules={[{ required: true, message: "Chọn loại danh mục" }]}
               >
                 <Select placeholder="Chọn danh mục">
-                  {categories.map((category) => (
+                  {categories?.map((category) => (
                     <Select.Option key={category.id} value={category.id}>
                       {category.name}
                     </Select.Option>

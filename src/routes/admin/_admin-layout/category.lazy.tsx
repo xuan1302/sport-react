@@ -58,10 +58,10 @@ function RouteComponent() {
           pageSize,
           pageNumber: currentPage,
         });
-        setDataSource(data.list || []);
+        setDataSource(data?.list || []);
         setPagination((prev) => ({
           ...prev,
-          total: data.totalSize || 0,
+          total: data?.totalSize || 0,
         }));
       } catch (error) {
         console.error("Failed to fetch accounts:", error);
