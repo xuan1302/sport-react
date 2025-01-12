@@ -118,7 +118,7 @@ function RouteComponent() {
       ...values,
       description: values?.description?.level?.content || values?.description,
       mainPhotoId: filePrimary[0]?.id,
-      fileList: fileList?.map((item) => item.id),
+      secondaryPhotoIds: fileList?.map((item) => item.id),
     };
     dispatch(showLoading());
     try {
