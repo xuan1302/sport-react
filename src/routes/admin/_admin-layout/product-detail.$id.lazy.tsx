@@ -44,7 +44,6 @@ function RouteComponent() {
         try {
           dispatch(showLoading());
           const product = await adminProductsApi.getProductDetail(id);
-          console.log(product);
           setFilePrimary([product?.mainImage]);
           form.setFieldsValue({
             name: product?.name,
@@ -117,6 +116,7 @@ function RouteComponent() {
   const onFinish = async (values: any) => {
     const body = {
       ...values,
+      description: values?.description?.level?.content || values?.description,
       mainPhotoId: filePrimary[0]?.id,
       fileList: fileList?.map((item) => item.id),
     };
@@ -131,7 +131,7 @@ function RouteComponent() {
     } catch (err) {
       notification.error({
         message: "Cập nhật sản phẩm thất bại",
-        description: err.message || "Đã xảy ra lỗi",
+        description: err?.message || "Đã xảy ra lỗi",
       });
     }
     dispatch(hideLoading());
@@ -305,6 +305,7 @@ function RouteComponent() {
               <Form.Item
                 label="Mô tả"
                 name="description"
+                valuePropName="value"
                 rules={[
                   {
                     required: true,
@@ -315,7 +316,7 @@ function RouteComponent() {
                 <Editor
                   textareaName="description"
                   apiKey={keyTiny}
-                  value={form.getFieldValue("description") || ""}
+                  value={form?.getFieldValue("description") || ""}
                   onEditorChange={(content) => {
                     form.setFieldsValue({ description: content });
                   }}

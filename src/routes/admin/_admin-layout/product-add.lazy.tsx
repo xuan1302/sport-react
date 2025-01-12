@@ -89,6 +89,7 @@ function RouteComponent() {
   const onFinish = async (values: any) => {
     const body = {
       ...values,
+      description: values?.description?.level?.content || values?.description,
       mainPhotoId: filePrimary[0]?.id,
       fileList: fileList?.map((item) => item.id),
     };
@@ -103,7 +104,7 @@ function RouteComponent() {
     } catch (err) {
       notification.error({
         message: "Thêm mới sản phẩm thất bại",
-        description: err.message || "Đã xảy ra lỗi",
+        description: err?.message || "Đã xảy ra lỗi",
       });
     }
     dispatch(hideLoading());
@@ -288,9 +289,8 @@ function RouteComponent() {
                 <Editor
                   textareaName="description"
                   apiKey={keyTiny}
-                  value={form.getFieldValue("description") || ""}
+                  value={form?.getFieldValue("description") || ""}
                   onEditorChange={(content) => {
-                    console.log(content);
                     form.setFieldsValue({ description: content });
                   }}
                   init={{
