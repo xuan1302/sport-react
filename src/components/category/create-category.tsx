@@ -69,7 +69,7 @@ export default function CreateCategoryModal({
         await adminCategoriesApi.update(categoryID, {
           name: values.name,
           description: values.description,
-          parentId: values.parentId || 0,
+          parentId: values.parentCode || 0,
           status: values.status ? values.status : false,
         });
         notification.success({
