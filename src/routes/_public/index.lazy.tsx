@@ -27,13 +27,26 @@ function RouteComponent() {
   };
   const navigate = useNavigate();
   const [outstandingProducts, setOutstandingProducts] = useState([]);
+  const [dataProduct2, setDataProduct2] = useState([]);
+  const [dataProduct3, setDataProduct3] = useState([]);
+  const [dataProduct4, setDataProduct4] = useState([]);
+  const [dataProduct5, setDataProduct5] = useState([]);
   useEffect(() => {
     const fetchApis = async () => {
       try {
-        const [dataOutstandingProducts] = await Promise.all([
-          homeApi.getOutstandingProduct(),
-        ]);
+        const [dataOutstandingProducts, data2, data3, data4, data5] =
+          await Promise.all([
+            homeApi.getOutstandingProduct(),
+            homeApi.getTopProduct({ type: "national_team_shirts" }),
+            homeApi.getTopProduct({ type: "club_shirts" }),
+            homeApi.getTopProduct({ type: "soccer_shoes" }),
+            homeApi.getTopProduct({ type: "accessories" }),
+          ]);
         setOutstandingProducts(dataOutstandingProducts?.list);
+        setDataProduct2(data2?.list);
+        setDataProduct3(data3?.list);
+        setDataProduct4(data4?.list);
+        setDataProduct5(data4?.list);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -65,7 +78,7 @@ function RouteComponent() {
         <div>
           <div>
             <Divider className="py-5">
-              <h2>Sản phẩm bán chạy</h2>
+              <h2>Sản phẩm nổi bật</h2>
             </Divider>
 
             <div className="max-w-[1450px] mx-auto w-full">
@@ -80,8 +93,6 @@ function RouteComponent() {
                         src={product.url}
                         alt={product.productName}
                         className="w-full h-auto"
-                        width={280}
-                        height={280}
                       />
                       <p
                         className="text-[#105458] hover:underline cursor-pointer"
@@ -115,97 +126,106 @@ function RouteComponent() {
         </div>
 
         <Divider className="py-5">
-          <p>Đồ thể thao nam</p>
+          <p>Áo đội tuyển quốc gia</p>
         </Divider>
 
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
-          {new Array(8).fill(0).map((_, index) => (
+          {dataProduct2?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={productExample} preview={false} />
-
-              <p className="text-[#262626] text-[11px] uppercase">
-                Áo thể thao nam
-              </p>
-
+              <Image src={product.url} preview={false} />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
                     to: "/product/$id",
                     params: {
-                      id: makeID(10),
+                      id: product.id,
                     },
                   })
                 }
               >
-                Quần chạy bộ Dài Nam MS277
+                {product.productName}
               </p>
 
-              <p className="font-semibold">299.000₫</p>
+              <div className="flex flex-col mt-2">
+                {product.prices.map((price, index) => (
+                  <div key={index} className="w-full py-1">
+                    <p className="font-semibold">
+                      {formatCurrency(price.price)} VND - {price.materialName}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
 
         <Divider className="py-5">
-          <p>Đồ thể thao nữ</p>
+          <p>Áo câu lạc bộ</p>
         </Divider>
 
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
-          {new Array(8).fill(0).map((_, index) => (
+          {dataProduct3?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={productExample} preview={false} />
-
-              <p className="text-[#262626] text-[11px] uppercase">
-                Áo thể thao nam
-              </p>
-
+              <Image src={product.url} preview={false} />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
                     to: "/product/$id",
                     params: {
-                      id: makeID(10),
+                      id: product.id,
                     },
                   })
                 }
               >
-                Quần chạy bộ Dài Nam MS277
+                {product.productName}
               </p>
 
-              <p className="font-semibold">299.000₫</p>
+              <div className="flex flex-col mt-2">
+                {product.prices.map((price, index) => (
+                  <div key={index} className="w-full py-1">
+                    <p className="font-semibold">
+                      {formatCurrency(price.price)} VND - {price.materialName}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
 
         <Divider className="py-5">
-          <p>Gel năng lượng</p>
+          <p>Giày thể thao</p>
         </Divider>
 
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
-          {new Array(8).fill(0).map((_, index) => (
+          {dataProduct5?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={productExample} preview={false} />
-
-              <p className="text-[#262626] text-[11px] uppercase">
-                Áo thể thao nam
-              </p>
-
+              <Image src={product.url} preview={false} />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
                     to: "/product/$id",
                     params: {
-                      id: makeID(10),
+                      id: product.id,
                     },
                   })
                 }
               >
-                Quần chạy bộ Dài Nam MS277
+                {product.productName}
               </p>
 
-              <p className="font-semibold">299.000₫</p>
+              <div className="flex flex-col mt-2">
+                {product.prices.map((price, index) => (
+                  <div key={index} className="w-full py-1">
+                    <p className="font-semibold">
+                      {formatCurrency(price.price)} VND - {price.materialName}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -215,29 +235,32 @@ function RouteComponent() {
         </Divider>
 
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
-          {new Array(8).fill(0).map((_, index) => (
+          {dataProduct5?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={productExample} preview={false} />
-
-              <p className="text-[#262626] text-[11px] uppercase">
-                Áo thể thao nam
-              </p>
-
+              <Image src={product.url} preview={false} />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
                   navigate({
                     to: "/product/$id",
                     params: {
-                      id: makeID(10),
+                      id: product.id,
                     },
                   })
                 }
               >
-                Quần chạy bộ Dài Nam MS277
+                {product.productName}
               </p>
 
-              <p className="font-semibold">299.000₫</p>
+              <div className="flex flex-col mt-2">
+                {product.prices.map((price, index) => (
+                  <div key={index} className="w-full py-1">
+                    <p className="font-semibold">
+                      {formatCurrency(price.price)} VND - {price.materialName}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
