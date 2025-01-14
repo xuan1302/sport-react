@@ -1,5 +1,6 @@
 import {
   BellOutlined,
+  DeleteOutlined,
   LogoutOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
@@ -7,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { useDisclosure } from "@mantine/hooks";
 import { Link } from "@tanstack/react-router";
-import { Divider, Dropdown, Input, notification } from "antd";
+import { Button, Divider, Dropdown, Image, Input, Menu, notification, Tooltip } from "antd";
 import logo from "../../assets/logo.png";
 import SignInModal from "../auth/sign-in";
 import { useEffect, useState } from "react";
@@ -16,6 +17,16 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import StorageKeys from "../../constants/storage-key";
 
+interface CartItemProps {
+  item: {
+    id: number;
+    name: string;
+    size: string;
+    price: number;
+    quantity: number;
+    image: string;
+  };
+}
 export default function AppHeader() {
   const [openModal, handleOpenModal] = useDisclosure(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -42,6 +53,100 @@ export default function AppHeader() {
       description: `Thành công`,
     });
   };
+  const cartItems = [
+    { id: 1, name: "Sản phẩm 1", size : "XL",price: 100000, quantity: 2, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    { id: 2, name: "Sản phẩm 2", size : "XL",price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    { id: 3, name: "Sản phẩm 3", size : "XL",price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    // Thêm sản phẩm khác nếu cần
+  ];
+  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+  const totalPrice = cartItems.reduce((total, item) => {
+    const quantity = quantities[item.id] || item.quantity; // Lấy số lượng từ state, nếu không có thì lấy từ giá trị mặc định
+    return total + (item.price * quantity);
+  }, 0);
+
+  
+
+  // Hàm xử lý khi thay đổi số lượng
+  const handleQuantityChange = (id: number, value: number) => {
+    // Cập nhật số lượng mới vào state
+    if (value >= 0) {
+      setQuantities(prevQuantities => ({
+        ...prevQuantities,
+        [id]: value,
+      }));
+    }
+  };
+
+  
+  const menu = (
+    <Menu className="p-4" style={{ width: '30rem' }}>
+    <h3 className="text-lg bg-zinc-200 font-semibold mb-2 pl-4 rounded">Giỏ Hàng Của Bạn</h3>
+
+    {/* Hiển thị các sản phẩm */}
+    {cartItems.map(item => (
+  <Menu.Item key={item.id} className="flex items-center mb-4">
+    <div className="flex items-center mb-4">
+      {/* Thẻ 1: Ảnh */}
+      <div className="w-3/12 mr-2">
+        <img
+          src={item.image}
+          alt={item.name}
+          width={110}
+          height={110}
+          className="object-cover rounded"
+        />
+      </div>
+
+      {/* Thẻ 2: Thông tin sản phẩm */}
+      <div className="w-9/12 flex flex-col">
+        <span className="font-semibold text-lg block">{item.name}</span>
+        <span className="text-sm text-gray-500 block">Size: {item.size}</span>
+        <div className="flex items-center justify-between mt-2 text-sm">
+          <span className="font-bold text-gray-500">
+            <span className="font-bold text-lg"> {item.price.toLocaleString()}</span>
+            <span className="text-sm font-semibold">
+              <sup className="text-xs">VND</sup>
+            </span>
+          </span>
+          <span className="text-xs text-gray-500">  X  </span>
+
+          <Input
+            type="number"
+            className="w-10 p-1 border rounded text-center"
+            value={quantities[item.id] || item.quantity} // Đảm bảo nếu không có giá trị thì lấy giá trị mặc định từ item
+            onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
+          />
+
+          <span className="text-gray-500 font-bold text-lg">
+             {(item.price * (quantities[item.id] || item.quantity)).toLocaleString()}             <span className="text-sm font-semibold">
+              <sup className="text-xs">VND</sup>
+            </span>
+          </span>
+          <DeleteOutlined className="text-red-500 cursor-pointer block" />
+        </div>
+      </div>
+    </div>
+  </Menu.Item>
+))}
+
+
+    {/* Tổng cộng */}
+    <Menu.Divider />
+    <Menu.Item key="total">
+      <div className="flex justify-between">
+        <span className="font-semibold">Tổng cộng:</span>
+        <span className="font-semibold">{totalPrice.toLocaleString()} VND</span>
+      </div>
+    </Menu.Item>
+
+    {/* Thoát */}
+    <Menu.Divider />
+    <Menu.Item key="checkout">
+      <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">Thanh toán</Button>
+    </Menu.Item>
+  </Menu>
+  );
   return (
     <>
       <div className="flex items-center justify-between p-4 ">
@@ -144,8 +249,14 @@ export default function AppHeader() {
 
           <BellOutlined />
 
-          <ShoppingCartOutlined />
+         
+          
+          <Dropdown overlay={menu} trigger={['click']}
+           overlayStyle={{ width: '30rem' }}>   
+              <ShoppingCartOutlined className="cursor-pointer" />
+          </Dropdown>
         </div>
+ 
       </div>
 
       <SignInModal
