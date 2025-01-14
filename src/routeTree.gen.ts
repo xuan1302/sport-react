@@ -16,6 +16,9 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as PublicImport } from './routes/_public'
 import { Route as AuthAuthLayoutImport } from './routes/auth/_auth-layout'
 import { Route as AdminAdminLayoutImport } from './routes/admin/_admin-layout'
+import { Route as PublicUserContactImport } from './routes/_public/user/Contact'
+import { Route as PublicUserCheckoutImport } from './routes/_public/user/Checkout'
+import { Route as PublicUserAccessoriesImport } from './routes/_public/user/Accessories'
 import { Route as PublicProductIdImport } from './routes/_public/product.$id'
 
 // Create Virtual Routes
@@ -216,6 +219,24 @@ const AdminAdminLayoutAccountsLazyRoute =
     import('./routes/admin/_admin-layout/accounts.lazy').then((d) => d.Route),
   )
 
+const PublicUserContactRoute = PublicUserContactImport.update({
+  id: '/user/Contact',
+  path: '/user/Contact',
+  getParentRoute: () => PublicRoute,
+} as any)
+
+const PublicUserCheckoutRoute = PublicUserCheckoutImport.update({
+  id: '/user/Checkout',
+  path: '/user/Checkout',
+  getParentRoute: () => PublicRoute,
+} as any)
+
+const PublicUserAccessoriesRoute = PublicUserAccessoriesImport.update({
+  id: '/user/Accessories',
+  path: '/user/Accessories',
+  getParentRoute: () => PublicRoute,
+} as any)
+
 const PublicProductIdRoute = PublicProductIdImport.update({
   id: '/product/$id',
   path: '/product/$id',
@@ -302,6 +323,27 @@ declare module '@tanstack/react-router' {
       path: '/product/$id'
       fullPath: '/product/$id'
       preLoaderRoute: typeof PublicProductIdImport
+      parentRoute: typeof PublicImport
+    }
+    '/_public/user/Accessories': {
+      id: '/_public/user/Accessories'
+      path: '/user/Accessories'
+      fullPath: '/user/Accessories'
+      preLoaderRoute: typeof PublicUserAccessoriesImport
+      parentRoute: typeof PublicImport
+    }
+    '/_public/user/Checkout': {
+      id: '/_public/user/Checkout'
+      path: '/user/Checkout'
+      fullPath: '/user/Checkout'
+      preLoaderRoute: typeof PublicUserCheckoutImport
+      parentRoute: typeof PublicImport
+    }
+    '/_public/user/Contact': {
+      id: '/_public/user/Contact'
+      path: '/user/Contact'
+      fullPath: '/user/Contact'
+      preLoaderRoute: typeof PublicUserContactImport
       parentRoute: typeof PublicImport
     }
     '/admin/_admin-layout/accounts': {
@@ -410,11 +452,17 @@ declare module '@tanstack/react-router' {
 interface PublicRouteChildren {
   PublicIndexLazyRoute: typeof PublicIndexLazyRoute
   PublicProductIdRoute: typeof PublicProductIdRoute
+  PublicUserAccessoriesRoute: typeof PublicUserAccessoriesRoute
+  PublicUserCheckoutRoute: typeof PublicUserCheckoutRoute
+  PublicUserContactRoute: typeof PublicUserContactRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicIndexLazyRoute: PublicIndexLazyRoute,
   PublicProductIdRoute: PublicProductIdRoute,
+  PublicUserAccessoriesRoute: PublicUserAccessoriesRoute,
+  PublicUserCheckoutRoute: PublicUserCheckoutRoute,
+  PublicUserContactRoute: PublicUserContactRoute,
 }
 
 const PublicRouteWithChildren =
@@ -497,6 +545,9 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/': typeof PublicIndexLazyRoute
   '/product/$id': typeof PublicProductIdRoute
+  '/user/Accessories': typeof PublicUserAccessoriesRoute
+  '/user/Checkout': typeof PublicUserCheckoutRoute
+  '/user/Contact': typeof PublicUserContactRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -519,6 +570,9 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthAuthLayoutRouteWithChildren
   '/': typeof PublicIndexLazyRoute
   '/product/$id': typeof PublicProductIdRoute
+  '/user/Accessories': typeof PublicUserAccessoriesRoute
+  '/user/Checkout': typeof PublicUserCheckoutRoute
+  '/user/Contact': typeof PublicUserContactRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -544,6 +598,9 @@ export interface FileRoutesById {
   '/auth/_auth-layout': typeof AuthAuthLayoutRouteWithChildren
   '/_public/': typeof PublicIndexLazyRoute
   '/_public/product/$id': typeof PublicProductIdRoute
+  '/_public/user/Accessories': typeof PublicUserAccessoriesRoute
+  '/_public/user/Checkout': typeof PublicUserCheckoutRoute
+  '/_public/user/Contact': typeof PublicUserContactRoute
   '/admin/_admin-layout/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/_admin-layout/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/_admin-layout/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
@@ -569,6 +626,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/'
     | '/product/$id'
+    | '/user/Accessories'
+    | '/user/Checkout'
+    | '/user/Contact'
     | '/admin/accounts'
     | '/admin/category'
     | '/admin/change-password'
@@ -590,6 +650,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/'
     | '/product/$id'
+    | '/user/Accessories'
+    | '/user/Checkout'
+    | '/user/Contact'
     | '/admin/accounts'
     | '/admin/category'
     | '/admin/change-password'
@@ -613,6 +676,9 @@ export interface FileRouteTypes {
     | '/auth/_auth-layout'
     | '/_public/'
     | '/_public/product/$id'
+    | '/_public/user/Accessories'
+    | '/_public/user/Checkout'
+    | '/_public/user/Contact'
     | '/admin/_admin-layout/accounts'
     | '/admin/_admin-layout/category'
     | '/admin/_admin-layout/change-password'
@@ -664,7 +730,10 @@ export const routeTree = rootRoute
       "filePath": "_public.tsx",
       "children": [
         "/_public/",
-        "/_public/product/$id"
+        "/_public/product/$id",
+        "/_public/user/Accessories",
+        "/_public/user/Checkout",
+        "/_public/user/Contact"
       ]
     },
     "/404": {
@@ -714,6 +783,18 @@ export const routeTree = rootRoute
     },
     "/_public/product/$id": {
       "filePath": "_public/product.$id.tsx",
+      "parent": "/_public"
+    },
+    "/_public/user/Accessories": {
+      "filePath": "_public/user/Accessories.tsx",
+      "parent": "/_public"
+    },
+    "/_public/user/Checkout": {
+      "filePath": "_public/user/Checkout.tsx",
+      "parent": "/_public"
+    },
+    "/_public/user/Contact": {
+      "filePath": "_public/user/Contact.tsx",
       "parent": "/_public"
     },
     "/admin/_admin-layout/accounts": {

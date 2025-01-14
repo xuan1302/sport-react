@@ -1,0 +1,214 @@
+{
+    "status": 200,
+    "message": "Get Product For Home Page success",
+    "data": [
+        {
+            "categoryName": "sản phẩm nổi bật",
+            "products": [
+                {
+                    "id": 19,
+                    "productName": "Áo Bóng Đá Đội Tuyển Bồ Đào Nha Đen Loang 2024-2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/f494d869-3876-4959-91b1-d022b4d0011e_1736664800440.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 170000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 20,
+                    "productName": "Áo Bóng Đá Đội Tuyển Việt Nam Winsport Đỏ 2024 - 2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/93899369-5b81-4fa5-b518-6c2f2b595d37_1736665069512.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 21,
+                    "productName": "Áo Bóng Đá Đội Tuyển Nhật Xanh Đen 2024 - 2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/9cab6f97-f426-4eb2-8d74-2290d11b2b0e_1736665191027.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 22,
+                    "productName": "Áo Bóng Đá Đội Tuyển Đức Đen 2024-2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/52c187a4-94e1-40fb-863f-7a7480f3e8c3_1736665324626.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 23,
+                    "productName": "Áo Bóng Đá Đội Tuyển Tây Ban Nha Đỏ Sân Nhà Euro 2024-2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/6b88a82c-6334-4a42-b0c6-eaa5d47dc7b5_1736665439084.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 79999.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "categoryName": "Áo đội tuyển quốc gia",
+            "products": [
+                {
+                    "id": 19,
+                    "productName": "Áo Bóng Đá Đội Tuyển Bồ Đào Nha Đen Loang 2024-2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/f494d869-3876-4959-91b1-d022b4d0011e_1736664800440.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 170000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 20,
+                    "productName": "Áo Bóng Đá Đội Tuyển Việt Nam Winsport Đỏ 2024 - 2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/93899369-5b81-4fa5-b518-6c2f2b595d37_1736665069512.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 21,
+                    "productName": "Áo Bóng Đá Đội Tuyển Nhật Xanh Đen 2024 - 2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/9cab6f97-f426-4eb2-8d74-2290d11b2b0e_1736665191027.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 22,
+                    "productName": "Áo Bóng Đá Đội Tuyển Đức Đen 2024-2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/52c187a4-94e1-40fb-863f-7a7480f3e8c3_1736665324626.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 80000.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                },
+                {
+                    "id": 23,
+                    "productName": "Áo Bóng Đá Đội Tuyển Tây Ban Nha Đỏ Sân Nhà Euro 2024-2025",
+                    "url": "http://localhost:8080/v1/sporty-shop/auth/images/6b88a82c-6334-4a42-b0c6-eaa5d47dc7b5_1736665439084.webp",
+                    "prices": [
+                        {
+                            "materialName": "Hàng Thun Lạnh",
+                            "price": 79999.0
+                        },
+                        {
+                            "materialName": "Hàng Thun co giãn",
+                            "price": 120000.0
+                        },
+                        {
+                            "materialName": "Hàng Mè Caro",
+                            "price": 180000.0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "categoryName": "Áo câu lạc bộ",
+            "products": []
+        },
+        {
+            "categoryName": "Áo không logo",
+            "products": []
+        }
+    ]
+}
