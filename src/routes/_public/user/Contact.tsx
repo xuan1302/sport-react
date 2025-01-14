@@ -129,7 +129,7 @@ interface CreateContacts {
             <Form.Item>
             <Button
               htmlType="submit"
-              className="w-auto mx-auto bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-4 block rounded-lg shadow-md transition-all duration-200 !font-['Roboto'] uppercase"
+              className="w-auto mx-auto !bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white px-4 block rounded-lg shadow-md transition-all duration-200  uppercase"
             >
               GỬI NGAY
             </Button>

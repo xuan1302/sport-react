@@ -50,9 +50,10 @@ interface ApiResponse {
 }
 
 function RouteComponent() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Category[]>([]);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
   useEffect(() => {
     /*
       try {
@@ -82,6 +83,7 @@ function RouteComponent() {
     }
     return result;
   };
+
   return (
     <div className="flex flex-col">
       <div className="img-wid100">
@@ -122,6 +124,7 @@ function RouteComponent() {
 
           <div className="max-w-[1450px] mx-auto w-full">
           <Carousel
+            autoplay
            arrows
            infinite={false}
           >
@@ -131,7 +134,7 @@ function RouteComponent() {
                 {chunk.map((product) => (
                   <div key={product.id} className="relative group w-full max-w-[320px] mx-auto">
                     <Image
-                      src={'https://dongphuchaianh.vn/wp-content/uploads/2022/03/ao-quan-the-thao-dep.jpg'}
+                      src={product.url}
                       alt={product.productName}
                       className="w-full h-auto"
                       width={320}
@@ -142,7 +145,7 @@ function RouteComponent() {
                       {category.categoryName}
                     </p>
                     <p className="text-[#105458] hover:underline cursor-pointer">
-                      {product.productName}
+                       {product.productName}
                     </p>
                     <div className="flex flex-col mt-2">
                       {product.prices.map((price, index) => (
