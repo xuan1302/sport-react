@@ -33,6 +33,9 @@ const AuthAuthLayoutSignUpLazyImport = createFileRoute(
 const AuthAuthLayoutSignInLazyImport = createFileRoute(
   '/auth/_auth-layout/sign-in',
 )()
+const AdminAdminLayoutVoucherLazyImport = createFileRoute(
+  '/admin/_admin-layout/voucher',
+)()
 const AdminAdminLayoutSettingsLazyImport = createFileRoute(
   '/admin/_admin-layout/settings',
 )()
@@ -131,6 +134,15 @@ const AuthAuthLayoutSignInLazyRoute = AuthAuthLayoutSignInLazyImport.update({
 } as any).lazy(() =>
   import('./routes/auth/_auth-layout/sign-in.lazy').then((d) => d.Route),
 )
+
+const AdminAdminLayoutVoucherLazyRoute =
+  AdminAdminLayoutVoucherLazyImport.update({
+    id: '/voucher',
+    path: '/voucher',
+    getParentRoute: () => AdminAdminLayoutRoute,
+  } as any).lazy(() =>
+    import('./routes/admin/_admin-layout/voucher.lazy').then((d) => d.Route),
+  )
 
 const AdminAdminLayoutSettingsLazyRoute =
   AdminAdminLayoutSettingsLazyImport.update({
@@ -367,6 +379,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminLayoutSettingsLazyImport
       parentRoute: typeof AdminAdminLayoutImport
     }
+    '/admin/_admin-layout/voucher': {
+      id: '/admin/_admin-layout/voucher'
+      path: '/voucher'
+      fullPath: '/admin/voucher'
+      preLoaderRoute: typeof AdminAdminLayoutVoucherLazyImport
+      parentRoute: typeof AdminAdminLayoutImport
+    }
     '/auth/_auth-layout/sign-in': {
       id: '/auth/_auth-layout/sign-in'
       path: '/sign-in'
@@ -430,6 +449,7 @@ interface AdminAdminLayoutRouteChildren {
   AdminAdminLayoutProductsLazyRoute: typeof AdminAdminLayoutProductsLazyRoute
   AdminAdminLayoutRolesLazyRoute: typeof AdminAdminLayoutRolesLazyRoute
   AdminAdminLayoutSettingsLazyRoute: typeof AdminAdminLayoutSettingsLazyRoute
+  AdminAdminLayoutVoucherLazyRoute: typeof AdminAdminLayoutVoucherLazyRoute
   AdminAdminLayoutIndexLazyRoute: typeof AdminAdminLayoutIndexLazyRoute
   AdminAdminLayoutCustomerHistoryIdLazyRoute: typeof AdminAdminLayoutCustomerHistoryIdLazyRoute
   AdminAdminLayoutProductDetailIdLazyRoute: typeof AdminAdminLayoutProductDetailIdLazyRoute
@@ -446,6 +466,7 @@ const AdminAdminLayoutRouteChildren: AdminAdminLayoutRouteChildren = {
   AdminAdminLayoutProductsLazyRoute: AdminAdminLayoutProductsLazyRoute,
   AdminAdminLayoutRolesLazyRoute: AdminAdminLayoutRolesLazyRoute,
   AdminAdminLayoutSettingsLazyRoute: AdminAdminLayoutSettingsLazyRoute,
+  AdminAdminLayoutVoucherLazyRoute: AdminAdminLayoutVoucherLazyRoute,
   AdminAdminLayoutIndexLazyRoute: AdminAdminLayoutIndexLazyRoute,
   AdminAdminLayoutCustomerHistoryIdLazyRoute:
     AdminAdminLayoutCustomerHistoryIdLazyRoute,
@@ -506,6 +527,7 @@ export interface FileRoutesByFullPath {
   '/admin/products': typeof AdminAdminLayoutProductsLazyRoute
   '/admin/roles': typeof AdminAdminLayoutRolesLazyRoute
   '/admin/settings': typeof AdminAdminLayoutSettingsLazyRoute
+  '/admin/voucher': typeof AdminAdminLayoutVoucherLazyRoute
   '/auth/sign-in': typeof AuthAuthLayoutSignInLazyRoute
   '/auth/sign-up': typeof AuthAuthLayoutSignUpLazyRoute
   '/admin/': typeof AdminAdminLayoutIndexLazyRoute
@@ -528,6 +550,7 @@ export interface FileRoutesByTo {
   '/admin/products': typeof AdminAdminLayoutProductsLazyRoute
   '/admin/roles': typeof AdminAdminLayoutRolesLazyRoute
   '/admin/settings': typeof AdminAdminLayoutSettingsLazyRoute
+  '/admin/voucher': typeof AdminAdminLayoutVoucherLazyRoute
   '/auth/sign-in': typeof AuthAuthLayoutSignInLazyRoute
   '/auth/sign-up': typeof AuthAuthLayoutSignUpLazyRoute
   '/admin/customer-history/$id': typeof AdminAdminLayoutCustomerHistoryIdLazyRoute
@@ -553,6 +576,7 @@ export interface FileRoutesById {
   '/admin/_admin-layout/products': typeof AdminAdminLayoutProductsLazyRoute
   '/admin/_admin-layout/roles': typeof AdminAdminLayoutRolesLazyRoute
   '/admin/_admin-layout/settings': typeof AdminAdminLayoutSettingsLazyRoute
+  '/admin/_admin-layout/voucher': typeof AdminAdminLayoutVoucherLazyRoute
   '/auth/_auth-layout/sign-in': typeof AuthAuthLayoutSignInLazyRoute
   '/auth/_auth-layout/sign-up': typeof AuthAuthLayoutSignUpLazyRoute
   '/admin/_admin-layout/': typeof AdminAdminLayoutIndexLazyRoute
@@ -578,6 +602,7 @@ export interface FileRouteTypes {
     | '/admin/products'
     | '/admin/roles'
     | '/admin/settings'
+    | '/admin/voucher'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/admin/'
@@ -599,6 +624,7 @@ export interface FileRouteTypes {
     | '/admin/products'
     | '/admin/roles'
     | '/admin/settings'
+    | '/admin/voucher'
     | '/auth/sign-in'
     | '/auth/sign-up'
     | '/admin/customer-history/$id'
@@ -622,6 +648,7 @@ export interface FileRouteTypes {
     | '/admin/_admin-layout/products'
     | '/admin/_admin-layout/roles'
     | '/admin/_admin-layout/settings'
+    | '/admin/_admin-layout/voucher'
     | '/auth/_auth-layout/sign-in'
     | '/auth/_auth-layout/sign-up'
     | '/admin/_admin-layout/'
@@ -689,6 +716,7 @@ export const routeTree = rootRoute
         "/admin/_admin-layout/products",
         "/admin/_admin-layout/roles",
         "/admin/_admin-layout/settings",
+        "/admin/_admin-layout/voucher",
         "/admin/_admin-layout/",
         "/admin/_admin-layout/customer-history/$id",
         "/admin/_admin-layout/product-detail/$id"
@@ -750,6 +778,10 @@ export const routeTree = rootRoute
     },
     "/admin/_admin-layout/settings": {
       "filePath": "admin/_admin-layout/settings.lazy.tsx",
+      "parent": "/admin/_admin-layout"
+    },
+    "/admin/_admin-layout/voucher": {
+      "filePath": "admin/_admin-layout/voucher.lazy.tsx",
       "parent": "/admin/_admin-layout"
     },
     "/auth/_auth-layout/sign-in": {

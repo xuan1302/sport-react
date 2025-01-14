@@ -40,7 +40,6 @@ function RouteComponent() {
   const [openModal, handlerOpenModal] = useDisclosure(false);
   const [productId, setProductId] = useState<string | undefined>();
   const [dataSource, setDataSource] = useState([]);
-  const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const [pagination, setPagination] = useState({

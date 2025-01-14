@@ -2,6 +2,7 @@ import {
   BellOutlined,
   ContainerOutlined,
   FolderOutlined,
+  GiftOutlined,
   HomeOutlined,
   KeyOutlined,
   LogoutOutlined,
@@ -126,6 +127,16 @@ function RouteComponent() {
               onClick: () => {
                 navigate({
                   to: "/admin/category",
+                });
+              },
+            },
+            {
+              label: "Voucher",
+              key: "voucher",
+              icon: <GiftOutlined />,
+              onClick: () => {
+                navigate({
+                  to: "/admin/voucher",
                 });
               },
             },
