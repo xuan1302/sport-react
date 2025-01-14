@@ -22,6 +22,9 @@ export const Route = createLazyFileRoute("/_public/")({
 });
 
 function RouteComponent() {
+  const formatCurrency = (value) => {
+    return value.toLocaleString("vi-VN");
+  };
   const navigate = useNavigate();
   const [outstandingProducts, setOutstandingProducts] = useState([]);
   useEffect(() => {
@@ -77,21 +80,28 @@ function RouteComponent() {
                         src={product.url}
                         alt={product.productName}
                         className="w-full h-auto"
-                        width={320}
-                        height={320}
+                        width={280}
+                        height={280}
                       />
-
-                      <p className="text-[#262626] text-[11px] uppercase mt-2">
-                        {/* {category.categoryName} */}
-                      </p>
-                      <p className="text-[#105458] hover:underline cursor-pointer">
+                      <p
+                        className="text-[#105458] hover:underline cursor-pointer"
+                        onClick={() =>
+                          navigate({
+                            to: "/product/$id",
+                            params: {
+                              id: product.id,
+                            },
+                          })
+                        }
+                      >
                         {product.productName}
                       </p>
                       <div className="flex flex-col mt-2">
                         {product.prices.map((price, index) => (
                           <div key={index} className="w-full py-1">
                             <p className="font-semibold">
-                              {price.price} VND - {price.materialName}
+                              {formatCurrency(price.price)} VND -{" "}
+                              {price.materialName}
                             </p>
                           </div>
                         ))}
