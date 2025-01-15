@@ -126,8 +126,8 @@ function RouteComponent() {
                   {formatCurrency(selectedMaterial?.price)}
                 </p>
                 <div style={{ marginBottom: 16 }}>
-                  <strong>Bạn đang chọn: </strong>
-                  <strong>{selectedMaterial?.materialName}</strong>
+                  <span>Bạn đang chọn: </span>
+                  <span>{selectedMaterial?.materialName}</span>
                   <Row gutter={[8, 8]} style={{ marginTop: 8 }}>
                     {form.getFieldValue("materials")?.map((material) => (
                       <Col key={material.materialId}>
@@ -135,6 +135,7 @@ function RouteComponent() {
                           className={`item-size ${selectedMaterial.materialId === material.materialId ? "active-class" : ""}`}
                           onClick={() => {
                             setSelectedMaterial(material);
+                            setSelectedSize(material?.sizes[0]);
                           }}
                         >
                           <div className="material-name">
@@ -153,6 +154,8 @@ function RouteComponent() {
                 </div>
 
                 <div style={{ marginBottom: 16 }}>
+                  <span>Bạn đang chọn: </span>
+                  <span>{selectedSize?.sizeName}</span>
                   <Row gutter={[8, 8]} style={{ marginTop: 8 }}>
                     {selectedMaterial?.sizes?.map((size) => (
                       <Col key={size.sizeId}>
