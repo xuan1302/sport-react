@@ -54,3 +54,25 @@
   visibility: visible!important;
   opacity: 1!important;
 }
+.item-size{
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 5px;
+  cursor: pointer;
+}
+.item-size.active-class{
+  background-color: #def4ff;
+}
+.material-prince{
+  color: red;
+}
+.item-size-material{
+  border-radius: 6px;
+  border: 1px solid #333;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.item-size-material.active-class{
+  /* border-color: red; */
+  background-color: #def4ff;
+}

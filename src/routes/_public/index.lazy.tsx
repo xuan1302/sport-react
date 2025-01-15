@@ -1,6 +1,6 @@
 import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
 
-import { Carousel, Divider, Image } from "antd";
+import { Divider, Image } from "antd";
 import heroBannerImage from "../../assets/hero-banner.png";
 import section1 from "../../assets/section-1.png";
 import section2 from "../../assets/section-2.png";
@@ -8,14 +8,12 @@ import section3 from "../../assets/section-3.png";
 import section4 from "../../assets/section-4.png";
 
 import blogImage from "../../assets/blog-image.png";
-import productExample from "../../assets/product-example.png";
 import termBanner from "../../assets/term-banner.png";
 
 import { StarFilled } from "@ant-design/icons";
-import customerExample from "../../assets/customer-example.png";
-import { makeID } from "../../utils/makeId";
 import { useEffect, useState } from "react";
 import homeApi from "../../api/home/homeApi";
+import customerExample from "../../assets/customer-example.png";
 
 export const Route = createLazyFileRoute("/_public/")({
   component: RouteComponent,
@@ -93,6 +91,8 @@ function RouteComponent() {
                         src={product.url}
                         alt={product.productName}
                         className="w-full h-auto"
+                        width={280}
+                        height={200}
                       />
                       <p
                         className="text-[#105458] hover:underline cursor-pointer"
@@ -132,7 +132,12 @@ function RouteComponent() {
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {dataProduct2?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={product.url} preview={false} />
+              <Image
+                src={product.url}
+                preview={false}
+                width={280}
+                height={200}
+              />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
@@ -167,7 +172,12 @@ function RouteComponent() {
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {dataProduct3?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={product.url} preview={false} />
+              <Image
+                src={product.url}
+                preview={false}
+                width={280}
+                height={200}
+              />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
@@ -200,9 +210,14 @@ function RouteComponent() {
         </Divider>
 
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
-          {dataProduct5?.map((product, index) => (
+          {dataProduct4?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={product.url} preview={false} />
+              <Image
+                src={product.url}
+                preview={false}
+                width={280}
+                height={200}
+              />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
@@ -237,7 +252,12 @@ function RouteComponent() {
         <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {dataProduct5?.map((product, index) => (
             <div key={index} className="w-[280px]">
-              <Image src={product.url} preview={false} />
+              <Image
+                src={product.url}
+                preview={false}
+                width={280}
+                height={200}
+              />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
                 onClick={() =>
