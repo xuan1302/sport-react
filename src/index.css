@@ -55,24 +55,27 @@
   opacity: 1!important;
 }
 .item-size{
-  border: 1px solid #333;
+  border: 1px solid rgba(206, 206, 206, 1);
   border-radius: 8px;
   padding: 5px;
   cursor: pointer;
 }
 .item-size.active-class{
-  background-color: #def4ff;
+  background-color: rgba(243, 241, 255, 1);
+  border-color: rgba(49, 39, 131, 1);
 }
 .material-prince{
   color: red;
 }
 .item-size-material{
   border-radius: 6px;
-  border: 1px solid #333;
+  border: 1px solid rgba(206, 206, 206, 1);
   padding: 5px 10px;
   cursor: pointer;
 }
 .item-size-material.active-class{
   /* border-color: red; */
   background-color: #def4ff;
+    background-color: rgba(243, 241, 255, 1);
+    border-color: rgba(49, 39, 131, 1);
 }
