@@ -53,10 +53,11 @@ export default function AppHeader() {
       description: `Thành công`,
     });
   };
+
   const cartItems = [
-    { id: 1, name: "Sản phẩm 1", size : "XL",price: 100000, quantity: 2, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
-    { id: 2, name: "Sản phẩm 2", size : "XL",price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
-    { id: 3, name: "Sản phẩm 3", size : "XL",price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    { id: 1, name: "Sản phẩm 1", category: "Thun Lạnh", size: "XL", price: 100000, quantity: 2, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    { id: 2, name: "Sản phẩm 2", category: "Thun Lạnh", size: "XL", price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    { id: 3, name: "Sản phẩm 3", category: "Thun Lạnh", size: "XL", price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
     // Thêm sản phẩm khác nếu cần
   ];
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
@@ -65,7 +66,7 @@ export default function AppHeader() {
     return total + (item.price * quantity);
   }, 0);
 
-  
+
 
   // Hàm xử lý khi thay đổi số lượng
   const handleQuantityChange = (id: number, value: number) => {
@@ -78,74 +79,74 @@ export default function AppHeader() {
     }
   };
 
-  
+
   const menu = (
     <Menu className="p-4" style={{ width: '30rem' }}>
-    <h3 className="text-lg bg-zinc-200 font-semibold mb-2 pl-4 rounded">Giỏ Hàng Của Bạn</h3>
+      <h3 className="text-lg bg-zinc-200 font-semibold mb-2 pl-4 rounded">Giỏ Hàng Của Bạn</h3>
 
-    {/* Hiển thị các sản phẩm */}
-    {cartItems.map(item => (
-  <Menu.Item key={item.id} className="flex items-center mb-4">
-    <div className="flex items-center mb-4">
-      {/* Thẻ 1: Ảnh */}
-      <div className="w-3/12 mr-2">
-        <img
-          src={item.image}
-          alt={item.name}
-          width={110}
-          height={110}
-          className="object-cover rounded"
-        />
-      </div>
+      {/* Hiển thị các sản phẩm */}
+      {cartItems.map(item => (
+        <Menu.Item key={item.id} className="flex items-center mb-4">
+          <div className="flex items-center mb-4">
+            {/* Thẻ 1: Ảnh */}
+            <div className="w-3/12 mr-2">
+              <img
+                src={item.image}
+                alt={item.name}
+                width={110}
+                height={110}
+                className="object-cover rounded"
+              />
+            </div>
 
-      {/* Thẻ 2: Thông tin sản phẩm */}
-      <div className="w-9/12 flex flex-col">
-        <span className="font-semibold text-lg block">{item.name}</span>
-        <span className="text-sm text-gray-500 block">Size: {item.size}</span>
-        <div className="flex items-center justify-between mt-2 text-sm">
-          <span className="font-bold text-gray-500">
-            <span className="font-bold text-lg"> {item.price.toLocaleString()}</span>
-            <span className="text-sm font-semibold">
-              <sup className="text-xs">VND</sup>
-            </span>
-          </span>
-          <span className="text-xs text-gray-500">  X  </span>
+            {/* Thẻ 2: Thông tin sản phẩm */}
+            <div className="w-9/12 flex flex-col">
+              <span className="font-semibold text-lg block">{item.name}</span>
+              <span className="text-sm text-gray-500 block">{item.category} : {item.size}</span>
+              <div className="flex items-center justify-between mt-2 text-sm">
+                <span className="font-bold text-gray-500">
+                  <span className="font-bold text-lg"> {item.price.toLocaleString()}</span>
+                  <span className="text-sm font-semibold">
+                    <sup className="text-xs">VND</sup>
+                  </span>
+                </span>
+                <span className="text-xs text-gray-500">  X  </span>
 
-          <Input
-            type="number"
-            className="w-10 p-1 border rounded text-center"
-            value={quantities[item.id] || item.quantity} // Đảm bảo nếu không có giá trị thì lấy giá trị mặc định từ item
-            onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
-          />
+                <Input
+                  type="number"
+                  className="w-10 p-1 border rounded text-center"
+                  value={quantities[item.id] || item.quantity} // Đảm bảo nếu không có giá trị thì lấy giá trị mặc định từ item
+                  onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
+                />
 
-          <span className="text-gray-500 font-bold text-lg">
-             {(item.price * (quantities[item.id] || item.quantity)).toLocaleString()}             <span className="text-sm font-semibold">
-              <sup className="text-xs">VND</sup>
-            </span>
-          </span>
-          <DeleteOutlined className="text-red-500 cursor-pointer block" />
+                <span className="text-gray-500 font-bold text-lg">
+                  {(item.price * (quantities[item.id] || item.quantity)).toLocaleString()}             <span className="text-sm font-semibold">
+                    <sup className="text-xs">VND</sup>
+                  </span>
+                </span>
+                <DeleteOutlined className="text-red-500 cursor-pointer block" />
+              </div>
+            </div>
+          </div>
+        </Menu.Item>
+      ))}
+
+
+      {/* Tổng cộng */}
+      <Menu.Divider />
+      <Menu.Item key="total">
+        <div className="flex justify-between">
+          <span className="font-semibold">Tổng cộng:</span>
+          <span className="font-semibold">{totalPrice.toLocaleString()} VND</span>
         </div>
-      </div>
-    </div>
-  </Menu.Item>
-))}
+      </Menu.Item>
 
-
-    {/* Tổng cộng */}
-    <Menu.Divider />
-    <Menu.Item key="total">
-      <div className="flex justify-between">
-        <span className="font-semibold">Tổng cộng:</span>
-        <span className="font-semibold">{totalPrice.toLocaleString()} VND</span>
-      </div>
-    </Menu.Item>
-
-    {/* Thoát */}
-    <Menu.Divider />
-    <Menu.Item key="checkout">
-      <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">Thanh toán</Button>
-    </Menu.Item>
-  </Menu>
+      {/* Thoát */}
+      <Menu.Divider />
+      <Menu.Item key="checkout">
+        <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">Thanh toán</Button>
+      </Menu.Item>
+    </Menu>
   );
   return (
     <>
@@ -154,54 +155,40 @@ export default function AppHeader() {
           <img src={logo} alt="logo" className="object-cover h-12" />
         </div>
 
-        <div className="flex items-center gap-x-2">
-          <Link to="/">TRANG CHỦ</Link>
+        <div className="flex items-center space-x-4">
+          <Link to="/" className="text-gray-800 hover:text-blue-500 text-sm">TRANG CHỦ</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/">PHỤ KIỆN</Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 text-sm">PHỤ KIỆN</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="uppercase">
-            Đồ thể thao nam
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Đồ thể thao nam</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="uppercase">
-            Đồ thể thao Nữ
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Đồ thể thao Nữ</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="uppercase">
-            Gel năng lượng
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Gel năng lượng</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="uppercase">
-            Phụ kiện thể thao
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Phụ kiện thể thao</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="uppercase">
-            Quần Áo Đội Nhóm
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Quần Áo Đội Nhóm</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="uppercase">
-            Blog Thể Thao
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Blog Thể Thao</Link>
 
-          <Divider type="vertical" />
+          <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="uppercase">
-            Liên Hệ
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Liên Hệ</Link>
         </div>
 
         <div className="flex items-center gap-x-4">
@@ -249,14 +236,14 @@ export default function AppHeader() {
 
           <BellOutlined />
 
-         
-          
+
+
           <Dropdown overlay={menu} trigger={['click']}
-           overlayStyle={{ width: '30rem' }}>   
-              <ShoppingCartOutlined className="cursor-pointer" />
+            overlayStyle={{ width: '30rem' }}>
+            <ShoppingCartOutlined className="cursor-pointer" />
           </Dropdown>
         </div>
- 
+
       </div>
 
       <SignInModal

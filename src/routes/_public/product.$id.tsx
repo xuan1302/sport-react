@@ -1,12 +1,11 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Card, Col, Divider, Form, Image, Row } from "antd";
-import productExample from "../../assets/product-example.png";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-import { hideLoading, showLoading } from "../../store/loadingSlice";
 import homeApi from "../../api/home/homeApi";
+import { hideLoading, showLoading } from "../../store/loadingSlice";
+import { AppDispatch } from "../../store/store";
 
 export const Route = createFileRoute("/_public/product/$id")({
   component: RouteComponent,
@@ -17,7 +16,6 @@ function RouteComponent() {
   const [form] = Form.useForm();
   const dispatch = useDispatch<AppDispatch>();
   const [selectedMaterial, setSelectedMaterial] = useState();
-  const [selectedMaterialName, setSelectedMaterialName] = useState();
   const [selectedSize, setSelectedSize] = useState();
   const [detailProduct, setDetailProduct] = useState(null);
   const [fileList, setFileList] = useState<unknown[]>([]);
@@ -44,6 +42,7 @@ function RouteComponent() {
           form.setFieldsValue({
             name: product?.name,
             description: product?.description,
+            materials: product?.materials,
           });
           setSelectedMaterial(product?.materials[0] || null);
           setSelectedSize(product?.materials[0]?.sizes[0] || null);
