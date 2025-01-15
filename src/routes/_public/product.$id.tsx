@@ -171,16 +171,27 @@ function RouteComponent() {
                 </div>
 
                 <div className="flex items-center gap-x-2">
-                  <Button type="primary" size="large">
+                  <button
+                    className="bg-[#312783] px-12 py-3 text-white font-bold uppercase hover:bg-[#ffff] hover:text-[#312783] hover:border-2 hover:border-[#5ea4ff] rounded-[20px] transition duration-300 "
+                  >
                     Mua ngay
-                  </Button>
-                  <Button
-                    size="large"
-                    icon={<ShoppingCartOutlined />}
+                  </button>
+                  <button
                     onClick={handleAddProductToMiniCard}
                   >
-                    Thêm vào giỏ
-                  </Button>
+                    <ShoppingCartOutlined className="text-3xl border-2 border-[#312783]  text-[#312783] rounded-[45%] p-1" />
+                  </button>
+                </div>
+
+                <div className="bg-[#fff3f3] flex items-center border-2 border-[#fec1c5] rounded-[20px] max-w-max">
+                  <div className="bg-[#eff8ff] flex items-center border-2 border-[#add6fc] rounded-[20px] p-1">
+                    <Image className="!w-[35px]" preview={false} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Messenger_logo_2018.svg/2048px-Facebook_Messenger_logo_2018.svg.png" />
+                    <p className="px-2">Nhắn tin ngay</p>
+                  </div>
+                  <div className="px-4">
+                    <p className="m-0">Tư Vấn Mua Hàng</p>
+                    <p className="m-0 text-red-500 text-sm">0989.248.835 - 0943.039.054</p>
+                  </div>
                 </div>
               </div>
             </Card>
