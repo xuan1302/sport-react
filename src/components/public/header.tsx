@@ -7,7 +7,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { useDisclosure } from "@mantine/hooks";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import {
   Button,
   Divider,
@@ -39,6 +39,7 @@ interface CartItemProps {
 }
 export default function AppHeader() {
   const [openModal, handleOpenModal] = useDisclosure(false);
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector((state: RootState) => state.auth.user);
@@ -162,7 +163,14 @@ export default function AppHeader() {
           {/* Thoát */}
           <Menu.Divider />
           <Menu.Item key="checkout">
-            <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">
+            <Button
+              onClick={() =>
+                navigate({
+                  to: "/user/checkout",
+                })
+              }
+              className="w-full bg-blue-500 text-white hover:bg-blue-600"
+            >
               Thanh toán
             </Button>
           </Menu.Item>

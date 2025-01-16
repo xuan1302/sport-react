@@ -1,5 +1,5 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Button,
   Card,
@@ -24,6 +24,7 @@ export const Route = createFileRoute("/_public/product/$id")({
 function RouteComponent() {
   const { id } = Route.useParams();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [selectedMaterial, setSelectedMaterial] = useState();
   const [selectedSize, setSelectedSize] = useState();
@@ -76,15 +77,25 @@ function RouteComponent() {
       material: selectedMaterial?.materialName,
       size: selectedSize?.sizeName,
     };
-    console.log(data);
-    // console.log(detailProduct);
-    // console.log(selectedMaterial);
-    // console.log(selectedSize);
-    // return;
     dispatch(addToCart(data));
     notification.success({
       message: "Thêm vào giỏ hàng thành công",
       description: `Thành công`,
+    });
+  };
+  const handleBuyNow = () => {
+    const data = {
+      id: detailProduct.id,
+      name: detailProduct.name,
+      price: selectedMaterial?.price,
+      quantity: 1,
+      image: detailProduct?.mainImage?.path,
+      material: selectedMaterial?.materialName,
+      size: selectedSize?.sizeName,
+    };
+    dispatch(addToCart(data));
+    navigate({
+      to: "/user/checkout",
     });
   };
   return (
@@ -199,7 +210,10 @@ function RouteComponent() {
                 </div>
 
                 <div className="flex items-center gap-x-2">
-                  <button className="bg-[#312783] px-12 py-3 text-white font-bold uppercase hover:bg-[#ffff] hover:text-[#312783] hover:border-2 hover:border-[#5ea4ff] rounded-[20px] transition duration-300 ">
+                  <button
+                    onClick={handleBuyNow}
+                    className="bg-[#312783] px-12 py-3 text-white font-bold uppercase hover:bg-[#ffff] hover:text-[#312783] hover:border-2 hover:border-[#5ea4ff] rounded-[20px] transition duration-300 "
+                  >
                     Mua ngay
                   </button>
                   <button onClick={handleAddToCart}>
