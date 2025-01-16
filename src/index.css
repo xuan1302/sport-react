@@ -79,3 +79,20 @@
     background-color: rgba(243, 241, 255, 1);
     border-color: rgba(49, 39, 131, 1);
 }
+.box-bag {
+  position: relative;
+}
+.count-cart{
+display: block;
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    font-size: 13px;
+    background: red;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    border-radius: 50%;
+    font-weight: bold;
+    text-align: center;
+}
