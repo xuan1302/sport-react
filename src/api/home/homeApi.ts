@@ -13,6 +13,10 @@ const homeApi = {
     const url = `/v1/sporty-shop/home/product/${id}`;
     return axiosClient.get(url);
   },
+  checkout(body: unknown): Promise<unknown> {
+    const url = `/v1/sporty-shop/home/checkout`;
+    return axiosClient.post(url, body);
+  },
 };
 
 export default homeApi;

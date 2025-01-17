@@ -16,6 +16,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as PublicImport } from './routes/_public'
 import { Route as AuthAuthLayoutImport } from './routes/auth/_auth-layout'
 import { Route as AdminAdminLayoutImport } from './routes/admin/_admin-layout'
+import { Route as PublicUserFailImport } from './routes/_public/user/fail'
+import { Route as PublicUserAccessImport } from './routes/_public/user/access'
 import { Route as PublicUserContactImport } from './routes/_public/user/Contact'
 import { Route as PublicUserCheckoutImport } from './routes/_public/user/Checkout'
 import { Route as PublicUserAccessoriesImport } from './routes/_public/user/Accessories'
@@ -242,6 +244,18 @@ const AdminAdminLayoutAccountsLazyRoute =
     import('./routes/admin/_admin-layout/accounts.lazy').then((d) => d.Route),
   )
 
+const PublicUserFailRoute = PublicUserFailImport.update({
+  id: '/user/fail',
+  path: '/user/fail',
+  getParentRoute: () => PublicRoute,
+} as any)
+
+const PublicUserAccessRoute = PublicUserAccessImport.update({
+  id: '/user/access',
+  path: '/user/access',
+  getParentRoute: () => PublicRoute,
+} as any)
+
 const PublicUserContactRoute = PublicUserContactImport.update({
   id: '/user/Contact',
   path: '/user/Contact',
@@ -369,6 +383,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicUserContactImport
       parentRoute: typeof PublicImport
     }
+    '/_public/user/access': {
+      id: '/_public/user/access'
+      path: '/user/access'
+      fullPath: '/user/access'
+      preLoaderRoute: typeof PublicUserAccessImport
+      parentRoute: typeof PublicImport
+    }
+    '/_public/user/fail': {
+      id: '/_public/user/fail'
+      path: '/user/fail'
+      fullPath: '/user/fail'
+      preLoaderRoute: typeof PublicUserFailImport
+      parentRoute: typeof PublicImport
+    }
     '/admin/_admin-layout/accounts': {
       id: '/admin/_admin-layout/accounts'
       path: '/accounts'
@@ -492,6 +520,8 @@ interface PublicRouteChildren {
   PublicUserAccessoriesRoute: typeof PublicUserAccessoriesRoute
   PublicUserCheckoutRoute: typeof PublicUserCheckoutRoute
   PublicUserContactRoute: typeof PublicUserContactRoute
+  PublicUserAccessRoute: typeof PublicUserAccessRoute
+  PublicUserFailRoute: typeof PublicUserFailRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
@@ -500,6 +530,8 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicUserAccessoriesRoute: PublicUserAccessoriesRoute,
   PublicUserCheckoutRoute: PublicUserCheckoutRoute,
   PublicUserContactRoute: PublicUserContactRoute,
+  PublicUserAccessRoute: PublicUserAccessRoute,
+  PublicUserFailRoute: PublicUserFailRoute,
 }
 
 const PublicRouteWithChildren =
@@ -589,6 +621,8 @@ export interface FileRoutesByFullPath {
   '/user/Accessories': typeof PublicUserAccessoriesRoute
   '/user/Checkout': typeof PublicUserCheckoutRoute
   '/user/Contact': typeof PublicUserContactRoute
+  '/user/access': typeof PublicUserAccessRoute
+  '/user/fail': typeof PublicUserFailRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/cart': typeof AdminAdminLayoutCartLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
@@ -616,6 +650,8 @@ export interface FileRoutesByTo {
   '/user/Accessories': typeof PublicUserAccessoriesRoute
   '/user/Checkout': typeof PublicUserCheckoutRoute
   '/user/Contact': typeof PublicUserContactRoute
+  '/user/access': typeof PublicUserAccessRoute
+  '/user/fail': typeof PublicUserFailRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/cart': typeof AdminAdminLayoutCartLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
@@ -646,6 +682,8 @@ export interface FileRoutesById {
   '/_public/user/Accessories': typeof PublicUserAccessoriesRoute
   '/_public/user/Checkout': typeof PublicUserCheckoutRoute
   '/_public/user/Contact': typeof PublicUserContactRoute
+  '/_public/user/access': typeof PublicUserAccessRoute
+  '/_public/user/fail': typeof PublicUserFailRoute
   '/admin/_admin-layout/accounts': typeof AdminAdminLayoutAccountsLazyRoute
   '/admin/_admin-layout/cart': typeof AdminAdminLayoutCartLazyRoute
   '/admin/_admin-layout/category': typeof AdminAdminLayoutCategoryLazyRoute
@@ -676,6 +714,8 @@ export interface FileRouteTypes {
     | '/user/Accessories'
     | '/user/Checkout'
     | '/user/Contact'
+    | '/user/access'
+    | '/user/fail'
     | '/admin/accounts'
     | '/admin/cart'
     | '/admin/category'
@@ -702,6 +742,8 @@ export interface FileRouteTypes {
     | '/user/Accessories'
     | '/user/Checkout'
     | '/user/Contact'
+    | '/user/access'
+    | '/user/fail'
     | '/admin/accounts'
     | '/admin/cart'
     | '/admin/category'
@@ -730,6 +772,8 @@ export interface FileRouteTypes {
     | '/_public/user/Accessories'
     | '/_public/user/Checkout'
     | '/_public/user/Contact'
+    | '/_public/user/access'
+    | '/_public/user/fail'
     | '/admin/_admin-layout/accounts'
     | '/admin/_admin-layout/cart'
     | '/admin/_admin-layout/category'
@@ -786,7 +830,9 @@ export const routeTree = rootRoute
         "/_public/product/$id",
         "/_public/user/Accessories",
         "/_public/user/Checkout",
-        "/_public/user/Contact"
+        "/_public/user/Contact",
+        "/_public/user/access",
+        "/_public/user/fail"
       ]
     },
     "/404": {
@@ -850,6 +896,14 @@ export const routeTree = rootRoute
     },
     "/_public/user/Contact": {
       "filePath": "_public/user/Contact.tsx",
+      "parent": "/_public"
+    },
+    "/_public/user/access": {
+      "filePath": "_public/user/access.tsx",
+      "parent": "/_public"
+    },
+    "/_public/user/fail": {
+      "filePath": "_public/user/fail.tsx",
       "parent": "/_public"
     },
     "/admin/_admin-layout/accounts": {
