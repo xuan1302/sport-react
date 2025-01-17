@@ -63,6 +63,9 @@ const AdminAdminLayoutChangePasswordLazyImport = createFileRoute(
 const AdminAdminLayoutCategoryLazyImport = createFileRoute(
   '/admin/_admin-layout/category',
 )()
+const AdminAdminLayoutCartLazyImport = createFileRoute(
+  '/admin/_admin-layout/cart',
+)()
 const AdminAdminLayoutAccountsLazyImport = createFileRoute(
   '/admin/_admin-layout/accounts',
 )()
@@ -222,6 +225,14 @@ const AdminAdminLayoutCategoryLazyRoute =
     import('./routes/admin/_admin-layout/category.lazy').then((d) => d.Route),
   )
 
+const AdminAdminLayoutCartLazyRoute = AdminAdminLayoutCartLazyImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => AdminAdminLayoutRoute,
+} as any).lazy(() =>
+  import('./routes/admin/_admin-layout/cart.lazy').then((d) => d.Route),
+)
+
 const AdminAdminLayoutAccountsLazyRoute =
   AdminAdminLayoutAccountsLazyImport.update({
     id: '/accounts',
@@ -365,6 +376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminLayoutAccountsLazyImport
       parentRoute: typeof AdminAdminLayoutImport
     }
+    '/admin/_admin-layout/cart': {
+      id: '/admin/_admin-layout/cart'
+      path: '/cart'
+      fullPath: '/admin/cart'
+      preLoaderRoute: typeof AdminAdminLayoutCartLazyImport
+      parentRoute: typeof AdminAdminLayoutImport
+    }
     '/admin/_admin-layout/category': {
       id: '/admin/_admin-layout/category'
       path: '/category'
@@ -489,6 +507,7 @@ const PublicRouteWithChildren =
 
 interface AdminAdminLayoutRouteChildren {
   AdminAdminLayoutAccountsLazyRoute: typeof AdminAdminLayoutAccountsLazyRoute
+  AdminAdminLayoutCartLazyRoute: typeof AdminAdminLayoutCartLazyRoute
   AdminAdminLayoutCategoryLazyRoute: typeof AdminAdminLayoutCategoryLazyRoute
   AdminAdminLayoutChangePasswordLazyRoute: typeof AdminAdminLayoutChangePasswordLazyRoute
   AdminAdminLayoutContactLazyRoute: typeof AdminAdminLayoutContactLazyRoute
@@ -505,6 +524,7 @@ interface AdminAdminLayoutRouteChildren {
 
 const AdminAdminLayoutRouteChildren: AdminAdminLayoutRouteChildren = {
   AdminAdminLayoutAccountsLazyRoute: AdminAdminLayoutAccountsLazyRoute,
+  AdminAdminLayoutCartLazyRoute: AdminAdminLayoutCartLazyRoute,
   AdminAdminLayoutCategoryLazyRoute: AdminAdminLayoutCategoryLazyRoute,
   AdminAdminLayoutChangePasswordLazyRoute:
     AdminAdminLayoutChangePasswordLazyRoute,
@@ -570,6 +590,7 @@ export interface FileRoutesByFullPath {
   '/user/Checkout': typeof PublicUserCheckoutRoute
   '/user/Contact': typeof PublicUserContactRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
+  '/admin/cart': typeof AdminAdminLayoutCartLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
   '/admin/contact': typeof AdminAdminLayoutContactLazyRoute
@@ -596,6 +617,7 @@ export interface FileRoutesByTo {
   '/user/Checkout': typeof PublicUserCheckoutRoute
   '/user/Contact': typeof PublicUserContactRoute
   '/admin/accounts': typeof AdminAdminLayoutAccountsLazyRoute
+  '/admin/cart': typeof AdminAdminLayoutCartLazyRoute
   '/admin/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
   '/admin/contact': typeof AdminAdminLayoutContactLazyRoute
@@ -625,6 +647,7 @@ export interface FileRoutesById {
   '/_public/user/Checkout': typeof PublicUserCheckoutRoute
   '/_public/user/Contact': typeof PublicUserContactRoute
   '/admin/_admin-layout/accounts': typeof AdminAdminLayoutAccountsLazyRoute
+  '/admin/_admin-layout/cart': typeof AdminAdminLayoutCartLazyRoute
   '/admin/_admin-layout/category': typeof AdminAdminLayoutCategoryLazyRoute
   '/admin/_admin-layout/change-password': typeof AdminAdminLayoutChangePasswordLazyRoute
   '/admin/_admin-layout/contact': typeof AdminAdminLayoutContactLazyRoute
@@ -654,6 +677,7 @@ export interface FileRouteTypes {
     | '/user/Checkout'
     | '/user/Contact'
     | '/admin/accounts'
+    | '/admin/cart'
     | '/admin/category'
     | '/admin/change-password'
     | '/admin/contact'
@@ -679,6 +703,7 @@ export interface FileRouteTypes {
     | '/user/Checkout'
     | '/user/Contact'
     | '/admin/accounts'
+    | '/admin/cart'
     | '/admin/category'
     | '/admin/change-password'
     | '/admin/contact'
@@ -706,6 +731,7 @@ export interface FileRouteTypes {
     | '/_public/user/Checkout'
     | '/_public/user/Contact'
     | '/admin/_admin-layout/accounts'
+    | '/admin/_admin-layout/cart'
     | '/admin/_admin-layout/category'
     | '/admin/_admin-layout/change-password'
     | '/admin/_admin-layout/contact'
@@ -777,6 +803,7 @@ export const routeTree = rootRoute
       "parent": "/admin",
       "children": [
         "/admin/_admin-layout/accounts",
+        "/admin/_admin-layout/cart",
         "/admin/_admin-layout/category",
         "/admin/_admin-layout/change-password",
         "/admin/_admin-layout/contact",
@@ -827,6 +854,10 @@ export const routeTree = rootRoute
     },
     "/admin/_admin-layout/accounts": {
       "filePath": "admin/_admin-layout/accounts.lazy.tsx",
+      "parent": "/admin/_admin-layout"
+    },
+    "/admin/_admin-layout/cart": {
+      "filePath": "admin/_admin-layout/cart.lazy.tsx",
       "parent": "/admin/_admin-layout"
     },
     "/admin/_admin-layout/category": {
