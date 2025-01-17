@@ -131,18 +131,34 @@ export default function AppHeader() {
                       }
                     />
 
-                    <span className="text-gray-500 font-bold text-lg ml-4">
-                      {(
-                        item.price * (quantities[item.id] || item.quantity)
-                      ).toLocaleString()}{" "}
-                      <span className="text-sm font-semibold">
-                        <sup className="text-xs">VND</sup>
+
+                  {/* Thẻ 2: Thông tin sản phẩm */}
+                  <div className="w-9/12 flex flex-col">
+                    <span className="font-semibold text-lg block">{item.name}</span>
+                    <span className="text-sm text-gray-500 block ">{item.category} : {item.size}</span>
+                    <div className="flex items-center justify-between mt-2 text-sm">
+                      <span className="font-bold text-gray-500">
+                        <span className="font-bold text-lg text-red-500"> {item.price.toLocaleString()}</span>
+                        <span className="text-sm font-semibold">
+                          <sup className="text-xs">VND</sup>
+                        </span>
                       </span>
-                    </span>
-                    <DeleteOutlined
-                      onClick={() => handleRemove(item)}
-                      className="text-red-500 cursor-pointer block"
-                    />
+                      <span className="text-xs text-gray-500">  X  </span>
+
+                      <Input
+                        type="number"
+                        className="w-10 p-1 border rounded text-center mx-3"
+                        value={quantities[item.id] || item.quantity} // Đảm bảo nếu không có giá trị thì lấy giá trị mặc định từ item
+                        onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
+                      />
+
+                      <span className="text-gray-500 font-bold text-lg ml-4">
+                        <span className="text-red-500" >{(item.price * (quantities[item.id] || item.quantity)).toLocaleString()} </span>          <span className="text-sm font-semibold">
+                          <sup className="text-xs">VND</sup>
+                        </span>
+                      </span>
+                      <DeleteOutlined className="text-red-500 cursor-pointer block" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -255,13 +271,8 @@ export default function AppHeader() {
           </Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
+          <Link to="/user/Contact" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Liên Hệ</Link>
 
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Liên Hệ
-          </Link>
         </div>
 
         <div className="flex items-center gap-x-4">

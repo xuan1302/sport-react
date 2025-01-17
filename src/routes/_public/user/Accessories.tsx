@@ -119,6 +119,7 @@ function RouteComponent() {
           <Option value="desc">Giá từ cao đến thấp</Option>
         </Select>
     </div>
+ 
     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
         {displayedProducts.map((product) => (
           <div className="relative group w-[320px]">
@@ -127,7 +128,7 @@ function RouteComponent() {
             alt={product.name}
             className="w-full h-auto"
           />
-          
+           
           {/* Các thông tin khác của sản phẩm */}
           <p className="text-[#262626] text-[11px] uppercase mt-2">Sản phẩm thể thao</p>
           <p className="text-[#105458] hover:underline cursor-pointer" onClick={() => navigate({ to: `/product/${product.id}` })}>
@@ -147,7 +148,6 @@ function RouteComponent() {
         </div>
         ))}
       </div>
-  
       <div className="flex justify-center my-6">
         <Pagination
           current={currentPage}
