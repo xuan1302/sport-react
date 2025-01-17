@@ -18,7 +18,7 @@ function RouteComponent() {
         Gửi đơn hàng Thất Bại
       </h1>
       <p className="text-gray-600">
-        Cảm ơn quý khách đã mua hàng tại vui lòng thực hiện lại <br />
+        Cảm ơn quý khách đã mua hàng tại vui lòng thực hiện lại thanh toán<br />
         Nếu bạn có bất kỳ thắc mắc hay câu hỏi nào vui lòng gọi điện để được
         tư vấn: <span className="text-red-500 font-bold">0977500358</span>
       </p>
