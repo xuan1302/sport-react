@@ -3,7 +3,7 @@ import {
   DeleteOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Button,
   Col,
@@ -24,7 +24,6 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { removeFromCart, updateQuantity } from "../../../store/cardSlice";
 import homeApi from "../../../api/home/homeApi";
 import { hideLoading, showLoading } from "../../../store/loadingSlice";
-
 export const Route = createFileRoute("/_public/user/Checkout")({
   component: RouteComponent,
 });
@@ -46,6 +45,7 @@ interface Location {
 }
 function RouteComponent() {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const [provinces, setProvinces] = useState<Location[]>([]);
   const [districts, setDistricts] = useState<Location[]>([]);
   const [wards, setWards] = useState<Location[]>([]);
@@ -82,7 +82,6 @@ function RouteComponent() {
   };
   const handleFinish = async (value: any) => {
     dispatch(showLoading());
-    console.log("Form Values: ", value);
     const data = {
       deliveryInformation: {
         fullName: value.fullName,
@@ -107,6 +106,14 @@ function RouteComponent() {
     try {
       const checkout = await homeApi.checkout(data);
       console.log(checkout);
+      if (checkout.paymentType === 1) {
+        navigate({
+          to: "/user/access",
+        });
+      }
+      if (checkout.paymentType === 2) {
+        window.location.href = checkout.message;
+      }
     } catch (error) {
       notification.error({
         message: error.message || "Thanh toán thất bại",
@@ -133,9 +140,9 @@ function RouteComponent() {
     dispatch(removeFromCart(data));
   };
 
-  const handleQuantityChange = (id, quantity, material, size) => {
+  const handleQuantityChange = (id, quantity, materialId, sizeId) => {
     if (quantity > 0) {
-      dispatch(updateQuantity({ id, quantity, material, size }));
+      dispatch(updateQuantity({ id, quantity, materialId, sizeId }));
     }
   };
 
@@ -322,7 +329,10 @@ function RouteComponent() {
                     </span>
                     <div className="flex items-center justify-between mt-2 text-sm">
                       <span className="font-bold text-gray-500">
-                        <span className="font-bold text-lg text-red-500"> {item.price.toLocaleString()}</span>
+                        <span className="font-bold text-lg ">
+                          {" "}
+                          {item.price}
+                        </span>
                         <span className="text-sm font-semibold">
                           <sup className="text-xs">VND</sup>
                         </span>
@@ -337,14 +347,17 @@ function RouteComponent() {
                           handleQuantityChange(
                             item.id,
                             +e.target.value,
-                            item.material,
-                            item.size
+                            item.materialId,
+                            item.sizeId
                           )
                         }
                       />
 
-                      <span className="text-gray-500 font-bold text-lg">
-                        <span className='text-red-500'>{(item.price * (quantities[item.id] || item.quantity)).toLocaleString()}   </span>          <span className="text-sm font-semibold">
+                      <span className="text-gray-500 font-bold text-lg ml-4">
+                        {(
+                          item.price * (quantities[item.id] || item.quantity)
+                        ).toLocaleString()}{" "}
+                        <span className="text-sm font-semibold">
                           <sup className="text-xs">VND</sup>
                         </span>
                       </span>
