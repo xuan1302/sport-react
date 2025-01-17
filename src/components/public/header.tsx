@@ -105,7 +105,7 @@ export default function AppHeader() {
                     <span className="text-sm text-gray-500 block ">{item.category} : {item.size}</span>
                     <div className="flex items-center justify-between mt-2 text-sm">
                       <span className="font-bold text-gray-500">
-                        <span className="font-bold text-lg "> {item.price.toLocaleString()}</span>
+                        <span className="font-bold text-lg text-red-500"> {item.price.toLocaleString()}</span>
                         <span className="text-sm font-semibold">
                           <sup className="text-xs">VND</sup>
                         </span>
@@ -120,7 +120,7 @@ export default function AppHeader() {
                       />
 
                       <span className="text-gray-500 font-bold text-lg ml-4">
-                        {(item.price * (quantities[item.id] || item.quantity)).toLocaleString()}             <span className="text-sm font-semibold">
+                        <span className="text-red-500" >{(item.price * (quantities[item.id] || item.quantity)).toLocaleString()} </span>          <span className="text-sm font-semibold">
                           <sup className="text-xs">VND</sup>
                         </span>
                       </span>
@@ -188,7 +188,7 @@ export default function AppHeader() {
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Liên Hệ</Link>
+          <Link to="/user/Contact" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Liên Hệ</Link>
         </div>
 
         <div className="flex items-center gap-x-4">

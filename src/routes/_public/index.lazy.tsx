@@ -1,6 +1,6 @@
 import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
 
-import { Divider, Image } from "antd";
+import { Carousel, Divider, Image } from "antd";
 import heroBannerImage from "../../assets/hero-banner.png";
 import section1 from "../../assets/section-1.png";
 import section2 from "../../assets/section-2.png";
@@ -52,10 +52,28 @@ function RouteComponent() {
 
     fetchApis();
   }, []);
+  const heroBannerImages = [
+    'https://aobongda.net/pic/banner/qua-bong-da-dong-luc_5523_7493_HasThumb_Thumb.webp', // Đường dẫn ảnh
+    'https://aobongda.net/pic/banner/banner-tet-1_5662_HasThumb_Thumb.webp',
+    'https://aobongda.net/pic/banner/baner-pickleball_11zon-2_5874_HasThumb_Thumb.webp',
+    'https://aobongda.net/pic/banner/doi-tac_5423_HasThumb_Thumb.webp',
+    'https://aobongda.net/pic/banner/untitled-design-1_9940_HasThumb_Thumb.webp'
+  ];
+
   return (
     <div className="flex flex-col">
       <div className="img-wid100">
-        <Image src={heroBannerImage} preview={false} />
+      <Carousel autoplay >
+        {heroBannerImages.map((src, index) => (
+          <div key={index} className="flex justify-center">
+            <Image
+              src={src}
+              alt={`Hero banner ${index + 1}`}
+              height={600}
+            />
+          </div>
+        ))}
+      </Carousel>
       </div>
 
       <div className="max-w-[1200px] mx-auto w-full">
@@ -112,7 +130,7 @@ function RouteComponent() {
                         {product.prices.map((price, index) => (
                           <div key={index} className="w-full py-1">
                             <p className="font-semibold">
-                              <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
+                              <span className="text-red-500">{formatCurrency(price.price)} </span>VND - {price.materialName}
                             </p>
                           </div>
                         ))}
@@ -157,7 +175,7 @@ function RouteComponent() {
                 {product.prices.map((price, index) => (
                   <div key={index} className="w-full py-1">
                     <p className="font-semibold">
-                      <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
+                      <span className="text-red-500">{formatCurrency(price.price)} </span>VND - {price.materialName}
                     </p>
                   </div>
                 ))}
@@ -199,7 +217,7 @@ function RouteComponent() {
                 {product.prices.map((price, index) => (
                   <div key={index} className="w-full py-1">
                     <p className="font-semibold">
-                      <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
+                      <span className="text-red-500">{formatCurrency(price.price)} </span>VND - {price.materialName}
                     </p>
                   </div>
                 ))}
@@ -240,7 +258,7 @@ function RouteComponent() {
                 {product.prices.map((price, index) => (
                   <div key={index} className="w-full py-1">
                     <p className="font-semibold">
-                      <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
+                      <span className="text-red-500">{formatCurrency(price.price)} </span>VND - {price.materialName}
                     </p>
                   </div>
                 ))}
@@ -280,8 +298,8 @@ function RouteComponent() {
               <div className="flex flex-col mt-2">
                 {product.prices.map((price, index) => (
                   <div key={index} className="w-full py-1">
-                    <p className="font-semibold">
-                      {formatCurrency(price.price)} VND - {price.materialName}
+                   <p className="font-semibold">
+                      <span className="text-red-500">{formatCurrency(price.price)} </span>VND - {price.materialName}
                     </p>
                   </div>
                 ))}
