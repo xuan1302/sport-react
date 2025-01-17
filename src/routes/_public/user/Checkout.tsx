@@ -325,7 +325,7 @@ function RouteComponent() {
                       {item.name}
                     </span>
                     <span className="text-sm text-gray-500 block ">
-                      {item.material} : {item.size}
+                      {item.materialName} : {item.sizeName}
                     </span>
                     <div className="flex items-center justify-between mt-2 text-sm">
                       <span className="font-bold text-gray-500">
