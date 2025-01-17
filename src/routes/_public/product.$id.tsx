@@ -74,8 +74,8 @@ function RouteComponent() {
       price: selectedMaterial?.price,
       quantity: 1,
       image: detailProduct?.mainImage?.path,
-      material: selectedMaterial?.materialName,
-      size: selectedSize?.sizeName,
+      materialId: selectedMaterial?.materialId,
+      sizeId: selectedSize?.sizeId,
     };
     dispatch(addToCart(data));
     notification.success({

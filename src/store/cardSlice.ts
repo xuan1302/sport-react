@@ -12,8 +12,8 @@ const cardSlice = createSlice({
       const existingItem = state.cartItems.find(
         (item) =>
           item.id === action.payload.id &&
-          item.material == action.payload.material &&
-          item.size == action.payload.size
+          item.materialId === action.payload.materialId &&
+          item.sizeId === action.payload.sizeId
       );
 
       if (existingItem) {
@@ -32,17 +32,19 @@ const cardSlice = createSlice({
       const data = state.cartItems.filter(
         (item) =>
           item.id != action.payload.id ||
-          item.material != action.payload.material ||
-          item.size != action.payload.size
+          item.materialId !== action.payload.materialId ||
+          item.sizeId !== action.payload.sizeId
       );
       state.cartItems = data;
       localStorage.setItem("cart", JSON.stringify(data));
     },
     updateQuantity: (state, action) => {
-      const { id, quantity, material, size } = action.payload;
+      const { id, quantity, materialId, sizeId } = action.payload;
       const item = state.cartItems.find(
         (item) =>
-          item.id === id && item.material === material && item.size === size
+          item.id === id &&
+          item.materialId === materialId &&
+          item.sizeId === sizeId
       );
 
       if (item) {

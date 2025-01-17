@@ -49,9 +49,9 @@ export default function AppHeader() {
     dispatch(removeFromCart(data));
   };
 
-  const handleQuantityChange = (id, quantity, material, size) => {
+  const handleQuantityChange = (id, quantity, materialId, sizeId) => {
     if (quantity > 0) {
-      dispatch(updateQuantity({ id, quantity, material, size }));
+      dispatch(updateQuantity({ id, quantity, materialId, sizeId }));
     }
   };
   useEffect(() => {
@@ -125,8 +125,8 @@ export default function AppHeader() {
                         handleQuantityChange(
                           item.id,
                           +e.target.value,
-                          item.material,
-                          item.size
+                          item.materialId,
+                          item.sizeId
                         )
                       }
                     />

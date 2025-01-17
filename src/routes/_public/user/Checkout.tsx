@@ -14,6 +14,7 @@ import {
   Space,
   Typography,
   Menu,
+  notification,
 } from "antd";
 import { Option } from "antd/es/mentions";
 import axios from "axios";
@@ -21,6 +22,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { removeFromCart, updateQuantity } from "../../../store/cardSlice";
+import homeApi from "../../../api/home/homeApi";
+import { hideLoading, showLoading } from "../../../store/loadingSlice";
 
 export const Route = createFileRoute("/_public/user/Checkout")({
   component: RouteComponent,
@@ -77,8 +80,41 @@ function RouteComponent() {
         setWards(res.data.wards);
       });
   };
-  const handleFinish = (value: any) => {
+  const handleFinish = async (value: any) => {
+    dispatch(showLoading());
     console.log("Form Values: ", value);
+    const data = {
+      deliveryInformation: {
+        fullName: value.fullName,
+        phoneNumber: value.phone,
+        provinceCode: value.province,
+        districtCode: value.district,
+        wardCode: value.ward,
+        address: value.address,
+        note: value.note,
+      },
+      totalPrice: totalPrice,
+      paymentType: selectedOption,
+      cartItems: cartItems?.map((item) => ({
+        productId: item.id,
+        materialId: item.materialId,
+        sizeId: item.sizeId,
+        quantity: item.quantity,
+        unitPrice: item.price,
+        totalPrice: item.totalPrice,
+      })),
+    };
+    try {
+      const checkout = await homeApi.checkout(data);
+      console.log(checkout);
+    } catch (error) {
+      notification.error({
+        message: error.message || "Thanh toán thất bại",
+        description: `Thất bại`,
+      });
+    } finally {
+      dispatch(hideLoading());
+    }
   };
 
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
@@ -87,7 +123,7 @@ function RouteComponent() {
     return total + item.price * quantity;
   }, 0);
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(1);
 
   const handleClick = (index: any) => {
     setSelectedOption(index);
