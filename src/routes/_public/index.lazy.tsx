@@ -10,7 +10,7 @@ import section4 from "../../assets/section-4.png";
 import blogImage from "../../assets/blog-image.png";
 import termBanner from "../../assets/term-banner.png";
 
-import { StarFilled } from "@ant-design/icons";
+import { StarFilled, StarOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import homeApi from "../../api/home/homeApi";
 import customerExample from "../../assets/customer-example.png";
@@ -92,7 +92,7 @@ function RouteComponent() {
                         alt={product.productName}
                         className="w-full h-auto"
                         width={280}
-                        height={200}
+                        height={320}
                       />
                       <p
                         className="text-[#105458] hover:underline cursor-pointer"
@@ -105,14 +105,14 @@ function RouteComponent() {
                           })
                         }
                       >
+                        <p className="text-[#262626] text-[11px] uppercase mt-2">Sản phẩm nổi bật</p>
                         {product.productName}
                       </p>
                       <div className="flex flex-col mt-2">
                         {product.prices.map((price, index) => (
                           <div key={index} className="w-full py-1">
                             <p className="font-semibold">
-                              {formatCurrency(price.price)} VND -{" "}
-                              {price.materialName}
+                              <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
                             </p>
                           </div>
                         ))}
@@ -136,7 +136,7 @@ function RouteComponent() {
                 src={product.url}
                 preview={false}
                 width={280}
-                height={200}
+                height={320}
               />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
@@ -149,6 +149,7 @@ function RouteComponent() {
                   })
                 }
               >
+                <p className="text-[#262626] text-[11px] uppercase mt-2">Áo đội tuyển quốc gia</p>
                 {product.productName}
               </p>
 
@@ -156,7 +157,7 @@ function RouteComponent() {
                 {product.prices.map((price, index) => (
                   <div key={index} className="w-full py-1">
                     <p className="font-semibold">
-                      {formatCurrency(price.price)} VND - {price.materialName}
+                      <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
                     </p>
                   </div>
                 ))}
@@ -176,7 +177,7 @@ function RouteComponent() {
                 src={product.url}
                 preview={false}
                 width={280}
-                height={200}
+                height={320}
               />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
@@ -189,6 +190,8 @@ function RouteComponent() {
                   })
                 }
               >
+
+                <p className="text-[#262626] text-[11px] uppercase mt-2">Áo câu lạc bộ</p>
                 {product.productName}
               </p>
 
@@ -196,7 +199,7 @@ function RouteComponent() {
                 {product.prices.map((price, index) => (
                   <div key={index} className="w-full py-1">
                     <p className="font-semibold">
-                      {formatCurrency(price.price)} VND - {price.materialName}
+                      <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
                     </p>
                   </div>
                 ))}
@@ -216,7 +219,7 @@ function RouteComponent() {
                 src={product.url}
                 preview={false}
                 width={280}
-                height={200}
+                height={320}
               />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
@@ -229,6 +232,7 @@ function RouteComponent() {
                   })
                 }
               >
+                <p className="text-[#262626] text-[11px] uppercase mt-2">Giày thể thao</p>
                 {product.productName}
               </p>
 
@@ -236,7 +240,7 @@ function RouteComponent() {
                 {product.prices.map((price, index) => (
                   <div key={index} className="w-full py-1">
                     <p className="font-semibold">
-                      {formatCurrency(price.price)} VND - {price.materialName}
+                      <span className="text-red-500">{formatCurrency(price.price)} VND</span> - {price.materialName}
                     </p>
                   </div>
                 ))}
@@ -256,7 +260,7 @@ function RouteComponent() {
                 src={product.url}
                 preview={false}
                 width={280}
-                height={200}
+                height={320}
               />
               <p
                 className="text-[#105458] hover:underline cursor-pointer"
@@ -269,6 +273,7 @@ function RouteComponent() {
                   })
                 }
               >
+                <p className="text-[#262626] text-[11px] uppercase mt-2">Phụ kiện thể thao</p>
                 {product.productName}
               </p>
 
@@ -294,19 +299,39 @@ function RouteComponent() {
         </Divider>
 
         <div className="grid grid-cols-3 gap-4">
-          {new Array(3).fill(0).map((_, index) => (
-            <div key={index} className="w-full">
-              <Image src={blogImage} preview={false} />
-              <p className="text-[#105458] hover:underline cursor-pointer text-center line-clamp-1">
-                Nên chạy với nhịp thở nào để không mệt – Sportshop.vn
-              </p>
+          <div className="w-full">
+            <Image src={"https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2023/12/30/9-17039030422311436775144.jpg"} preview={false} width={"360px"} height={"290px"} />
+            <p className="text-[#105458] hover:underline cursor-pointer text-center line-clamp-1">
+              Viêt Nam Vô Địch – Sportshop.vn
+            </p>
 
-              <p className="text-center line-clamp-1">
-                Nhịp thở chính xác của bạn sẽ phụ thuộc vào mức độ khó hay dễ
-                ...
-              </p>
-            </div>
-          ))}
+            <p className="text-center line-clamp-1">
+              Nhịp thở chính xác của bạn sẽ phụ thuộc vào mức độ khó hay dễ
+              ...
+            </p>
+          </div>
+          <div className="w-full">
+            <Image src={"https://th.bing.com/th/id/R.13f2201e80106050f1201f711501011c?rik=r3kgL98pZ5TV9A&riu=http%3a%2f%2fphotocdn.sohu.com%2f20131110%2fImg389866166.jpg&ehk=CfQCjCTbi62pS4%2fGmZyg5korwB6YlwmkpEJtGCQ4iAc%3d&risl=&pid=ImgRaw&r=0 "} width={"360px"} height={"290px"} preview={false} />
+            <p className="text-[#105458] hover:underline cursor-pointer text-center line-clamp-1">
+              Dành Chức Vô Địch Đầy Thuyết phục – Sportshop.vn
+            </p>
+
+            <p className="text-center line-clamp-1">
+              Nhịp thở chính xác của bạn sẽ phụ thuộc vào mức độ khó hay dễ
+              ...
+            </p>
+          </div>
+          <div className="w-full">
+            <Image src={"https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"} width={"360px"} height={"290px"} preview={false} />
+            <p className="text-[#105458] hover:underline cursor-pointer text-center line-clamp-1">
+              Nên chạy với nhịp thở nào để không mệt – Sportshop.vn
+            </p>
+
+            <p className="text-center line-clamp-1">
+              Nhịp thở chính xác của bạn sẽ phụ thuộc vào mức độ khó hay dễ
+              ...
+            </p>
+          </div>
         </div>
 
         <Divider className="py-5">
@@ -314,41 +339,90 @@ function RouteComponent() {
         </Divider>
 
         <div className="grid grid-cols-3 gap-4 pb-10">
-          {new Array(3).fill(0).map((_, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center w-full p-4 border rounded-md shadow-md gap-y-4 border-neutral-200"
-            >
-              <Image
-                src={customerExample}
-                preview={false}
-                width={120}
-                height={120}
-              />
 
-              <div className="flex items-center justify-center">
-                {new Array(5).fill(0).map((_, index) => (
-                  <StarFilled key={index} className="text-yellow-400" />
-                ))}
-              </div>
+          <div
+            className="flex flex-col items-center w-full p-4 border rounded-md shadow-md gap-y-4 border-neutral-200"
+          >
+            <Image
+              src={customerExample}
+              preview={false}
+              width={120}
+              height={120}
+            />
 
-              <p className="text-center">
-                ” Em là một new Runner, mới chạy bộ được khoảng vài tháng nay.
-                Ban đầu cũng không để ý nhiều đến cách chạy nên cứ ra đường là
-                cắm đầu cắm cổ chạy nên rất hay bị chấn thương. Một ngày em thấy
-                trên Fanpage của Sportshop hướng dẫn cách hồi phục chấn thương.
-                Em đã mạnh dạn inbox và được admin chỉ dẫn nhiệt tình tư cách
-                khởi động đến làm thế nào để chỉnh dáng chạy rồi cách chọn giày,
-                quần áo chạy bộ… – những điều ma trước kia em không hay để ý.
-                Còn các sản phẩm của Sportshop thì chất lượng cực tốt và em thấy
-                được sự đặc biệt thoải mái mỗi khi chạy bộ. “
-              </p>
-
-              <p className="font-semibold">
-                Hoàng Kiều Oanh / Nhân Viên Văn Phòng
-              </p>
+            <div className="flex items-center justify-center">
+              {new Array(5).fill(0).map((_, index) => (
+                <StarFilled key={index} className="text-yellow-400" />
+              ))}
             </div>
-          ))}
+
+            <p className="text-center">
+              ” Em là một new Runner, mới chạy bộ được khoảng vài tháng nay.
+              Ban đầu cũng không để ý nhiều đến cách chạy nên cứ ra đường là
+              cắm đầu cắm cổ chạy nên rất hay bị chấn thương. Một ngày em thấy
+              trên Fanpage của Sportshop hướng dẫn cách hồi phục chấn thương.
+              Em đã mạnh dạn inbox và được admin chỉ dẫn nhiệt tình tư cách
+              khởi động đến làm thế nào để chỉnh dáng chạy rồi cách chọn giày,
+              quần áo chạy bộ… – những điều ma trước kia em không hay để ý.
+              Còn các sản phẩm của Sportshop thì chất lượng cực tốt và em thấy
+              được sự đặc biệt thoải mái mỗi khi chạy bộ. “
+            </p>
+
+            <p className="font-semibold">
+              Hoàng Kiều Oanh / Nhân Viên Văn Phòng
+            </p>
+          </div>
+          <div className="flex flex-col items-center w-full p-4 border rounded-md shadow-md gap-y-4 border-neutral-200">
+            <Image
+              src={"https://icdn.24h.com.vn/upload/4-2022/images/2022-11-25/ngoccham-1669387549-96-width660height523.jpg"}
+              preview={false}
+              width={120}
+              height={120}
+              className="rounded-[50%]"
+            />
+
+            <div className="flex items-center justify-center">
+              {new Array(5).fill(0).map((_, index) => (
+                <StarFilled key={index} className="text-yellow-400" />
+              ))}
+            </div>
+
+            <p className="text-center">
+              “Là một người yêu thích các môn thể thao ngoài trời, tôi đã thử qua rất nhiều sản phẩm. Nhưng kể từ khi biết đến Sportshop, tôi hoàn toàn bị thuyết phục. Sản phẩm không chỉ chất lượng mà đội ngũ nhân viên còn rất tận tình tư vấn. Những đôi giày được đề xuất giúp tôi chạy thoải mái hơn rất nhiều, đặc biệt là khi tham gia các buổi marathon dài hơi – những điều ma trước kia em không hay để ý.
+              Còn các sản phẩm của Sportshop thì chất lượng cực tốt và em thấy
+              được sự đặc biệt thoải mái mỗi khi chạy bộ..”
+            </p>
+
+            <p className="font-semibold">
+              Nguyễn Minh Đức / Nhân Viên IT
+            </p>
+          </div>
+          <div className="flex flex-col items-center w-full p-4 border rounded-md shadow-md gap-y-4 border-neutral-200">
+            <Image
+              src={"https://cdn.tuoitre.vn/thumb_w/480/471584752817336320/2023/12/30/9-17039030422311436775144.jpg"}
+              preview={false}
+              width={120}
+              height={120}
+              className="rounded-[50%]"
+            />
+
+            <div className="flex items-center justify-center">
+              {new Array(4).fill(0).map((_, index) => (
+                <StarFilled key={index} className="text-yellow-400" />
+              ))}
+              <StarOutlined className="text-yellow-400" />
+            </div>
+
+            <p className="text-center">
+              “Trước đây tôi không quan tâm nhiều đến việc lựa chọn quần áo thể thao. Sau khi trải nghiệm tại Sportshop, tôi nhận thấy sự khác biệt rõ rệt. Nhân viên tư vấn chi tiết, sản phẩm cực kỳ bền và thoải mái. Mặc dù giá cả hơi cao một chút, nhưng rất đáng đồng tiền bát gạo.– những điều ma trước kia em không hay để ý.
+              Còn các sản phẩm của Sportshop thì chất lượng cực tốt và em thấy
+              được sự đặc biệt thoải mái mỗi khi chạy bộ..”
+            </p>
+
+            <p className="font-semibold">
+              Lê Thị Phương / Giáo Viên
+            </p>
+          </div>
         </div>
       </div>
     </div>
