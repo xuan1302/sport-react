@@ -224,15 +224,6 @@ export default function AppHeader() {
             to="/"
             className="text-gray-800 hover:text-blue-500 uppercase text-sm"
           >
-            Gel năng lượng
-          </Link>
-
-          <div className="border-l-2 border-gray-300 h-6"></div>
-
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
             Phụ kiện thể thao
           </Link>
 
@@ -243,15 +234,6 @@ export default function AppHeader() {
             className="text-gray-800 hover:text-blue-500 uppercase text-sm"
           >
             Quần Áo Đội Nhóm
-          </Link>
-
-          <div className="border-l-2 border-gray-300 h-6"></div>
-
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Blog Thể Thao
           </Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
