@@ -286,10 +286,7 @@ function RouteComponent() {
                     </span>
                     <div className="flex items-center justify-between mt-2 text-sm">
                       <span className="font-bold text-gray-500">
-                        <span className="font-bold text-lg ">
-                          {" "}
-                          {item.price}
-                        </span>
+                        <span className="font-bold text-lg text-red-500"> {item.price.toLocaleString()}</span>
                         <span className="text-sm font-semibold">
                           <sup className="text-xs">VND</sup>
                         </span>
@@ -310,11 +307,8 @@ function RouteComponent() {
                         }
                       />
 
-                      <span className="text-gray-500 font-bold text-lg ml-4">
-                        {(
-                          item.price * (quantities[item.id] || item.quantity)
-                        ).toLocaleString()}{" "}
-                        <span className="text-sm font-semibold">
+                      <span className="text-gray-500 font-bold text-lg">
+                        <span className='text-red-500'>{(item.price * (quantities[item.id] || item.quantity)).toLocaleString()}   </span>          <span className="text-sm font-semibold">
                           <sup className="text-xs">VND</sup>
                         </span>
                       </span>
