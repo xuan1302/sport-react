@@ -1,21 +1,11 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Form,
-  Image,
-  Row,
-  notification,
-} from "antd";
+import { createFileRoute } from "@tanstack/react-router";
+import { Button, Card, Col, Divider, Form, Image, Row } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import homeApi from "../../api/home/homeApi";
 import { hideLoading, showLoading } from "../../store/loadingSlice";
 import { AppDispatch } from "../../store/store";
-import { addToCart } from "../../store/cardSlice";
 
 export const Route = createFileRoute("/_public/product/$id")({
   component: RouteComponent,
@@ -24,7 +14,6 @@ export const Route = createFileRoute("/_public/product/$id")({
 function RouteComponent() {
   const { id } = Route.useParams();
   const [form] = Form.useForm();
-  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [selectedMaterial, setSelectedMaterial] = useState();
   const [selectedSize, setSelectedSize] = useState();
@@ -67,36 +56,8 @@ function RouteComponent() {
 
     fetchDataProduct(id);
   }, [id]);
-  const handleAddToCart = () => {
-    const data = {
-      id: detailProduct.id,
-      name: detailProduct.name,
-      price: selectedMaterial?.price,
-      quantity: 1,
-      image: detailProduct?.mainImage?.path,
-      material: selectedMaterial?.materialName,
-      size: selectedSize?.sizeName,
-    };
-    dispatch(addToCart(data));
-    notification.success({
-      message: "Thêm vào giỏ hàng thành công",
-      description: `Thành công`,
-    });
-  };
-  const handleBuyNow = () => {
-    const data = {
-      id: detailProduct.id,
-      name: detailProduct.name,
-      price: selectedMaterial?.price,
-      quantity: 1,
-      image: detailProduct?.mainImage?.path,
-      material: selectedMaterial?.materialName,
-      size: selectedSize?.sizeName,
-    };
-    dispatch(addToCart(data));
-    navigate({
-      to: "/user/checkout",
-    });
+  const handleAddProductToMiniCard = () => {
+    console.log("123");
   };
   return (
     <div className="max-w-[1200px] mx-auto flex flex-col gap-y-4 mt-10">
@@ -211,30 +172,25 @@ function RouteComponent() {
 
                 <div className="flex items-center gap-x-2">
                   <button
-                    onClick={handleBuyNow}
                     className="bg-[#312783] px-12 py-3 text-white font-bold uppercase hover:bg-[#ffff] hover:text-[#312783] hover:border-2 hover:border-[#5ea4ff] rounded-[20px] transition duration-300 "
                   >
                     Mua ngay
                   </button>
-                  <button onClick={handleAddToCart}>
+                  <button
+                    onClick={handleAddProductToMiniCard}
+                  >
                     <ShoppingCartOutlined className="text-3xl border-2 border-[#312783]  text-[#312783] rounded-[45%] p-1" />
                   </button>
                 </div>
 
                 <div className="bg-[#fff3f3] flex items-center border-2 border-[#fec1c5] rounded-[20px] max-w-max">
                   <div className="bg-[#eff8ff] flex items-center border-2 border-[#add6fc] rounded-[20px] p-1">
-                    <Image
-                      className="!w-[35px]"
-                      preview={false}
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Messenger_logo_2018.svg/2048px-Facebook_Messenger_logo_2018.svg.png"
-                    />
+                    <Image className="!w-[35px]" preview={false} src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Messenger_logo_2018.svg/2048px-Facebook_Messenger_logo_2018.svg.png" />
                     <p className="px-2">Nhắn tin ngay</p>
                   </div>
                   <div className="px-4">
                     <p className="m-0">Tư Vấn Mua Hàng</p>
-                    <p className="m-0 text-red-500 text-sm">
-                      0989.248.835 - 0943.039.054
-                    </p>
+                    <p className="m-0 text-red-500 text-sm">0989.248.835 - 0943.039.054</p>
                   </div>
                 </div>
               </div>

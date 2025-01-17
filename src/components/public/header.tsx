@@ -7,17 +7,8 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { useDisclosure } from "@mantine/hooks";
-import { Link, useNavigate } from "@tanstack/react-router";
-import {
-  Button,
-  Divider,
-  Dropdown,
-  Image,
-  Input,
-  Menu,
-  notification,
-  Tooltip,
-} from "antd";
+import { Link } from "@tanstack/react-router";
+import { Button, Divider, Dropdown, Image, Input, Menu, notification, Tooltip } from "antd";
 import logo from "../../assets/logo.png";
 import SignInModal from "../auth/sign-in";
 import { useEffect, useState } from "react";
@@ -25,7 +16,6 @@ import { logout, setDataUser } from "../../store/authSlice";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import StorageKeys from "../../constants/storage-key";
-import { removeFromCart, updateQuantity } from "../../store/cardSlice";
 
 interface CartItemProps {
   item: {
@@ -39,21 +29,10 @@ interface CartItemProps {
 }
 export default function AppHeader() {
   const [openModal, handleOpenModal] = useDisclosure(false);
-  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector((state: RootState) => state.auth.user);
-  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
-  const handleRemove = (data) => {
-    dispatch(removeFromCart(data));
-  };
-
-  const handleQuantityChange = (id, quantity, material, size) => {
-    if (quantity > 0) {
-      dispatch(updateQuantity({ id, quantity, material, size }));
-    }
-  };
   useEffect(() => {
     const userData = sessionStorage.getItem("userInfo");
     if (userData) {
@@ -75,62 +54,50 @@ export default function AppHeader() {
     });
   };
 
+  const cartItems = [
+    { id: 1, name: "Sản phẩm 1", category: "Thun Lạnh", size: "XL", price: 100000, quantity: 2, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    { id: 2, name: "Sản phẩm 2", category: "Thun Lạnh", size: "XL", price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    { id: 3, name: "Sản phẩm 3", category: "Thun Lạnh", size: "XL", price: 200000, quantity: 1, image: "https://haycafe.vn/wp-content/uploads/2022/02/Tai-anh-girl-gai-dep-de-thuong-ve-may.jpg" },
+    // Thêm sản phẩm khác nếu cần
+  ];
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
   const totalPrice = cartItems.reduce((total, item) => {
     const quantity = quantities[item.id] || item.quantity; // Lấy số lượng từ state, nếu không có thì lấy từ giá trị mặc định
-    return total + item.price * quantity;
+    return total + (item.price * quantity);
   }, 0);
+
+
+
+  // Hàm xử lý khi thay đổi số lượng
+  const handleQuantityChange = (id: number, value: number) => {
+    // Cập nhật số lượng mới vào state
+    if (value >= 0) {
+      setQuantities(prevQuantities => ({
+        ...prevQuantities,
+        [id]: value,
+      }));
+    }
+  };
+
+
   const menu = (
-    <Menu className="p-4" style={{ width: "30rem" }}>
-      <h3 className="text-lg bg-zinc-200 font-semibold mb-2 pl-4 rounded">
-        Giỏ Hàng Của Bạn
-      </h3>
+    <Menu className="p-4" style={{ width: '30rem' }}>
+      <h3 className="text-lg bg-zinc-200 font-semibold mb-2 pl-4 rounded">Giỏ Hàng Của Bạn</h3>
 
-      {cartItems?.length > 0 ? (
-        <>
-          {cartItems.map((item, index) => (
-            <div key={`${item.id}-${index}`} className="flex items-center mb-4">
-              <div className="flex items-center mb-4">
-                {/* Thẻ 1: Ảnh */}
-                <div className="w-3/12 mr-2">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    width={110}
-                    height={110}
-                    className="object-cover rounded"
-                  />
-                </div>
-                <div className="w-9/12 flex flex-col">
-                  <span className="font-semibold text-lg block">
-                    {item.name}
-                  </span>
-                  <span className="text-sm text-gray-500 block ">
-                    {item.material} : {item.size}
-                  </span>
-                  <div className="flex items-center justify-between mt-2 text-sm">
-                    <span className="font-bold text-gray-500">
-                      <span className="font-bold text-lg "> {item.price}</span>
-                      <span className="text-sm font-semibold">
-                        <sup className="text-xs">VND</sup>
-                      </span>
-                    </span>
-                    <span className="text-xs text-gray-500"> X </span>
-
-                    <Input
-                      type="number"
-                      className="w-10 p-1 border rounded text-center mx-3"
-                      value={quantities[item.id] || item.quantity} // Đảm bảo nếu không có giá trị thì lấy giá trị mặc định từ item
-                      onChange={(e) =>
-                        handleQuantityChange(
-                          item.id,
-                          +e.target.value,
-                          item.material,
-                          item.size
-                        )
-                      }
+      {/* Hiển thị các sản phẩm */}
+      {cartItems.map(item => (
+              <div key={item.id} className="flex items-center mb-4">
+                <div className="flex items-center mb-4">
+                  {/* Thẻ 1: Ảnh */}
+                  <div className="w-3/12 mr-2">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      width={110}
+                      height={110}
+                      className="object-cover rounded"
                     />
-
+                  </div>
 
                   {/* Thẻ 2: Thông tin sản phẩm */}
                   <div className="w-9/12 flex flex-col">
@@ -162,40 +129,23 @@ export default function AppHeader() {
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-          {/* Tổng cộng */}
-          <Menu.Divider />
-          <Menu.Item key="total">
-            <div className="flex justify-between">
-              <span className="font-semibold">Tổng cộng:</span>
-              <span className="font-semibold">
-                {totalPrice.toLocaleString()} VND
-              </span>
-            </div>
-          </Menu.Item>
 
-          {/* Thoát */}
-          <Menu.Divider />
-          <Menu.Item key="checkout">
-            <Button
-              onClick={() =>
-                navigate({
-                  to: "/user/checkout",
-                })
-              }
-              className="w-full bg-blue-500 text-white hover:bg-blue-600"
-            >
-              Thanh toán
-            </Button>
-          </Menu.Item>
-        </>
-      ) : (
-        <div style={{ padding: "15px" }}>
-          Chưa có sản phẩm nào trong giỏ hàng!
+      {/* Tổng cộng */}
+      <Menu.Divider />
+      <Menu.Item key="total">
+        <div className="flex justify-between">
+          <span className="font-semibold">Tổng cộng:</span>
+          <span className="font-semibold">{totalPrice.toLocaleString()} VND</span>
         </div>
-      )}
+      </Menu.Item>
+
+      {/* Thoát */}
+      <Menu.Divider />
+      <Menu.Item key="checkout">
+        <Button className="w-full bg-blue-500 text-white hover:bg-blue-600">Thanh toán</Button>
+      </Menu.Item>
     </Menu>
   );
   return (
@@ -206,73 +156,39 @@ export default function AppHeader() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <Link to="/" className="text-gray-800 hover:text-blue-500 text-sm">
-            TRANG CHỦ
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 text-sm">TRANG CHỦ</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link to="/" className="text-gray-800 hover:text-blue-500 text-sm">
-            PHỤ KIỆN
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 text-sm">PHỤ KIỆN</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Đồ thể thao nam
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Đồ thể thao nam</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Đồ thể thao Nữ
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Đồ thể thao Nữ</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Gel năng lượng
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Gel năng lượng</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Phụ kiện thể thao
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Phụ kiện thể thao</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Quần Áo Đội Nhóm
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Quần Áo Đội Nhóm</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
 
-          <Link
-            to="/"
-            className="text-gray-800 hover:text-blue-500 uppercase text-sm"
-          >
-            Blog Thể Thao
-          </Link>
+          <Link to="/" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Blog Thể Thao</Link>
 
           <div className="border-l-2 border-gray-300 h-6"></div>
+
           <Link to="/user/Contact" className="text-gray-800 hover:text-blue-500 uppercase text-sm">Liên Hệ</Link>
-
         </div>
 
         <div className="flex items-center gap-x-4">
@@ -320,17 +236,14 @@ export default function AppHeader() {
 
           <BellOutlined />
 
-          <Dropdown
-            overlay={menu}
-            trigger={["click"]}
-            overlayStyle={{ width: "30rem" }}
-          >
-            <span className="box-bag">
-              <ShoppingCartOutlined className="cursor-pointer" />
-              <span className="count-cart">{cartItems?.length || 0}</span>
-            </span>
+
+
+          <Dropdown overlay={menu} trigger={['click']}
+            overlayStyle={{ width: '30rem' }}>
+            <ShoppingCartOutlined className="cursor-pointer" />
           </Dropdown>
         </div>
+
       </div>
 
       <SignInModal
