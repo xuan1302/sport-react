@@ -79,10 +79,10 @@ function RouteComponent() {
       <div className="max-w-[1200px] mx-auto w-full">
         <div className="mt-[50px] grid grid-cols-4 gap-4 w-full">
           <div className="w-[280px]">
-            <Image src={section1} preview={true} />
+            <Image height={'215px'} src={'https://cuanhuanamwindows.com/wp-content/uploads/2024/08/ligue-1-co-bao-nhieu-vong-dau-lich-su-thu-vi-cua-ligue-1-10471.jpg'} preview={true} />
           </div>
           <div className="w-[280px]">
-            <Image src={section2} preview={true} />
+            <Image  height={'215px'}   src={'https://icdn.24h.com.vn/upload/1-2020/images/2020-03-14/NHA-bi-hoan-hay-bi-huy-Liverpool-vo-dich-luon-he-lo-ngay-phan-quyet-1-660-1584149293-717-width660height440.jpg'} preview={true} />
           </div>
           <div className="w-[280px]">
             <Image src={section3} preview={true} />

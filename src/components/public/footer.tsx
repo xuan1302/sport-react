@@ -19,46 +19,18 @@ export default function Footer() {
         {/* Cột 2: Danh Mục Sản Phẩm */}
         <div>
           <h3 className="font-bold mb-4">DANH MỤC SẢN PHẨM</h3>
-          <ul className="space-y-2">
-            <li className="text-lg font-semibold">Đồ thể thao nam</li>
-            <li className="text-lg font-semibold">Đồ thể thao nữ</li>
-            <li className="text-lg font-semibold">Gel năng lượng</li>
-            <li className="text-lg font-semibold">Giày chạy Bộ Nam Nữ</li>
-            <li className="text-lg font-semibold">Phụ kiện thể thao</li>
-            <li className="text-lg font-semibold">Quần áo Đội Nhóm</li>
-            <li className="text-lg font-semibold">Tất cả sản phẩm</li>
+          <ul className="">
+            <li className="text-lg font-sans">Đồ thể thao nam</li>
+            <li className="text-lg font-sans">Đồ thể thao nữ</li>
+            <li className="text-lg font-sans">Gel năng lượng</li>
+            <li className="text-lg font-sans">Giày chạy Bộ Nam Nữ</li>
+            <li className="text-lg font-sans">Phụ kiện thể thao</li>
+            <li className="text-lg font-sans">Quần áo Đội Nhóm</li>
+            <li className="text-lg font-sans">Tất cả sản phẩm</li>
           </ul>
         </div>
 
         {/* Cột 3: Sản Phẩm */}
-        <div>
-          <h3 className="font-bold mb-4">SẢN PHẨM</h3>
-          <ul className="space-y-2">
-            <li className="flex items-center">
-              <img
-                src="/path-to-image1.jpg"
-                alt="Giày 1"
-                className="w-12 h-12 object-cover rounded-md mr-3"
-              />
-              <div>
-                <p>GIÀY CHẠY BỘ DO-WIN MR32203</p>
-                <p className="text-yellow-300">0₫</p>
-              </div>
-            </li>
-            <li className="flex items-center">
-              <img
-                src="/path-to-image2.jpg"
-                alt="Giày 2"
-                className="w-12 h-12 object-cover rounded-md mr-3"
-              />
-              <div>
-                <p>GIÀY CHẠY BỘ DO-WIN MT92231</p>
-                <p className="text-yellow-300">1.389.000₫</p>
-              </div>
-            </li>
-            {/* Thêm sản phẩm tương tự */}
-          </ul>
-        </div>
 
         {/* Cột 4: Bài Viết Gần Đây */}
         <div>
