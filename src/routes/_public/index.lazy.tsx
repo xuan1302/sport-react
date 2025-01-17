@@ -91,7 +91,7 @@ function RouteComponent() {
                         src={product.url}
                         alt={product.productName}
                         className="w-full h-auto"
-                        width={280}
+                        width={300}
                         height={320}
                       />
                       <p
@@ -135,7 +135,7 @@ function RouteComponent() {
               <Image
                 src={product.url}
                 preview={false}
-                width={280}
+                width={300}
                 height={320}
               />
               <p
@@ -176,7 +176,7 @@ function RouteComponent() {
               <Image
                 src={product.url}
                 preview={false}
-                width={280}
+                width={300}
                 height={320}
               />
               <p
@@ -218,7 +218,7 @@ function RouteComponent() {
               <Image
                 src={product.url}
                 preview={false}
-                width={280}
+                width={300}
                 height={320}
               />
               <p
@@ -259,7 +259,7 @@ function RouteComponent() {
               <Image
                 src={product.url}
                 preview={false}
-                width={280}
+                width={300}
                 height={320}
               />
               <p
