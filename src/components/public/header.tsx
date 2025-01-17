@@ -86,50 +86,50 @@ export default function AppHeader() {
 
       {/* Hiển thị các sản phẩm */}
       {cartItems.map(item => (
-              <div key={item.id} className="flex items-center mb-4">
-                <div className="flex items-center mb-4">
-                  {/* Thẻ 1: Ảnh */}
-                  <div className="w-3/12 mr-2">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      width={110}
-                      height={110}
-                      className="object-cover rounded"
-                    />
-                  </div>
+        <div key={item.id} className="flex items-center mb-4">
+          <div className="flex items-center mb-4">
+            {/* Thẻ 1: Ảnh */}
+            <div className="w-3/12 mr-2">
+              <img
+                src={item.image}
+                alt={item.name}
+                width={110}
+                height={110}
+                className="object-cover rounded"
+              />
+            </div>
 
-                  {/* Thẻ 2: Thông tin sản phẩm */}
-                  <div className="w-9/12 flex flex-col">
-                    <span className="font-semibold text-lg block">{item.name}</span>
-                    <span className="text-sm text-gray-500 block ">{item.category} : {item.size}</span>
-                    <div className="flex items-center justify-between mt-2 text-sm">
-                      <span className="font-bold text-gray-500">
-                        <span className="font-bold text-lg text-red-500"> {item.price.toLocaleString()}</span>
-                        <span className="text-sm font-semibold">
-                          <sup className="text-xs">VND</sup>
-                        </span>
-                      </span>
-                      <span className="text-xs text-gray-500">  X  </span>
+            {/* Thẻ 2: Thông tin sản phẩm */}
+            <div className="w-9/12 flex flex-col">
+              <span className="font-semibold text-lg block">{item.name}</span>
+              <span className="text-sm text-gray-500 block ">{item.category} : {item.size}</span>
+              <div className="flex items-center justify-between mt-2 text-sm">
+                <span className="font-bold text-gray-500">
+                  <span className="font-bold text-lg text-red-500"> {item.price.toLocaleString()}</span>
+                  <span className="text-sm font-semibold">
+                    <sup className="text-xs">VND</sup>
+                  </span>
+                </span>
+                <span className="text-xs text-gray-500">  X  </span>
 
-                      <Input
-                        type="number"
-                        className="w-10 p-1 border rounded text-center mx-3"
-                        value={quantities[item.id] || item.quantity} // Đảm bảo nếu không có giá trị thì lấy giá trị mặc định từ item
-                        onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
-                      />
+                <Input
+                  type="number"
+                  className="w-10 p-1 border rounded text-center mx-3"
+                  value={quantities[item.id] || item.quantity} // Đảm bảo nếu không có giá trị thì lấy giá trị mặc định từ item
+                  onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))}
+                />
 
-                      <span className="text-gray-500 font-bold text-lg ml-4">
-                        <span className="text-red-500" >{(item.price * (quantities[item.id] || item.quantity)).toLocaleString()} </span>          <span className="text-sm font-semibold">
-                          <sup className="text-xs">VND</sup>
-                        </span>
-                      </span>
-                      <DeleteOutlined className="text-red-500 cursor-pointer block" />
-                    </div>
-                  </div>
-                </div>
+                <span className="text-gray-500 font-bold text-lg ml-4">
+                  <span className="text-red-500" >{(item.price * (quantities[item.id] || item.quantity)).toLocaleString()} </span>          <span className="text-sm font-semibold">
+                    <sup className="text-xs">VND</sup>
+                  </span>
+                </span>
+                <DeleteOutlined className="text-red-500 cursor-pointer block" />
               </div>
-            ))}
+            </div>
+          </div>
+        </div>
+      ))}
 
 
       {/* Tổng cộng */}
