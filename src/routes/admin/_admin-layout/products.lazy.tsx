@@ -105,10 +105,10 @@ function RouteComponent() {
   const handleTableChange = (newPagination: any) => {
     setPagination(newPagination);
     fetchProducts(
-      keyword,
-      "",
-      "",
-      "",
+      form.getFieldValue("keyword"),
+      form.getFieldValue("categoryId"),
+      form.getFieldValue("isInStock"),
+      form.getFieldValue("isActive"),
       newPagination.current,
       newPagination.pageSize
     );
