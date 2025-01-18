@@ -76,10 +76,6 @@ function RouteComponent() {
     fetchOrder(form.getFieldValue("keywork") || "", 1, pagination.pageSize);
   };
 
-  const handleReset = () => {
-    form.resetFields();
-    fetchOrder(form.getFieldValue("keywork"), 1, pagination.pageSize);
-  };
   const handleChangeStatusOrder = async (id: string, status: number) => {
     dispatch(showLoading());
     try {
