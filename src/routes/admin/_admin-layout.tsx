@@ -9,6 +9,7 @@ import {
   PhoneOutlined,
   ProductOutlined,
   SettingOutlined,
+  ShoppingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import {
@@ -162,6 +163,16 @@ function RouteComponent() {
                     }),
                 },
               ],
+            },
+            {
+              label: "Order",
+              key: "order",
+              icon: <ShoppingOutlined />,
+              onClick: () => {
+                navigate({
+                  to: "/admin/order",
+                });
+              },
             },
             {
               label: "Liên hệ",
