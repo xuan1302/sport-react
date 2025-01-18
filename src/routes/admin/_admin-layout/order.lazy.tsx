@@ -240,7 +240,7 @@ function RouteComponent() {
               ]}
               loading={loading}
               dataSource={dataSource}
-              rowKey="categoryId"
+              rowKey="orderId"
               pagination={{
                 current: pagination.current,
                 pageSize: pagination.pageSize,
