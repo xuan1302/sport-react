@@ -1,3 +1,10 @@
+import {
+  CheckOutlined,
+  CloseOutlined,
+  SearchOutlined,
+  SendOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import {
   Button,
@@ -5,26 +12,15 @@ import {
   Form,
   Input,
   Popconfirm,
-  Select,
   Table,
   Tooltip,
   notification,
 } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store/store";
-import adminCategoriesApi from "../../../api/admin.categoriesApi";
-import { hideLoading, showLoading } from "../../../store/loadingSlice";
-import {
-  CheckOutlined,
-  CloseOutlined,
-  PauseCircleFilled,
-  PlayCircleOutlined,
-  SearchOutlined,
-  SendOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
 import adminOrderApi from "../../../api/admin.orderApi";
+import { hideLoading, showLoading } from "../../../store/loadingSlice";
+import { AppDispatch } from "../../../store/store";
 
 export const Route = createLazyFileRoute("/admin/_admin-layout/order")({
   component: RouteComponent,
