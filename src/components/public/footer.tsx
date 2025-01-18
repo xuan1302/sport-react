@@ -3,10 +3,10 @@ import Panel from "antd/es/splitter/Panel";
 
 export default function Footer() {
   return (
-    <div className="bg-blue-600 text-white py-8 px-4">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div className="bg-blue-400 text-white py-8 px-4">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Cột 1: Về Chúng Tôi */}
-        <div>
+        <div className="text-center">
           <h3 className="font-bold mb-4">VỀ CHÚNG TÔI</h3>
           <p>Sport Shop.VN – Makes you stronger</p>
           <p>0977500358</p>
@@ -17,9 +17,9 @@ export default function Footer() {
         </div>
 
         {/* Cột 2: Danh Mục Sản Phẩm */}
-        <div>
+        <div className="text-center">
           <h3 className="font-bold mb-4">DANH MỤC SẢN PHẨM</h3>
-          <ul className="">
+          <ul className="space-y-2">
             <li className="text-lg font-sans">Đồ thể thao nam</li>
             <li className="text-lg font-sans">Đồ thể thao nữ</li>
             <li className="text-lg font-sans">Gel năng lượng</li>
@@ -30,10 +30,8 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Cột 3: Sản Phẩm */}
-
-        {/* Cột 4: Bài Viết Gần Đây */}
-        <div>
+        {/* Cột 3: Bài Viết Gần Đây */}
+        <div className="text-center">
           <h3 className="font-bold mb-4">BÀI VIẾT GẦN ĐÂY</h3>
           <ul className="space-y-4">
             <li>
@@ -58,6 +56,8 @@ export default function Footer() {
           </ul>
         </div>
       </div>
+
+
     </div>
   );
 }
