@@ -1,6 +1,7 @@
 import {
   CheckOutlined,
   CloseOutlined,
+  EyeOutlined,
   SearchOutlined,
   SendOutlined,
   SettingOutlined,
@@ -21,6 +22,8 @@ import { useDispatch } from "react-redux";
 import adminOrderApi from "../../../api/admin.orderApi";
 import { hideLoading, showLoading } from "../../../store/loadingSlice";
 import { AppDispatch } from "../../../store/store";
+import DialogOrderModal from "../../../components/order/dialogOrder";
+import { useDisclosure } from "@mantine/hooks";
 
 export const Route = createLazyFileRoute("/admin/_admin-layout/order")({
   component: RouteComponent,
@@ -30,6 +33,8 @@ function RouteComponent() {
   const [form] = Form.useForm();
 
   const [dataSource, setDataSource] = useState([]);
+  const [orderId, setOrderID] = useState();
+  const [openModal, handleOpenModal] = useDisclosure(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const [pagination, setPagination] = useState({
@@ -93,6 +98,10 @@ function RouteComponent() {
     } finally {
       dispatch(hideLoading());
     }
+  };
+  const handleShowOrder = (id: string) => {
+    handleOpenModal.open();
+    setOrderID(id);
   };
   return (
     <>
@@ -225,6 +234,10 @@ function RouteComponent() {
                             <Button icon={<CheckOutlined />} />
                           </Tooltip>
                         </Popconfirm>
+                        <Button
+                          onClick={() => handleShowOrder(record.orderId)}
+                          icon={<EyeOutlined />}
+                        />
                       </div>
                     );
                   },
@@ -244,6 +257,15 @@ function RouteComponent() {
           </div>
         </Card>
       </div>
+      <DialogOrderModal
+        open={openModal}
+        orderID={orderId}
+        onClose={() => {
+          setOrderID(undefined);
+          handleOpenModal.close();
+        }}
+        onCancel={() => handleOpenModal.close()}
+      />
     </>
   );
 }

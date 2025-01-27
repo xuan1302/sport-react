@@ -18,6 +18,10 @@ const adminOrderApi = {
       },
     });
   },
+  getProductOrder(id: string): Promise<unknown> {
+    const url = `/v1/sporty-shop/admin/order/${id}`;
+    return axiosClient.get(url);
+  },
 };
 
 export default adminOrderApi;
